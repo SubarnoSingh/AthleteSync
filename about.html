@@ -1,0 +1,1496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About AthleteSync - The Professional Network for Athletes</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    --primary: #0070f3;
+    --primary-dark: #0060df;
+    --primary-light: #3291ff;
+    --primary-foreground: #ffffff;
+    --secondary: #f5f5f5;
+    --secondary-foreground: #111111;
+    --background: #ffffff;
+    --foreground: #111111;
+    --muted: #f5f5f5;
+    --muted-foreground: #737373;
+    --border: #e5e5e5;
+    --radius: 0.5rem;
+    --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: var(--foreground);
+    background-color: var(--background);
+    line-height: 1.5;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  /* Header */
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    width: 100%;
+    border-bottom: 1px solid var(--border);
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+  }
+
+  .header-container {
+    display: flex;
+    height: 4rem;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+
+  .logo svg {
+    color: var(--primary);
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-left: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-link {
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .nav-link:hover {
+    color: var(--primary);
+  }
+
+  .nav-link.active {
+    color: var(--primary);
+    font-weight: 600;
+  }
+
+  .search-container {
+    position: relative;
+    display: none;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 0.625rem;
+    top: 0.625rem;
+    color: var(--muted-foreground);
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .search-input {
+    width: 300px;
+    padding: 0.5rem 0.75rem 0.5rem 2rem;
+    border-radius: 9999px;
+    border: none;
+    background-color: var(--muted);
+    font-size: 0.875rem;
+  }
+
+  .search-input:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 1px;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .icon-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.375rem;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  .icon-button:hover {
+    background-color: var(--muted);
+  }
+
+  .mobile-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  /* Mobile Menu */
+  .mobile-menu-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.375rem;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  .mobile-menu-button:hover {
+    background-color: var(--muted);
+  }
+
+  .mobile-menu {
+    position: fixed;
+    top: 4rem;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 4rem);
+    background-color: var(--background);
+    z-index: 40;
+    padding: 1.5rem;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    overflow-y: auto;
+  }
+
+  .mobile-menu.open {
+    transform: translateX(0);
+  }
+
+  .mobile-nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    list-style: none;
+    margin-bottom: 2rem;
+  }
+
+  .mobile-nav-link {
+    font-size: 1.125rem;
+    font-weight: 500;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .mobile-nav-link.active {
+    color: var(--primary);
+    font-weight: 600;
+  }
+
+  /* Button Styles */
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius);
+    font-weight: 500;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    transition: all 0.2s;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+  }
+
+  .button-lg {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .button-sm {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  .button-primary {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    border: none;
+  }
+
+  .button-primary:hover {
+    background-color: var(--primary-dark);
+  }
+
+  .button-outline {
+    background-color: transparent;
+    color: var(--foreground);
+    border: 1px solid var(--border);
+  }
+
+  .button-outline:hover {
+    background-color: var(--muted);
+  }
+
+  /* Page Header */
+  .page-header {
+    padding: 4rem 0;
+    background-color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .page-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .page-description {
+    max-width: 600px;
+    margin: 0 auto;
+    color: var(--muted-foreground);
+  }
+
+  /* Section Styles */
+  .section {
+    padding: 4rem 0;
+  }
+
+  .section-alt {
+    background-color: var(--muted);
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .section-description {
+    max-width: 700px;
+    margin: 0 auto;
+    color: var(--muted-foreground);
+  }
+
+  /* About Content */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .about-image {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .about-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .about-content h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .about-content p {
+    margin-bottom: 1.5rem;
+  }
+
+  .about-content ul {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+  }
+
+  .about-content li {
+    margin-bottom: 0.5rem;
+  }
+
+  /* Features */
+  .features-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .feature-card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--background);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .feature-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 1rem;
+    border-radius: 9999px;
+    background-color: rgba(0, 112, 243, 0.1);
+    color: var(--primary);
+  }
+
+  .feature-content {
+    padding: 1.5rem;
+  }
+
+  .feature-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .feature-description {
+    color: var(--muted-foreground);
+  }
+
+  /* How It Works */
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin: 3rem 0;
+  }
+
+  .step {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 2rem;
+    background-color: var(--background);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+
+  .step-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 9999px;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    font-weight: 700;
+    font-size: 1.5rem;
+  }
+
+  .step-content h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .step-content p {
+    color: var(--muted-foreground);
+  }
+
+  /* Team */
+  .team-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .team-member {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .team-member-image {
+    width: 10rem;
+    height: 10rem;
+    border-radius: 9999px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+  }
+
+  .team-member-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .team-member-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+
+  .team-member-title {
+    color: var(--muted-foreground);
+    margin-bottom: 0.5rem;
+  }
+
+  .team-member-bio {
+    max-width: 300px;
+    margin: 0 auto;
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+  }
+
+  /* FAQ */
+  .faq-list {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+    padding: 1.5rem 0;
+  }
+
+  .faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 0.5rem 0;
+  }
+
+  .faq-question h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
+
+  .faq-icon {
+    transition: transform 0.3s;
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+  }
+
+  .faq-answer p {
+    padding: 1rem 0;
+    color: var(--muted-foreground);
+  }
+
+  .faq-item.active .faq-icon {
+    transform: rotate(180deg);
+  }
+
+  .faq-item.active .faq-answer {
+    max-height: 500px;
+  }
+
+  /* Testimonials */
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .testimonial-card {
+    background-color: var(--background);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    position: relative;
+  }
+
+  .testimonial-quote {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    color: var(--primary);
+    opacity: 0.2;
+  }
+
+  .testimonial-content {
+    margin-bottom: 1.5rem;
+    font-style: italic;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .testimonial-author-image {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 9999px;
+    overflow: hidden;
+  }
+
+  .testimonial-author-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .testimonial-author-name {
+    font-weight: 600;
+  }
+
+  .testimonial-author-title {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+  }
+
+  /* CTA */
+  .cta-section {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    padding: 4rem 0;
+    text-align: center;
+  }
+
+  .cta-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .cta-description {
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    opacity: 0.9;
+  }
+
+  .cta-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .button-white {
+    background-color: white;
+    color: var(--primary);
+    border: none;
+  }
+
+  .button-white:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+
+  .button-outline-white {
+    background-color: transparent;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+  }
+
+  .button-outline-white:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  /* Footer */
+  .footer {
+    border-top: 1px solid var(--border);
+    background-color: rgba(245, 245, 245, 0.4);
+  }
+
+  .footer-container {
+    padding: 2rem 0;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .footer-brand {
+    grid-column: span 2;
+  }
+
+  .footer-description {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+    max-width: 20rem;
+  }
+
+  .footer-links-title {
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .footer-link {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+    transition: color 0.2s;
+  }
+
+  .footer-link:hover {
+    color: var(--foreground);
+  }
+
+  .footer-bottom {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .footer-copyright {
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+  }
+
+  .footer-social {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .social-link {
+    color: var(--muted-foreground);
+    transition: color 0.2s;
+  }
+
+  .social-link:hover {
+    color: var(--foreground);
+  }
+
+  /* Responsive Styles */
+  @media (min-width: 640px) {
+    .cta-buttons {
+      flex-direction: row;
+      justify-content: center;
+    }
+
+    .features-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .team-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .testimonials-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .nav {
+      display: flex;
+    }
+
+    .search-container {
+      display: block;
+    }
+
+    .mobile-actions {
+      display: none;
+    }
+
+    .mobile-menu-button {
+      display: none;
+    }
+
+    .about-grid {
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+    }
+
+    .step {
+      flex-direction: row;
+    }
+
+    .team-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .features-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .team-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .footer-grid {
+      grid-template-columns: 2fr repeat(3, 1fr);
+    }
+
+    .footer-brand {
+      grid-column: span 1;
+    }
+
+    .footer-bottom {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+
+  /* Animation Classes */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .stagger-item {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .stagger-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .stagger-delay-1 { transition-delay: 0.1s; }
+  .stagger-delay-2 { transition-delay: 0.2s; }
+  .stagger-delay-3 { transition-delay: 0.3s; }
+  .stagger-delay-4 { transition-delay: 0.4s; }
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="container header-container">
+    <div class="flex items-center gap-2">
+      <a href="index.html" class="logo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+          <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+          <path d="M4 22h16"></path>
+          <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+          <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+          <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+        </svg>
+        <span>AthleteSync</span>
+      </a>
+      <nav class="nav">
+        <ul class="nav-links">
+          <li><a href="discover.html" class="nav-link">Discover</a></li>
+          <li><a href="jobs.html" class="nav-link">Jobs</a></li>
+          <li><a href="events.html" class="nav-link">Events</a></li>
+          <li><a href="learning.html" class="nav-link">Learning</a></li>
+          <li><a href="scholarships.html" class="nav-link">Scholarships</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="header-actions">
+      <div class="search-container">
+        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.3-4.3"></path>
+        </svg>
+        <input type="search" class="search-input" placeholder="Search...">
+      </div>
+      <button class="icon-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+      </button>
+      <button class="icon-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path>
+          <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path>
+        </svg>
+      </button>
+      <div class="icon-button">
+        <img src="https://placehold.co/40x40" alt="Profile" width="24" height="24" style="border-radius: 50%;">
+      </div>
+    </div>
+    <div class="mobile-actions">
+      <button class="mobile-menu-button" id="mobileMenuButton" aria-label="Menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="4" x2="20" y1="12" y2="12"></line>
+          <line x1="4" x2="20" y1="6" y2="6"></line>
+          <line x1="4" x2="20" y1="18" y2="18"></line>
+        </svg>
+      </button>
+      <button class="icon-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.3-4.3"></path>
+        </svg>
+      </button>
+      <div class="icon-button">
+        <img src="https://placehold.co/40x40" alt="Profile" width="24" height="24" style="border-radius: 50%;">
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <nav>
+    <ul class="mobile-nav-links">
+      <li><a href="discover.html" class="mobile-nav-link">Discover</a></li>
+      <li><a href="jobs.html" class="mobile-nav-link">Jobs</a></li>
+      <li><a href="events.html" class="mobile-nav-link">Events</a></li>
+      <li><a href="learning.html" class="mobile-nav-link">Learning</a></li>
+      <li><a href="scholarships.html" class="mobile-nav-link">Scholarships</a></li>
+    </ul>
+  </nav>
+  <div class="mobile-menu-actions">
+    <a href="signin.html" class="button button-outline button-lg" style="width: 100%; margin-bottom: 1rem;">Sign In</a>
+    <a href="join-now.html" class="button button-primary button-lg" style="width: 100%;">Join Now</a>
+  </div>
+</div>
+
+<main>
+  <section class="page-header">
+    <div class="container">
+      <h1 class="page-title fade-in">About AthleteSync</h1>
+      <p class="page-description fade-in">The premier professional network designed exclusively for athletes and sports industry professionals.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-image fade-in">
+          <img src="https://placehold.co/800x600" alt="Athletes networking at an event">
+        </div>
+        <div class="about-content fade-in">
+          <h3>Our Mission</h3>
+          <p>AthleteSync was founded with a clear mission: to create a dedicated professional network that empowers athletes at all levels to build meaningful connections, discover opportunities, and advance their careers both in sports and beyond.</p>
+          
+          <p>We believe that athletes possess unique skills, experiences, and perspectives that are invaluable in the professional world. Our platform is designed to help them showcase these qualities and connect with the right people and opportunities.</p>
+          
+          <h3>Why AthleteSync?</h3>
+          <ul>
+            <li>Specialized for athletes and sports professionals</li>
+            <li>Tools to showcase athletic achievements and career highlights</li>
+            <li>Direct connections to coaches, scouts, teams, and sponsors</li>
+            <li>Exclusive job opportunities in the sports industry</li>
+            <li>Resources for career development and transition</li>
+          </ul>
+          
+          <h3>Our Vision</h3>
+          <p>We envision a world where athletes can seamlessly leverage their sports experience into successful careers, where the skills developed through athletic training and competition are recognized and valued across industries.</p>
+          
+          <p>AthleteSync aims to be the bridge that connects the sporting world with professional opportunities, creating pathways for athletes to thrive throughout their careers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title fade-in">Key Features</h2>
+        <p class="section-description fade-in">Discover the tools and resources designed specifically for athletes and sports professionals.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card stagger-item">
+          <div class="feature-content">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+            </div>
+            <h3 class="feature-title">Athletic Profile</h3>
+            <p class="feature-description">Create a comprehensive profile showcasing your athletic achievements, statistics, career highlights, and skills that set you apart.</p>
+          </div>
+        </div>
+
+        <div class="feature-card stagger-item stagger-delay-1">
+          <div class="feature-content">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M22 12h-4"></path>
+                <path d="M18 8v8"></path>
+              </svg>
+            </div>
+            <h3 class="feature-title">Network Building</h3>
+            <p class="feature-description">Connect with coaches, scouts, agents, teams, and fellow athletes to build your professional sports network.</p>
+          </div>
+        </div>
+
+        <div class="feature-card stagger-item stagger-delay-2">
+          <div class="feature-content">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="20" height="14" x="2" y="7" rx="2" ry="2"></rect>
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+              </svg>
+            </div>
+            <h3 class="feature-title">Opportunity Discovery</h3>
+            <p class="feature-description">Find scholarships, team openings, sponsorships, and career opportunities tailored to your athletic background.</p>
+          </div>
+        </div>
+
+        <div class="feature-card stagger-item stagger-delay-3">
+          <div class="feature-content">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+              </svg>
+            </div>
+            <h3 class="feature-title">Knowledge Sharing</h3>
+            <p class="feature-description">Access resources, courses, and insights from industry experts to help you develop professionally.</p>
+          </div>
+        </div>
+
+        <div class="feature-card stagger-item stagger-delay-4">
+          <div class="feature-content">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+              </svg>
+            </div>
+            <h3 class="feature-title">Community Engagement</h3>
+            <p class="feature-description">Participate in discussions, forums, and groups focused on sports-related topics and career development.</p>
+          </div>
+        </div>
+
+        <div class="feature-card stagger-item stagger-delay-5">
+          <div class="feature-content">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 20h9"></path>
+                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+              </svg>
+            </div>
+            <h3 class="feature-title">Career Transition</h3>
+            <p class="feature-description">Tools and resources to help athletes transition from competitive sports to professional careers.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title fade-in">How It Works</h2>
+        <p class="section-description fade-in">Getting started with AthleteSync is simple. Follow these steps to begin building your professional sports network.</p>
+      </div>
+
+      <div class="steps">
+        <div class="step fade-in">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Create Your Athletic Profile</h3>
+            <p>Sign up and build your comprehensive athletic profile. Showcase your sports achievements, career highlights, statistics, education, and skills that make you stand out.</p>
+          </div>
+        </div>
+
+        <div class="step fade-in">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Connect with Sports Professionals</h3>
+            <p>Search for and connect with coaches, scouts, agents, teams, sponsors, and fellow athletes. Build your professional network in the sports industry.</p>
+          </div>
+        </div>
+
+        <div class="step fade-in">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Discover Opportunities</h3>
+            <p>Explore scholarships, team openings, sponsorships, and career opportunities tailored to your athletic background and professional goals.</p>
+          </div>
+        </div>
+
+        <div class="step fade-in">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>Engage and Learn</h3>
+            <p>Participate in discussions, access learning resources, and gain insights from industry experts to help you develop professionally.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 3rem;">
+        <a href="register.html" class="button button-primary button-lg">Get Started Today</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title fade-in">Meet Our Team</h2>
+        <p class="section-description fade-in">AthleteSync was founded by former athletes who understand the unique challenges and opportunities in the sports industry.</p>
+      </div>
+
+      <div class="team-grid">
+        <div class="team-member stagger-item">
+          <div class="team-member-image">
+            <img src="https://placehold.co/400x400" alt="Sarah Johnson">
+          </div>
+          <h3 class="team-member-name">Sarah Johnson</h3>
+          <p class="team-member-title">Founder & CEO</p>
+          <p class="team-member-bio">Former Olympic swimmer with 15+ years of experience in sports management and business development.</p>
+        </div>
+
+        <div class="team-member stagger-item stagger-delay-1">
+          <div class="team-member-image">
+            <img src="https://placehold.co/400x400" alt="Michael Chen">
+          </div>
+          <h3 class="team-member-name">Michael Chen</h3>
+          <p class="team-member-title">CTO</p>
+          <p class="team-member-bio">Former collegiate basketball player with expertise in technology and platform development.</p>
+        </div>
+
+        <div class="team-member stagger-item stagger-delay-2">
+          <div class="team-member-image">
+            <img src="https://placehold.co/400x400" alt="David Rodriguez">
+          </div>
+          <h3 class="team-member-name">David Rodriguez</h3>
+          <p class="team-member-title">Head of Partnerships</p>
+          <p class="team-member-bio">Professional soccer player turned business executive with extensive connections in the sports industry.</p>
+        </div>
+
+        <div class="team-member stagger-item stagger-delay-3">
+          <div class="team-member-image">
+            <img src="https://placehold.co/400x400" alt="Aisha Williams">
+          </div>
+          <h3 class="team-member-name">Aisha Williams</h3>
+          <p class="team-member-title">Director of Athlete Relations</p>
+          <p class="team-member-bio">Former track and field athlete with a background in sports psychology and career counseling.</p>
+        </div>
+      </div>
+    </div>
+  </section> -->
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title fade-in">Frequently Asked Questions</h2>
+        <p class="section-description fade-in">Find answers to common questions about AthleteSync.</p>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item fade-in">
+          <div class="faq-question">
+            <h3>Who can join AthleteSync?</h3>
+            <div class="faq-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m6 9 6 6 6-6"/>
+              </svg>
+            </div>
+          </div>
+          <div class="faq-answer">
+            <p>AthleteSync is open to athletes at all levels (professional, collegiate, amateur), coaches, scouts, agents, team managers, sports industry professionals, and companies looking to connect with athletic talent.</p>
+          </div>
+        </div>
+
+        <div class="faq-item fade-in">
+          <div class="faq-question">
+            <h3>Is AthleteSync free to use?</h3>
+            <div class="faq-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m6 9 6 6 6-6"/>
+              </svg>
+            </div>
+          </div>
+          <div class="faq-answer">
+            <p>AthleteSync offers both free and premium membership options. The basic features are available to all users at no cost, while premium features require a subscription. We also offer special rates for student-athletes and teams.</p>
+          </div>
+        </div>
+
+        <div class="faq-item fade-in">
+          <div class="faq-question">
+            <h3>How is AthleteSync different from other professional networks?</h3>
+            <div class="faq-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m6 9 6 6 6-6"/>
+              </svg>
+            </div>
+          </div>
+          <div class="faq-answer">
+            <p>AthleteSync is specifically designed for the sports industry, with features tailored to showcase athletic achievements, connect with sports professionals, and discover opportunities unique to athletes. Our platform understands the specific needs and challenges of athletes at all stages of their careers.</p>
+          </div>
+        </div>
+
+        <div class="faq-item fade-in">
+          <div class="faq-question">
+            <h3>Can I use AthleteSync to find scholarships or team opportunities?</h3>
+            <div class="faq-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m6 9 6 6 6-6"/>
+              </svg>
+            </div>
+          </div>
+          <div class="faq-answer">
+            <p>Yes! AthleteSync features a dedicated opportunities section where you can find scholarships, team openings, tryouts, and other opportunities. Coaches and scouts also use our platform to discover talent, so maintaining a complete profile increases your visibility.</p>
+          </div>
+        </div>
+
+        <div class="faq-item fade-in">
+          <div class="faq-question">
+            <h3>How can coaches and scouts use AthleteSync?</h3>
+            <div class="faq-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m6 9 6 6 6-6"/>
+              </svg>
+            </div>
+          </div>
+          <div class="faq-answer">
+            <p>Coaches and scouts can create professional profiles, search for athletes based on specific criteria (sport, position, location, achievements), post opportunities, and directly message potential recruits. Our advanced search and filtering tools make talent discovery efficient and effective.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title fade-in">Success Stories</h2>
+        <p class="section-description fade-in">Hear from athletes and sports professionals who have advanced their careers through AthleteSync.</p>
+      </div>
+
+      <div class="testimonials-grid">
+        <div class="testimonial-card stagger-item">
+          <div class="testimonial-quote">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"></path>
+              <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"></path>
+            </svg>
+          </div>
+          <p class="testimonial-content">
+            "AthleteSync helped me secure a college scholarship that I wouldn't have found otherwise. The platform made it easy to showcase my achievements and connect directly with coaches."
+          </p>
+          <div class="testimonial-author">
+            <div class="testimonial-author-image">
+              <img src="https://placehold.co/200x200" alt="Jason Martinez">
+            </div>
+            <div>
+              <div class="testimonial-author-name">Jason Martinez</div>
+              <div class="testimonial-author-title">College Basketball Player</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card stagger-item stagger-delay-1">
+          <div class="testimonial-quote">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"></path>
+              <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"></path>
+            </svg>
+          </div>
+          <p class="testimonial-content">
+            "As a coach, AthleteSync has revolutionized my recruiting process. I can easily find athletes that match specific criteria and review their achievements all in one place."
+          </p>
+          <div class="testimonial-author">
+            <div class="testimonial-author-image">
+              <img src="https://placehold.co/200x200" alt="Coach Lisa Thompson">
+            </div>
+            <div>
+              <div class="testimonial-author-name">Lisa Thompson</div>
+              <div class="testimonial-author-title">College Soccer Coach</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card stagger-item stagger-delay-2">
+          <div class="testimonial-quote">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"></path>
+              <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"></path>
+            </svg>
+          </div>
+          <p class="testimonial-content">
+            "After retiring from professional sports, I was struggling to transition to a new career. AthleteSync helped me leverage my athletic experience and connect with companies that value the skills I developed as an athlete."
+          </p>
+          <div class="testimonial-author">
+            <div class="testimonial-author-image">
+              <img src="https://placehold.co/200x200" alt="Marcus Wilson">
+            </div>
+            <div>
+              <div class="testimonial-author-name">Marcus Wilson</div>
+              <div class="testimonial-author-title">Former Pro Athlete, Now Business Executive</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card stagger-item stagger-delay-3">
+          <div class="testimonial-quote">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"></path>
+              <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"></path>
+            </svg>
+          </div>
+          <p class="testimonial-content">
+            "Our company has found incredible talent through AthleteSync. The athletes we've hired bring a unique blend of teamwork, discipline, and performance mindset that has transformed our workplace culture."
+          </p>
+          <div class="testimonial-author">
+            <div class="testimonial-author-image">
+              <img src="https://placehold.co/200x200" alt="Jennifer Lee">
+            </div>
+            <div>
+              <div class="testimonial-author-name">Jennifer Lee</div>
+              <div class="testimonial-author-title">HR Director, Global Tech Company</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <h2 class="cta-title fade-in">Ready to Take Your Athletic Career to the Next Level?</h2>
+      <p class="cta-description fade-in">Join thousands of athletes and sports professionals who are building meaningful connections and discovering new opportunities.</p>
+      <div class="cta-buttons">
+        <a href="register.html" class="button button-white button-lg">Create Your Profile</a>
+        <a href="login.html" class="button button-outline-white button-lg">Sign In</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer-container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+            <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+            <path d="M4 22h16"></path>
+            <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+            <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+            <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+          </svg>
+          <span>AthleteSync</span>
+        </a>
+        <p class="footer-description">
+          The professional network for athletes and sports industry professionals. Connect, grow, and advance your career.
+        </p>
+      </div>
+      <div>
+        <h3 class="footer-links-title">Platform</h3>
+        <div class="footer-links">
+          <a href="#" class="footer-link">Features</a>
+          <a href="#" class="footer-link">Pricing</a>
+          <a href="#" class="footer-link">FAQ</a>
+          <a href="#" class="footer-link">Testimonials</a>
+        </div>
+      </div>
+      <div>
+        <h3 class="footer-links-title">Company</h3>
+        <div class="footer-links">
+          <a href="#" class="footer-link">About</a>
+          <a href="#" class="footer-link">Careers</a>
+          <a href="#" class="footer-link">Blog</a>
+          <a href="#" class="footer-link">Press</a>
+        </div>
+      </div>
+      <div>
+        <h3 class="footer-links-title">Legal</h3>
+        <div class="footer-links">
+          <a href="#" class="footer-link">Terms</a>
+          <a href="#" class="footer-link">Privacy</a>
+          <a href="#" class="footer-link">Cookies</a>
+          <a href="#" class="footer-link">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copyright">
+        &copy; 2025 AthleteSync. All rights reserved.
+      </p>
+      <div class="footer-social">
+        <a href="#" class="social-link">
+          <span class="sr-only">Twitter</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
+          </svg>
+        </a>
+        <a href="#" class="social-link">
+          <span class="sr-only">Instagram</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+          </svg>
+        </a>
+        <a href="#" class="social-link">
+          <span class="sr-only">LinkedIn</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+            <rect width="4" height="12" x="2" y="9"></rect>
+            <circle cx="4" cy="4" r="2"></circle>
+          </svg>
+        </a>
+        <a href="#" class="social-link">
+          <span class="sr-only">YouTube</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"></path>
+            <path d="m10 15 5-3-5-3z"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Mobile menu functionality
+    const mobileMenuButton = document.getElementById('mobileMenuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    mobileMenuButton.addEventListener('click', function() {
+      mobileMenu.classList.toggle('open');
+      // Change hamburger to X when menu is open
+      const svg = mobileMenuButton.querySelector('svg');
+      if (mobileMenu.classList.contains('open')) {
+        svg.innerHTML = `
+          <line x1="18" x2="6" y1="6" y2="18"></line>
+          <line x1="6" x2="18" y1="6" y2="18"></line>
+        `;
+      } else {
+        svg.innerHTML = `
+          <line x1="4" x2="20" y1="12" y2="12"></line>
+          <line x1="4" x2="20" y1="6" y2="6"></line>
+          <line x1="4" x2="20" y1="18" y2="18"></line>
+        `;
+      }
+    });
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(event) {
+      if (mobileMenu.classList.contains('open') && 
+          !mobileMenu.contains(event.target) && 
+          !mobileMenuButton.contains(event.target)) {
+        mobileMenu.classList.remove('open');
+        const svg = mobileMenuButton.querySelector('svg');
+        svg.innerHTML = `
+          <line x1="4" x2="20" y1="12" y2="12"></line>
+          <line x1="4" x2="20" y1="6" y2="6"></line>
+          <line x1="4" x2="20" y1="18" y2="18"></line>
+        `;
+      }
+    });
+    
+    // Fade in animations
+    const fadeElements = document.querySelectorAll('.fade-in, .stagger-item');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
+    
+    fadeElements.forEach(element => {
+      observer.observe(element);
+    });
+    
+    // FAQ accordion functionality
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+      const question = item.querySelector('.faq-question');
+      
+      question.addEventListener('click', () => {
+        // Close all other items
+        faqItems.forEach(otherItem => {
+          if (otherItem !== item && otherItem.classList.contains('active')) {
+            otherItem.classList.remove('active');
+          }
+        });
+        
+        // Toggle current item
+        item.classList.toggle('active');
+      });
+    });
+  });
+</script>
+</body>
+</html>

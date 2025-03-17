@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In - AthleteSync</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <style>
+    :root {
+      --primary: #0070f3;
+      --primary-dark: #0060df;
+      --primary-light: #3291ff;
+      --primary-foreground: #ffffff;
+      --secondary: #f5f5f5;
+      --secondary-foreground: #111111;
+      --background: #ffffff;
+      --foreground: #111111;
+      --muted: #f5f5f5;
+      --muted-foreground: #737373;
+      --border: #e5e5e5;
+      --radius: 0.5rem;
+      --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      color: var(--foreground);
+      background-color: var(--background);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
+    /* Header */
+    .header {
+      width: 100%;
+      border-bottom: 1px solid var(--border);
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-container {
+      display: flex;
+      height: 4rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .logo svg {
+      color: var(--primary);
+    }
+
+    /* Button Styles */
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius);
+      font-weight: 500;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      transition: all 0.2s;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+    }
+
+    .button-lg {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+    }
+
+    .button-sm {
+      padding: 0.25rem 0.75rem;
+      font-size: 0.75rem;
+    }
+
+    .button-primary {
+      background-color: var(--primary);
+      color: var(--primary-foreground);
+      border: none;
+    }
+
+    .button-primary:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .button-outline {
+      background-color: transparent;
+      color: var(--foreground);
+      border: 1px solid var(--border);
+    }
+
+    .button-outline:hover {
+      background-color: var(--muted);
+    }
+
+    .button-success {
+      background-color: var(--success);
+      color: var(--primary-foreground);
+      border: none;
+    }
+
+    .button-success:hover {
+      background-color: #0da271;
+    }
+
+    /* Sign In Page Styles */
+    .signin-section {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 0;
+    }
+
+    .signin-container {
+      width: 100%;
+      max-width: 400px;
+      padding: 2rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background-color: var(--background);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .signin-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .signin-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .signin-description {
+      color: var(--muted-foreground);
+    }
+
+    .signin-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-label {
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .form-input {
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      font-size: 0.875rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(0, 112, 243, 0.2);
+    }
+
+    .form-error {
+      font-size: 0.75rem;
+      color: var(--danger);
+      margin-top: 0.25rem;
+    }
+
+    .form-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.875rem;
+    }
+
+    .form-footer a {
+      color: var(--primary);
+      transition: color 0.2s;
+    }
+
+    .form-footer a:hover {
+      color: var(--primary-dark);
+      text-decoration: underline;
+    }
+
+    .remember-me {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .remember-me input[type="checkbox"] {
+      width: 1rem;
+      height: 1rem;
+    }
+
+    .signin-button {
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 1rem;
+    }
+
+    .signin-divider {
+      display: flex;
+      align-items: center;
+      margin: 1.5rem 0;
+      color: var(--muted-foreground);
+      font-size: 0.875rem;
+    }
+
+    .signin-divider::before,
+    .signin-divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background-color: var(--border);
+    }
+
+    .signin-divider::before {
+      margin-right: 1rem;
+    }
+
+    .signin-divider::after {
+      margin-left: 1rem;
+    }
+
+    .social-signin {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .social-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background-color: var(--background);
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .social-button:hover {
+      background-color: var(--muted);
+    }
+
+    .social-button svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+
+    .signup-prompt {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+    }
+
+    .signup-prompt a {
+      color: var(--primary);
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .signup-prompt a:hover {
+      color: var(--primary-dark);
+      text-decoration: underline;
+    }
+
+    /* Footer */
+    .footer {
+      border-top: 1px solid var(--border);
+      background-color: rgba(245, 245, 245, 0.4);
+      margin-top: auto;
+    }
+
+    .footer-container {
+      padding: 1.5rem 0;
+    }
+
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .footer-link {
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      transition: color 0.2s;
+    }
+
+    .footer-link:hover {
+      color: var(--foreground);
+    }
+
+    .footer-copyright {
+      font-size: 0.75rem;
+      color: var(--muted-foreground);
+      text-align: center;
+    }
+
+    /* Animation Classes */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive Styles */
+    @media (min-width: 640px) {
+      .footer-content {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container header-container">
+      <a href="index.html" class="logo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+          <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+          <path d="M4 22h16"></path>
+          <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+          <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+          <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+        </svg>
+        <span>AthleteSync</span>
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <section class="signin-section">
+      <div class="signin-container fade-in">
+        <div class="signin-header">
+          <h1 class="signin-title">Sign in to AthleteSync</h1>
+          <p class="signin-description">Welcome back! Please enter your details.</p>
+        </div>
+
+        <form class="signin-form" id="signinForm">
+          <div class="form-group">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" id="email" name="email" class="form-input" placeholder="Enter your email" required>
+            <div class="form-error" id="emailError"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" id="password" name="password" class="form-input" placeholder="Enter your password" required>
+            <div class="form-error" id="passwordError"></div>
+          </div>
+
+          <div class="form-footer">
+            <div class="remember-me">
+              <input type="checkbox" id="remember" name="remember">
+              <label for="remember">Remember me</label>
+            </div>
+            <a href="forgot-password.html">Forgot password?</a>
+          </div>
+
+          <button type="submit" class="button button-primary signin-button">Sign in</button>
+        </form>
+
+        <div class="signin-divider">or continue with</div>
+
+        <div class="social-signin">
+          <button class="social-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.18c0-.63-.06-1.24-.16-1.82h-8.84v3.64h5.12a4.36 4.36 0 0 1-1.88 2.86v2.38h3.02c1.78-1.64 2.74-4.05 2.74-7.06z"></path>
+              <path d="M12 22c2.48 0 4.56-.82 6.08-2.22l-3.02-2.38c-.82.56-1.86.88-3.06.88-2.36 0-4.36-1.6-5.08-3.74H3.72v2.34A9.996 9.996 0 0 0 12 22z"></path>
+              <path d="M6.92 14.54a5.986 5.986 0 0 1 0-5.08V7.12H3.72A9.996 9.996 0 0 0 2 12c0 1.68.4 3.26 1.12 4.66l3.8-2.12z"></path>
+              <path d="M12 4.88c1.34 0 2.52.46 3.46 1.36l2.54-2.54C16.56 2 14.48 1 12 1A9.996 9.996 0 0 0 3.72 7.12l3.8 2.12c.72-2.14 2.72-3.74 5.08-3.74z"></path>
+            </svg>            
+            <span>Google</span>
+          </button>
+          <button class="social-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+            </svg>
+            <span>Facebook</span>
+          </button>
+          <button class="social-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+              <rect width="4" height="12" x="2" y="9"></rect>
+              <circle cx="4" cy="4" r="2"></circle>
+            </svg>
+            <span>LinkedIn</span>
+          </button>
+        </div>
+
+        <div class="signup-prompt">
+          <p>Don't have an account? <a href="register.html">Sign up</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-container">
+      <div class="footer-content">
+        <div class="footer-links">
+          <a href="#" class="footer-link">Terms</a>
+          <a href="#" class="footer-link">Privacy</a>
+          <a href="#" class="footer-link">Cookies</a>
+          <a href="#" class="footer-link">Help</a>
+          <a href="#" class="footer-link">Contact</a>
+        </div>
+        <p class="footer-copyright">
+          &copy; 2025 AthleteSync. All rights reserved.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Fade in animations
+      const fadeElements = document.querySelectorAll('.fade-in');
+      
+      fadeElements.forEach(element => {
+        element.classList.add('visible');
+      });
+      
+      // Form validation
+      const signinForm = document.getElementById('signinForm');
+      const emailInput = document.getElementById('email');
+      const passwordInput = document.getElementById('password');
+      const emailError = document.getElementById('emailError');
+      const passwordError = document.getElementById('passwordError');
+      
+      signinForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        // Reset errors
+        emailError.textContent = '';
+        passwordError.textContent = '';
+        
+        let isValid = true;
+        
+        // Validate email
+        if (!emailInput.value) {
+          emailError.textContent = 'Email is required';
+          isValid = false;
+        } else if (!isValidEmail(emailInput.value)) {
+          emailError.textContent = 'Please enter a valid email address';
+          isValid = false;
+        }
+        
+        // Validate password
+        if (!passwordInput.value) {
+          passwordError.textContent = 'Password is required';
+          isValid = false;
+        } else if (passwordInput.value.length < 6) {
+          passwordError.textContent = 'Password must be at least 6 characters';
+          isValid = false;
+        }
+        
+        if (isValid) {
+          // In a real application, you would submit the form to your backend
+          console.log('Form submitted successfully');
+          alert('Sign in successful! Redirecting to dashboard...');
+          // Redirect to dashboard or home page
+          // window.location.href = '/dashboard.html';
+        }
+      });
+      
+      function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+      }
+    });
+  </script>
+</body>
+</html>

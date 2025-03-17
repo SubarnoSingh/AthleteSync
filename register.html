@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Join AthleteSync - Create Your Account</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <style>
+    :root {
+      --primary: #0070f3;
+      --primary-dark: #0060df;
+      --primary-light: #3291ff;
+      --primary-foreground: #ffffff;
+      --secondary: #f5f5f5;
+      --secondary-foreground: #111111;
+      --background: #ffffff;
+      --foreground: #111111;
+      --muted: #f5f5f5;
+      --muted-foreground: #737373;
+      --border: #e5e5e5;
+      --radius: 0.5rem;
+      --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --danger: #ef4444;
+      --success: #10b981;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      color: var(--foreground);
+      background-color: var(--background);
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
+    /* Header */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      width: 100%;
+      border-bottom: 1px solid var(--border);
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-container {
+      display: flex;
+      height: 4rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .logo svg {
+      color: var(--primary);
+    }
+
+    .nav {
+      display: none;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-left: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-link {
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-link:hover {
+      color: var(--primary);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .icon-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 0.375rem;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .icon-button:hover {
+      background-color: var(--muted);
+    }
+
+    .mobile-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* Button Styles */
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius);
+      font-weight: 500;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      transition: all 0.2s;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+    }
+
+    .button-lg {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+    }
+
+    .button-primary {
+      background-color: var(--primary);
+      color: var(--primary-foreground);
+      border: none;
+    }
+
+    .button-primary:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .button-outline {
+      background-color: transparent;
+      color: var(--foreground);
+      border: 1px solid var(--border);
+    }
+
+    .button-outline:hover {
+      background-color: var(--muted);
+    }
+
+    /* Registration Page Styles */
+    .registration-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem 1rem 4rem;
+    }
+
+    .registration-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .registration-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .registration-description {
+      color: var(--muted-foreground);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .registration-card {
+      background-color: var(--background);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+
+    .registration-progress {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .progress-step {
+      flex: 1;
+      padding: 1rem;
+      text-align: center;
+      font-weight: 500;
+      font-size: 0.875rem;
+      position: relative;
+      color: var(--muted-foreground);
+      background-color: var(--muted);
+      transition: all 0.3s ease;
+    }
+
+    .progress-step.active {
+      color: var(--foreground);
+      background-color: var(--background);
+    }
+
+    .progress-step.completed {
+      color: var(--primary);
+      background-color: rgba(0, 112, 243, 0.1);
+    }
+
+    .progress-step.completed::after {
+      content: "✓";
+      margin-left: 0.5rem;
+    }
+
+    .registration-form {
+      padding: 2rem;
+    }
+
+    .form-step {
+      display: none;
+    }
+
+    .form-step.active {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      font-size: 1rem;
+      transition: border-color 0.2s;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(0, 112, 243, 0.2);
+    }
+
+    .form-input.error {
+      border-color: var(--danger);
+    }
+
+    .form-error {
+      color: var(--danger);
+      font-size: 0.75rem;
+      margin-top: 0.25rem;
+      display: none;
+    }
+
+    .form-error.visible {
+      display: block;
+    }
+
+    .form-select {
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      font-size: 1rem;
+      background-color: var(--background);
+      transition: border-color 0.2s;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23737373' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.5rem center;
+      background-size: 1rem;
+    }
+
+    .form-select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(0, 112, 243, 0.2);
+    }
+
+    .form-checkbox-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .form-checkbox {
+      width: 1rem;
+      height: 1rem;
+      margin-top: 0.25rem;
+    }
+
+    .form-checkbox-label {
+      font-size: 0.875rem;
+    }
+
+    .form-checkbox-label a {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    .form-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+    }
+
+    .form-note {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+    }
+
+    .form-note a {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    .form-divider {
+      display: flex;
+      align-items: center;
+      margin: 1.5rem 0;
+    }
+
+    .form-divider::before,
+    .form-divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background-color: var(--border);
+    }
+
+    .form-divider-text {
+      padding: 0 1rem;
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+    }
+
+    .social-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .social-button {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.75rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background-color: var(--background);
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .social-button:hover {
+      background-color: var(--muted);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .upload-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .upload-container:hover {
+      border-color: var(--primary);
+    }
+
+    .upload-icon {
+      color: var(--muted-foreground);
+      margin-bottom: 1rem;
+    }
+
+    .upload-text {
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      margin-bottom: 0.5rem;
+    }
+
+    .upload-hint {
+      font-size: 0.75rem;
+      color: var(--muted-foreground);
+    }
+
+    .upload-preview {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 1rem;
+      display: none;
+    }
+
+    .upload-preview.visible {
+      display: block;
+    }
+
+    .upload-input {
+      display: none;
+    }
+
+    .password-container {
+      position: relative;
+    }
+
+    .password-toggle {
+      position: absolute;
+      right: 0.75rem;
+      top: 0.75rem;
+      background: none;
+      border: none;
+      color: var(--muted-foreground);
+      cursor: pointer;
+    }
+
+    .password-strength {
+      height: 4px;
+      margin-top: 0.5rem;
+      border-radius: 2px;
+      background-color: var(--muted);
+      overflow: hidden;
+    }
+
+    .password-strength-bar {
+      height: 100%;
+      width: 0;
+      transition: width 0.3s, background-color 0.3s;
+    }
+
+    .password-strength-text {
+      font-size: 0.75rem;
+      margin-top: 0.25rem;
+      color: var(--muted-foreground);
+    }
+
+    .success-message {
+      text-align: center;
+      padding: 2rem;
+      display: none;
+    }
+
+    .success-message.visible {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .success-icon {
+      width: 4rem;
+      height: 4rem;
+      margin: 0 auto 1.5rem;
+      background-color: rgba(16, 185, 129, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--success);
+    }
+
+    .success-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .success-description {
+      color: var(--muted-foreground);
+      margin-bottom: 1.5rem;
+    }
+
+    /* Footer */
+    .footer {
+      border-top: 1px solid var(--border);
+      background-color: rgba(245, 245, 245, 0.4);
+    }
+
+    .footer-container {
+      padding: 2rem 0;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+
+    .footer-brand {
+      grid-column: span 2;
+    }
+
+    .footer-description {
+      margin-top: 1rem;
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      max-width: 20rem;
+    }
+
+    .footer-links-title {
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .footer-link {
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      transition: color 0.2s;
+    }
+
+    .footer-link:hover {
+      color: var(--foreground);
+    }
+
+    .footer-bottom {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .footer-copyright {
+      font-size: 0.75rem;
+      color: var(--muted-foreground);
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .social-link {
+      color: var(--muted-foreground);
+      transition: color 0.2s;
+    }
+
+    .social-link:hover {
+      color: var(--foreground);
+    }
+
+    /* Responsive Styles */
+    @media (min-width: 640px) {
+      .form-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 768px) {
+      .nav {
+        display: flex;
+      }
+
+      .mobile-actions {
+        display: none;
+      }
+
+      .registration-title {
+        font-size: 2.5rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .footer-grid {
+        grid-template-columns: 2fr repeat(3, 1fr);
+      }
+
+      .footer-brand {
+        grid-column: span 1;
+      }
+
+      .footer-bottom {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+
+    /* Animation Classes */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container header-container">
+      <div class="flex items-center gap-2">
+        <a href="/" class="logo">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+            <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+            <path d="M4 22h16"></path>
+            <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+            <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+            <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+          </svg>
+          <span>AthleteSync</span>
+        </a>
+        <nav class="nav">
+          <ul class="nav-links">
+            <li><a href="discover.html" class="nav-link">Discover</a></li>
+            <li><a href="jobs.html" class="nav-link">Jobs</a></li>
+            <li><a href="events.html" class="nav-link">Events</a></li>
+            <li><a href="learning.html" class="nav-link">Learning</a></li>
+            <li><a href="scholarships.html" class="nav-link">Scholarships</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="header-actions">
+        <a href="/login.html" class="button button-outline">Sign In</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container registration-container">
+      <div class="registration-header fade-in">
+        <h1 class="registration-title">Join AthleteSync</h1>
+        <p class="registration-description">Create your professional athlete profile and connect with coaches, scouts, and fellow athletes.</p>
+      </div>
+
+      <div class="registration-card fade-in">
+        <div class="registration-progress">
+          <div class="progress-step active" data-step="1">Account Info</div>
+          <div class="progress-step" data-step="2">Athlete Profile</div>
+          <div class="progress-step" data-step="3">Experience</div>
+        </div>
+
+        <div class="registration-form">
+          <!-- Step 1: Account Information -->
+          <div class="form-step active" data-step="1">
+            <h2 class="text-xl font-bold mb-4" style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem;">Create Your Account</h2>
+            
+            <div class="social-buttons">
+              <button class="social-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 12.18c0-.63-.06-1.24-.16-1.82h-8.84v3.64h5.12a4.36 4.36 0 0 1-1.88 2.86v2.38h3.02c1.78-1.64 2.74-4.05 2.74-7.06z"></path>
+                  <path d="M12 22c2.48 0 4.56-.82 6.08-2.22l-3.02-2.38c-.82.56-1.86.88-3.06.88-2.36 0-4.36-1.6-5.08-3.74H3.72v2.34A9.996 9.996 0 0 0 12 22z"></path>
+                  <path d="M6.92 14.54a5.986 5.986 0 0 1 0-5.08V7.12H3.72A9.996 9.996 0 0 0 2 12c0 1.68.4 3.26 1.12 4.66l3.8-2.12z"></path>
+                  <path d="M12 4.88c1.34 0 2.52.46 3.46 1.36l2.54-2.54C16.56 2 14.48 1 12 1A9.996 9.996 0 0 0 3.72 7.12l3.8 2.12c.72-2.14 2.72-3.74 5.08-3.74z"></path>
+                </svg>                
+                Continue with Google
+              </button>
+              <button class="social-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                </svg>
+                Continue with Facebook
+              </button>
+            </div>
+
+            <div class="form-divider">
+              <span class="form-divider-text">Or register with email</span>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="firstName" class="form-label">First Name</label>
+                <input type="text" id="firstName" class="form-input" required>
+                <div class="form-error" id="firstNameError">Please enter your first name</div>
+              </div>
+              <div class="form-group">
+                <label for="lastName" class="form-label">Last Name</label>
+                <input type="text" id="lastName" class="form-input" required>
+                <div class="form-error" id="lastNameError">Please enter your last name</div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="email" class="form-label">Email Address</label>
+              <input type="email" id="email" class="form-input" required>
+              <div class="form-error" id="emailError">Please enter a valid email address</div>
+            </div>
+
+            <div class="form-group">
+              <label for="password" class="form-label">Password</label>
+              <div class="password-container">
+                <input type="password" id="password" class="form-input" required>
+                <button type="button" class="password-toggle" id="passwordToggle">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                  </svg>
+                </button>
+              </div>
+              <div class="password-strength">
+                <div class="password-strength-bar" id="passwordStrengthBar"></div>
+              </div>
+              <div class="password-strength-text" id="passwordStrengthText">Password strength</div>
+              <div class="form-error" id="passwordError">Password must be at least 8 characters</div>
+            </div>
+
+            <div class="form-checkbox-group">
+              <input type="checkbox" id="termsAgree" class="form-checkbox" required>
+              <label for="termsAgree" class="form-checkbox-label">
+                I agree to the <a href="/terms" target="_blank">Terms of Service</a> and <a href="/privacy" target="_blank">Privacy Policy</a>
+              </label>
+            </div>
+
+            <div class="form-actions">
+              <div></div>
+              <button type="button" class="button button-primary" id="nextStep1">Continue</button>
+            </div>
+
+            <div class="form-note">
+              Already have an account? <a href="login.html">Sign in</a>
+            </div>
+          </div>
+
+          <!-- Step 2: Athlete Profile -->
+          <div class="form-step" data-step="2">
+            <h2 class="text-xl font-bold mb-4" style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem;">Your Athlete Profile</h2>
+            
+            <div class="form-group">
+              <label class="form-label">Profile Photo</label>
+              <div class="upload-container" id="profilePhotoUpload">
+                <img src="/placeholder.svg" alt="Profile preview" class="upload-preview" id="profilePreview">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="upload-icon">
+                  <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"></path>
+                  <path d="M12 12v9"></path>
+                  <path d="m16 16-4-4-4 4"></path>
+                </svg>
+                <p class="upload-text">Click to upload or drag and drop</p>
+                <p class="upload-hint">SVG, PNG, JPG or GIF (max. 2MB)</p>
+                <input type="file" id="profilePhoto" class="upload-input" accept="image/*">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="sport" class="form-label">Primary Sport</label>
+              <select id="sport" class="form-select" required>
+                <option value="" disabled selected>Select your primary sport</option>
+                <option value="basketball">Basketball</option>
+                <option value="soccer">Soccer</option>
+                <option value="football">Football</option>
+                <option value="baseball">Baseball</option>
+                <option value="tennis">Tennis</option>
+                <option value="golf">Golf</option>
+                <option value="swimming">Swimming</option>
+                <option value="track">Track & Field</option>
+                <option value="volleyball">Volleyball</option>
+                <option value="hockey">Hockey</option>
+                <option value="other">Other</option>
+              </select>
+              <div class="form-error" id="sportError">Please select your primary sport</div>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="position" class="form-label">Position/Specialty</label>
+                <input type="text" id="position" class="form-input" placeholder="e.g., Point Guard, Striker">
+              </div>
+              <div class="form-group">
+                <label for="level" class="form-label">Competition Level</label>
+                <select id="level" class="form-select" required>
+                  <option value="" disabled selected>Select your level</option>
+                  <option value="professional">Professional</option>
+                  <option value="olympic">Olympic</option>
+                  <option value="college">College/University</option>
+                  <option value="highschool">High School</option>
+                  <option value="amateur">Amateur</option>
+                  <option value="recreational">Recreational</option>
+                </select>
+                <div class="form-error" id="levelError">Please select your competition level</div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="bio" class="form-label">Short Bio</label>
+              <textarea id="bio" class="form-input" rows="4" placeholder="Tell us about yourself as an athlete..."></textarea  class="form-input" rows="4" placeholder="Tell us about yourself as an athlete..."></textarea>
+              <div class="form-error" id="bioError">Bio should be less than 500 characters</div>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="button button-outline" id="prevStep2">Back</button>
+              <button type="button" class="button button-primary" id="nextStep2">Continue</button>
+            </div>
+          </div>
+
+          <!-- Step 3: Experience -->
+          <div class="form-step" data-step="3">
+            <h2 class="text-xl font-bold mb-4" style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem;">Your Athletic Experience</h2>
+            
+            <div class="form-group">
+              <label for="experience" class="form-label">Years of Experience</label>
+              <select id="experience" class="form-select" required>
+                <option value="" disabled selected>Select years of experience</option>
+                <option value="0-1">Less than 1 year</option>
+                <option value="1-3">1-3 years</option>
+                <option value="3-5">3-5 years</option>
+                <option value="5-10">5-10 years</option>
+                <option value="10+">10+ years</option>
+              </select>
+              <div class="form-error" id="experienceError">Please select your experience level</div>
+            </div>
+
+            <div class="form-group">
+              <label for="team" class="form-label">Current Team/Organization</label>
+              <input type="text" id="team" class="form-input" placeholder="e.g., Chicago Bulls, LA Fitness Club">
+            </div>
+
+            <div class="form-group">
+              <label for="achievements" class="form-label">Key Achievements</label>
+              <textarea id="achievements" class="form-input" rows="4" placeholder="List your top athletic achievements, awards, or records..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">What are you looking for on AthleteSync?</label>
+              <div class="form-checkbox-group">
+                <input type="checkbox" id="goalNetworking" class="form-checkbox">
+                <label for="goalNetworking" class="form-checkbox-label">Professional networking</label>
+              </div>
+              <div class="form-checkbox-group">
+                <input type="checkbox" id="goalOpportunities" class="form-checkbox">
+                <label for="goalOpportunities" class="form-checkbox-label">Career opportunities</label>
+              </div>
+              <div class="form-checkbox-group">
+                <input type="checkbox" id="goalSponsorship" class="form-checkbox">
+                <label for="goalSponsorship" class="form-checkbox-label">Sponsorship deals</label>
+              </div>
+              <div class="form-checkbox-group">
+                <input type="checkbox" id="goalMentorship" class="form-checkbox">
+                <label for="goalMentorship" class="form-checkbox-label">Mentorship</label>
+              </div>
+              <div class="form-checkbox-group">
+                <input type="checkbox" id="goalTraining" class="form-checkbox">
+                <label for="goalTraining" class="form-checkbox-label">Training partners/resources</label>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="button button-outline" id="prevStep3">Back</button>
+              <button type="button" class="button button-primary" id="completeRegistration">Complete Registration</button>
+            </div>
+          </div>
+
+          <!-- Success Message -->
+          <div class="success-message" id="successMessage">
+            <div class="success-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+            </div>
+            <h2 class="success-title">Registration Complete!</h2>
+            <p class="success-description">Your athlete profile has been created. You're now ready to start connecting with the sports community.</p>
+            <a href="/dashboard" class="button button-primary button-lg">Go to Dashboard</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+              <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+              <path d="M4 22h16"></path>
+              <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+              <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+              <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+            </svg>
+            <span>AthleteSync</span>
+          </a>
+          <p class="footer-description">
+            The professional network for athletes and sports industry professionals. Connect, grow, and advance your career.
+          </p>
+        </div>
+        <div>
+          <h3 class="footer-links-title">Platform</h3>
+          <div class="footer-links">
+            <a href="#" class="footer-link">Features</a>
+            <a href="#" class="footer-link">Pricing</a>
+            <a href="#" class="footer-link">FAQ</a>
+            <a href="#" class="footer-link">Testimonials</a>
+          </div>
+        </div>
+        <div>
+          <h3 class="footer-links-title">Company</h3>
+          <div class="footer-links">
+            <a href="#" class="footer-link">About</a>
+            <a href="#" class="footer-link">Careers</a>
+            <a href="#" class="footer-link">Blog</a>
+            <a href="#" class="footer-link">Press</a>
+          </div>
+        </div>
+        <div>
+          <h3 class="footer-links-title">Legal</h3>
+          <div class="footer-links">
+            <a href="#" class="footer-link">Terms</a>
+            <a href="#" class="footer-link">Privacy</a>
+            <a href="#" class="footer-link">Cookies</a>
+            <a href="#" class="footer-link">Contact</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copyright">
+          &copy; 2025 AthleteSync. All rights reserved.
+        </p>
+        <div class="footer-social">
+          <a href="#" class="social-link">
+            <span class="sr-only">Twitter</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
+            </svg>
+          </a>
+          <a href="#" class="social-link">
+            <span class="sr-only">Instagram</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+            </svg>
+          </a>
+          <a href="#" class="social-link">
+            <span class="sr-only">LinkedIn</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+              <rect width="4" height="12" x="2" y="9"></rect>
+              <circle cx="4" cy="4" r="2"></circle>
+            </svg>
+          </a>
+          <a href="#" class="social-link">
+            <span class="sr-only">YouTube</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"></path>
+              <path d="m10 15 5-3-5-3z"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Fade in animations
+      const fadeElements = document.querySelectorAll('.fade-in');
+      
+      fadeElements.forEach(element => {
+        element.classList.add('visible');
+      });
+      
+      // Multi-step form navigation
+      const steps = document.querySelectorAll('.form-step');
+      const progressSteps = document.querySelectorAll('.progress-step');
+      
+      function showStep(stepNumber) {
+        steps.forEach(step => {
+          step.classList.remove('active');
+        });
+        
+        progressSteps.forEach(step => {
+          const stepNum = parseInt(step.dataset.step);
+          step.classList.remove('active', 'completed');
+          
+          if (stepNum < stepNumber) {
+            step.classList.add('completed');
+          } else if (stepNum === stepNumber) {
+            step.classList.add('active');
+          }
+        });
+        
+        const currentStep = document.querySelector(`.form-step[data-step="${stepNumber}"]`);
+        currentStep.classList.add('active');
+      }
+      
+      // Step 1 validation and navigation
+      document.getElementById('nextStep1').addEventListener('click', function() {
+        const firstName = document.getElementById('firstName');
+        const lastName = document.getElementById('lastName');
+        const email = document.getElementById('email');
+        const password = document.getElementById('password');
+        const termsAgree = document.getElementById('termsAgree');
+        
+        let isValid = true;
+        
+        // First Name validation
+        if (!firstName.value.trim()) {
+          document.getElementById('firstNameError').classList.add('visible');
+          firstName.classList.add('error');
+          isValid = false;
+        } else {
+          document.getElementById('firstNameError').classList.remove('visible');
+          firstName.classList.remove('error');
+        }
+        
+        // Last Name validation
+        if (!lastName.value.trim()) {
+          document.getElementById('lastNameError').classList.add('visible');
+          lastName.classList.add('error');
+          isValid = false;
+        } else {
+          document.getElementById('lastNameError').classList.remove('visible');
+          lastName.classList.remove('error');
+        }
+        
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!email.value.trim() || !emailRegex.test(email.value)) {
+          document.getElementById('emailError').classList.add('visible');
+          email.classList.add('error');
+          isValid = false;
+        } else {
+          document.getElementById('emailError').classList.remove('visible');
+          email.classList.remove('error');
+        }
+        
+        // Password validation
+        if (!password.value || password.value.length < 8) {
+          document.getElementById('passwordError').classList.add('visible');
+          password.classList.add('error');
+          isValid = false;
+        } else {
+          document.getElementById('passwordError').classList.remove('visible');
+          password.classList.remove('error');
+        }
+        
+        // Terms agreement validation
+        if (!termsAgree.checked) {
+          isValid = false;
+          termsAgree.focus();
+        }
+        
+        if (isValid) {
+          showStep(2);
+        }
+      });
+      
+      // Step 2 navigation
+      document.getElementById('prevStep2').addEventListener('click', function() {
+        showStep(1);
+      });
+      
+      document.getElementById('nextStep2').addEventListener('click', function() {
+        const sport = document.getElementById('sport');
+        const level = document.getElementById('level');
+        
+        let isValid = true;
+        
+        // Sport validation
+        if (!sport.value) {
+          document.getElementById('sportError').classList.add('visible');
+          sport.classList.add('error');
+          isValid = false;
+        } else {
+          document.getElementById('sportError').classList.remove('visible');
+          sport.classList.remove('error');
+        }
+        
+        // Level validation
+        if (!level.value) {
+          document.getElementById('levelError').classList.add('visible');
+          level.classList.add('error');
+          isValid = false;
+        } else {
+          document.getElementById('levelError').classList.remove('visible');
+          level.classList.remove('error');
+        }
+        
+        if (isValid) {
+          showStep(3);
+        }
+      });
+      
+      // Step 3 navigation
+      document.getElementById('prevStep3').addEventListener('click', function() {
+        showStep(2);
+      });
+      
+      document.getElementById('completeRegistration').addEventListener('click', function() {
+        const experience = document.getElementById('experience');
+        
+        let isValid = true;
+        
+        // Experience validation
+        if (!experience.value) {
+          document.getElementById('experienceError').classList.add('visible');
+          experience.classList.add('error');
+          isValid = false;
+        } else {
+          document.getElementById('experienceError').classList.remove('visible');
+          experience.classList.remove('error');
+        }
+        
+        if (isValid) {
+          // Hide form steps and show success message
+          document.querySelectorAll('.form-step').forEach(step => {
+            step.style.display = 'none';
+          });
+          
+          document.getElementById('successMessage').classList.add('visible');
+        }
+      });
+      
+      // Password strength meter
+      const passwordInput = document.getElementById('password');
+      const strengthBar = document.getElementById('passwordStrengthBar');
+      const strengthText = document.getElementById('passwordStrengthText');
+      
+      passwordInput.addEventListener('input', function() {
+        const password = passwordInput.value;
+        let strength = 0;
+        
+        if (password.length >= 8) strength += 25;
+        if (password.match(/[A-Z]/)) strength += 25;
+        if (password.match(/[0-9]/)) strength += 25;
+        if (password.match(/[^A-Za-z0-9]/)) strength += 25;
+        
+        strengthBar.style.width = strength + '%';
+        
+        if (strength <= 25) {
+          strengthBar.style.backgroundColor = '#ef4444';
+          strengthText.textContent = 'Weak password';
+        } else if (strength <= 50) {
+          strengthBar.style.backgroundColor = '#f97316';
+          strengthText.textContent = 'Fair password';
+        } else if (strength <= 75) {
+          strengthBar.style.backgroundColor = '#eab308';
+          strengthText.textContent = 'Good password';
+        } else {
+          strengthBar.style.backgroundColor = '#10b981';
+          strengthText.textContent = 'Strong password';
+        }
+      });
+      
+      // Password visibility toggle
+      const passwordToggle = document.getElementById('passwordToggle');
+      
+      passwordToggle.addEventListener('click', function() {
+        if (passwordInput.type === 'password') {
+          passwordInput.type = 'text';
+          passwordToggle.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path>
+              <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"></path>
+              <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"></path>
+              <line x1="2" x2="22" y1="2" y2="22"></line>
+            </svg>
+          `;
+        } else {
+          passwordInput.type = 'password';
+          passwordToggle.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+          `;
+        }
+      });
+      
+      // Profile photo upload
+      const profilePhotoUpload = document.getElementById('profilePhotoUpload');
+      const profilePhoto = document.getElementById('profilePhoto');
+      const profilePreview = document.getElementById('profilePreview');
+      
+      profilePhotoUpload.addEventListener('click', function() {
+        profilePhoto.click();
+      });
+      
+      profilePhoto.addEventListener('change', function() {
+        if (profilePhoto.files && profilePhoto.files[0]) {
+          const reader = new FileReader();
+          
+          reader.onload = function(e) {
+            profilePreview.src = e.target.result;
+            profilePreview.classList.add('visible');
+          };
+          
+          reader.readAsDataURL(profilePhoto.files[0]);
+        }
+      });
+      
+      // Bio character count
+      const bioInput = document.getElementById('bio');
+      
+      bioInput.addEventListener('input', function() {
+        if (bioInput.value.length > 500) {
+          document.getElementById('bioError').classList.add('visible');
+        } else {
+          document.getElementById('bioError').classList.remove('visible');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
