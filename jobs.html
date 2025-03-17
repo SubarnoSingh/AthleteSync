@@ -1,0 +1,1621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sports Jobs & Opportunities - AthleteSync</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <style>
+    :root {
+      --primary: #0070f3;
+      --primary-dark: #0060df;
+      --primary-light: #3291ff;
+      --primary-foreground: #ffffff;
+      --secondary: #f5f5f5;
+      --secondary-foreground: #111111;
+      --background: #ffffff;
+      --foreground: #111111;
+      --muted: #f5f5f5;
+      --muted-foreground: #737373;
+      --border: #e5e5e5;
+      --radius: 0.5rem;
+      --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      color: var(--foreground);
+      background-color: var(--background);
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
+    /* Header */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      width: 100%;
+      border-bottom: 1px solid var(--border);
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-container {
+      display: flex;
+      height: 4rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .logo svg {
+      color: var(--primary);
+    }
+
+    .nav {
+      display: none;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-left: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-link {
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-link:hover {
+      color: var(--primary);
+    }
+
+    .nav-link.active {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .search-container {
+      position: relative;
+      display: none;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 0.625rem;
+      top: 0.625rem;
+      color: var(--muted-foreground);
+      width: 1rem;
+      height: 1rem;
+    }
+
+    .search-input {
+      width: 300px;
+      padding: 0.5rem 0.75rem 0.5rem 2rem;
+      border-radius: 9999px;
+      border: none;
+      background-color: var(--muted);
+      font-size: 0.875rem;
+    }
+
+    .search-input:focus {
+      outline: 2px solid var(--primary);
+      outline-offset: 1px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .icon-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 0.375rem;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .icon-button:hover {
+      background-color: var(--muted);
+    }
+
+    .mobile-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* Button Styles */
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius);
+      font-weight: 500;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      transition: all 0.2s;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+    }
+
+    .button-lg {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+    }
+
+    .button-sm {
+      padding: 0.25rem 0.75rem;
+      font-size: 0.75rem;
+    }
+
+    .button-primary {
+      background-color: var(--primary);
+      color: var(--primary-foreground);
+      border: none;
+    }
+
+    .button-primary:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .button-outline {
+      background-color: transparent;
+      color: var(--foreground);
+      border: 1px solid var(--border);
+    }
+
+    .button-outline:hover {
+      background-color: var(--muted);
+    }
+
+    .button-success {
+      background-color: var(--success);
+      color: var(--primary-foreground);
+      border: none;
+    }
+
+    .button-success:hover {
+      background-color: #0da271;
+    }
+
+    /* Jobs Page Styles */
+    .page-header {
+      padding: 2rem 0;
+      background-color: var(--muted);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .page-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .page-description {
+      color: var(--muted-foreground);
+      max-width: 600px;
+    }
+
+    .search-filters {
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--border);
+      background-color: var(--background);
+    }
+
+    .search-bar {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .search-bar-input {
+      width: 100%;
+      padding: 0.75rem 1rem 0.75rem 2.5rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      font-size: 1rem;
+    }
+
+    .search-bar-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(0, 112, 243, 0.2);
+    }
+
+    .search-bar-icon {
+      position: absolute;
+      left: 0.75rem;
+      top: 0.75rem;
+      color: var(--muted-foreground);
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 1rem;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .filter-label {
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .filter-select {
+      padding: 0.5rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      font-size: 0.875rem;
+      background-color: var(--background);
+    }
+
+    .filter-select:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .filter-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .job-categories {
+      padding: 2rem 0;
+      background-color: var(--muted);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .section-link {
+      font-size: 0.875rem;
+      color: var(--primary);
+    }
+
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .category-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      border-radius: var(--radius);
+      background-color: var(--background);
+      border: 1px solid var(--border);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .category-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .category-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 3rem;
+      height: 3rem;
+      border-radius: 0.5rem;
+      background-color: rgba(0, 112, 243, 0.1);
+      color: var(--primary);
+    }
+
+    .category-content {
+      flex: 1;
+    }
+
+    .category-title {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .category-count {
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+    }
+
+    .featured-jobs {
+      padding: 2rem 0;
+    }
+
+    .featured-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .job-card {
+      display: flex;
+      flex-direction: column;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .job-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .job-card-header {
+      display: flex;
+      padding: 1rem;
+      border-bottom: 1px solid var(--border);
+      gap: 1rem;
+    }
+
+    .job-logo {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 0.5rem;
+      object-fit: cover;
+      border: 1px solid var(--border);
+    }
+
+    .job-company {
+      flex: 1;
+    }
+
+    .job-company-name {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .job-company-location {
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .job-bookmark {
+      color: var(--muted-foreground);
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .job-bookmark:hover {
+      color: var(--primary);
+    }
+
+    .job-bookmark.active {
+      color: var(--primary);
+      fill: var(--primary);
+    }
+
+    .job-content {
+      padding: 1rem;
+    }
+
+    .job-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .job-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .job-tag {
+      padding: 0.25rem 0.5rem;
+      background-color: var(--muted);
+      border-radius: 9999px;
+      font-size: 0.75rem;
+    }
+
+    .job-tag.type {
+      background-color: rgba(0, 112, 243, 0.1);
+      color: var(--primary);
+    }
+
+    .job-tag.level {
+      background-color: rgba(16, 185, 129, 0.1);
+      color: #10b981;
+    }
+
+    .job-tag.salary {
+      background-color: rgba(245, 158, 11, 0.1);
+      color: #f59e0b;
+    }
+
+    .job-description {
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      margin-bottom: 1rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .job-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      border-top: 1px solid var(--border);
+      background-color: var(--muted);
+    }
+
+    .job-posted {
+      font-size: 0.75rem;
+      color: var(--muted-foreground);
+    }
+
+    .job-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .jobs-list {
+      padding: 2rem 0;
+    }
+
+    .jobs-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 2rem 0;
+    }
+
+    .pagination-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background-color: var(--background);
+      cursor: pointer;
+    }
+
+    .pagination-button.active {
+      background-color: var(--primary);
+      color: var(--primary-foreground);
+      border-color: var(--primary);
+    }
+
+    .pagination-button:hover:not(.active) {
+      background-color: var(--muted);
+    }
+
+    .pagination-ellipsis {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+
+    .job-alert {
+      padding: 2rem 0;
+      background-color: rgba(0, 112, 243, 0.05);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .alert-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .alert-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .alert-description {
+      color: var(--muted-foreground);
+      margin-bottom: 1.5rem;
+    }
+
+    .alert-form {
+      display: flex;
+      width: 100%;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .alert-input {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      font-size: 0.875rem;
+    }
+
+    .alert-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(0, 112, 243, 0.2);
+    }
+
+    .alert-note {
+      font-size: 0.75rem;
+      color: var(--muted-foreground);
+    }
+
+    /* Footer */
+    .footer {
+      border-top: 1px solid var(--border);
+      background-color: rgba(245, 245, 245, 0.4);
+    }
+
+    .footer-container {
+      padding: 2rem 0;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+
+    .footer-brand {
+      grid-column: span 2;
+    }
+
+    .footer-description {
+      margin-top: 1rem;
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      max-width: 20rem;
+    }
+
+    .footer-links-title {
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .footer-link {
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      transition: color 0.2s;
+    }
+
+    .footer-link:hover {
+      color: var(--foreground);
+    }
+
+    .footer-bottom {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .footer-copyright {
+      font-size: 0.75rem;
+      color: var(--muted-foreground);
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .social-link {
+      color: var(--muted-foreground);
+      transition: color 0.2s;
+    }
+
+    .social-link:hover {
+      color: var(--foreground);
+    }
+
+    /* Responsive Styles */
+    @media (min-width: 640px) {
+      .filters {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .categories-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .featured-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .jobs-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .alert-form {
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .nav {
+        display: flex;
+      }
+
+      .search-container {
+        display: block;
+      }
+
+      .mobile-actions {
+        display: none;
+      }
+
+      .page-title {
+        font-size: 2.5rem;
+      }
+
+      .filters {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .categories-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .featured-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .jobs-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .filters {
+        grid-template-columns: repeat(5, 1fr);
+      }
+
+      .categories-grid {
+        grid-template-columns: repeat(6, 1fr);
+      }
+
+      .featured-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .jobs-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .footer-grid {
+        grid-template-columns: 2fr repeat(3, 1fr);
+      }
+
+      .footer-brand {
+        grid-column: span 1;
+      }
+
+      .footer-bottom {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+
+    /* Animation Classes */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .stagger-item {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .stagger-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .stagger-delay-1 { transition-delay: 0.1s; }
+    .stagger-delay-2 { transition-delay: 0.2s; }
+    .stagger-delay-3 { transition-delay: 0.3s; }
+    .stagger-delay-4 { transition-delay: 0.4s; }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container header-container">
+      <div class="flex items-center gap-2">
+        <a href="index.html" class="logo">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+            <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+            <path d="M4 22h16"></path>
+            <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+            <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+            <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+          </svg>
+          <span>AthleteSync</span>
+        </a>
+        <nav class="nav">
+          <ul class="nav-links">
+            <li><a href="discover.html" class="nav-link">Discover</a></li>
+            <li><a href="jobs.html" class="nav-link active">Jobs</a></li>
+            <li><a href="events.html" class="nav-link">Events</a></li>
+            <li><a href="learning.html" class="nav-link">Learning</a></li>
+            <li><a href="scholarships.html" class="nav-link">Scholarships</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="header-actions">
+        <div class="search-container">
+          <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.3-4.3"></path>
+          </svg>
+          <input type="search" class="search-input" placeholder="Search...">
+        </div>
+        <button class="icon-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+        </button>
+        <button class="icon-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path>
+            <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path>
+          </svg>
+        </button>
+        <div class="icon-button">
+          <img src="https://placehold.co/40x40" alt="Profile" width="24" height="24" style="border-radius: 50%;">
+        </div>
+      </div>
+      <div class="mobile-actions">
+        <button class="icon-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.3-4.3"></path>
+          </svg>
+        </button>
+        <div class="icon-button">
+          <img src="https://placehold.co/40x40" alt="Profile" width="24" height="24" style="border-radius: 50%;">
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-header">
+      <div class="container">
+        <h1 class="page-title fade-in">Sports Jobs & Opportunities</h1>
+        <p class="page-description fade-in">Find your next career opportunity in the sports industry. Browse jobs from top teams, organizations, and companies.</p>
+      </div>
+    </section>
+
+    <section class="search-filters">
+      <div class="container">
+        <div class="search-bar fade-in">
+          <svg class="search-bar-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.3-4.3"></path>
+          </svg>
+          <input type="search" class="search-bar-input" placeholder="Search job titles, keywords, or companies...">
+        </div>
+
+        <div class="filters fade-in">
+          <div class="filter-group">
+            <label for="categoryFilter" class="filter-label">Category</label>
+            <select id="categoryFilter" class="filter-select">
+              <option value="">All Categories</option>
+              <option value="coaching">Coaching & Training</option>
+              <option value="management">Sports Management</option>
+              <option value="medical">Sports Medicine</option>
+              <option value="marketing">Marketing & PR</option>
+              <option value="analytics">Analytics & Data</option>
+              <option value="media">Media & Broadcasting</option>
+              <option value="operations">Operations & Events</option>
+              <option value="athlete">Athlete Opportunities</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="typeFilter" class="filter-label">Job Type</label>
+            <select id="typeFilter" class="filter-select">
+              <option value="">All Types</option>
+              <option value="fulltime">Full-time</option>
+              <option value="parttime">Part-time</option>
+              <option value="contract">Contract</option>
+              <option value="temporary">Temporary</option>
+              <option value="internship">Internship</option>
+              <option value="volunteer">Volunteer</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="locationFilter" class="filter-label">Location</label>
+            <select id="locationFilter" class="filter-select">
+              <option value="">All Locations</option>
+              <option value="kolkata">kolkata</option>
+              <option value="Delhi">Delhi</option>
+              <option value="Mumbai">Mumbai</option>
+              <option value="Bangalore">Bangalore</option>
+              <option value="Ahmedabad">Ahmedabad</option>
+              <option value="Chennai">Chennai</option>
+              <option value="Pune">Pune</option>
+              <option value="Hydrabad">Hydrabad</option>
+              <option value="Lucknow">Lucknow</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="experienceFilter" class="filter-label">Experience Level</label>
+            <select id="experienceFilter" class="filter-select">
+              <option value="">All Levels</option>
+              <option value="entry">Entry Level</option>
+              <option value="mid">Mid Level</option>
+              <option value="senior">Senior Level</option>
+              <option value="executive">Executive</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="salaryFilter" class="filter-label">Salary Range</label>
+            <select id="salaryFilter" class="filter-select">
+              <option value="">All Ranges</option>
+              <option value="0-30k">₹0 - ₹2L</option>
+              <option value="30k-50k">₹2L - ₹3L</option>
+              <option value="50k-75k">₹3L - ₹5L</option>
+              <option value="75k-100k">₹5L - ₹7L</option>
+              <option value="100k-150k">₹7L - ₹10L</option>
+              <option value="150k+">₹10L+</option>
+            </select>
+          </div>
+
+          <div class="filter-actions">
+            <button class="button button-outline button-sm">Reset Filters</button>
+            <button class="button button-primary button-sm">Apply Filters</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="job-categories">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Browse by Category</h2>
+          <a href="#" class="section-link">View All Categories</a>
+        </div>
+
+        <div class="categories-grid">
+          <a href="#" class="category-card stagger-item">
+            <div class="category-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+                <path d="M4 22h16"></path>
+                <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+                <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+                <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+              </svg>
+            </div>
+            <div class="category-content">
+              <h3 class="category-title">Coaching & Training</h3>
+              <p class="category-count">124 jobs</p>
+            </div>
+          </a>
+
+          <a href="#" class="category-card stagger-item stagger-delay-1">
+            <div class="category-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+            </div>
+            <div class="category-content">
+              <h3 class="category-title">Sports Management</h3>
+              <p class="category-count">87 jobs</p>
+            </div>
+          </a>
+
+          <a href="#" class="category-card stagger-item stagger-delay-2">
+            <div class="category-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+              </svg>
+            </div>
+            <div class="category-content">
+              <h3 class="category-title">Sports Medicine</h3>
+              <p class="category-count">56 jobs</p>
+            </div>
+          </a>
+
+          <a href="#" class="category-card stagger-item stagger-delay-3">
+            <div class="category-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+              </svg>
+            </div>
+            <div class="category-content">
+              <h3 class="category-title">Marketing & PR</h3>
+              <p class="category-count">93 jobs</p>
+            </div>
+          </a>
+
+          <a href="#" class="category-card stagger-item stagger-delay-4">
+            <div class="category-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 3v18h18"></path>
+                <path d="m19 9-5 5-4-4-3 3"></path>
+              </svg>
+            </div>
+            <div class="category-content">
+              <h3 class="category-title">Analytics & Data</h3>
+              <p class="category-count">42 jobs</p>
+            </div>
+          </a>
+
+          <a href="#" class="category-card stagger-item">
+            <div class="category-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="18" height="18" x="3" y="3" rx="2"></rect>
+                <path d="m9 8 6 8"></path>
+                <path d="m9 16 6-8"></path>
+              </svg>
+            </div>
+            <div class="category-content">
+              <h3 class="category-title">Media & Broadcasting</h3>
+              <p class="category-count">68 jobs</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="featured-jobs">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Featured Opportunities</h2>
+          <a href="#" class="section-link">View All Jobs</a>
+        </div>
+
+        <div class="featured-grid">
+          <div class="job-card stagger-item">
+            <div class="job-card-header">
+              <img src="./job_page_logo/PUMA.jpg" alt="PUMA Logo" class="job-logo">
+              <div class="job-company">
+                <h3 class="job-company-name">PUMA</h3>
+                <p class="job-company-location">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                  </svg>
+                  Kolkata, IN
+                </p>
+              </div>
+              <button class="job-bookmark">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path>
+                </svg>
+              </button>
+            </div>
+            <div class="job-content">
+              <h3 class="job-title">Athlete Sponser Manager</h3>
+              <div class="job-tags">
+                <span class="job-tag type">Full-time</span>
+                <span class="job-tag level">Mid Level</span>
+                <span class="job-tag salary">₹7.5L - ₹9L</span>
+              </div>
+              <p class="job-description">
+                Join the PUMA's athlete Sponsers team to help players to get Sponsers and connect good player to this platform to help them financially . 
+              </p>
+            </div>
+            <div class="job-footer">
+              <div class="job-posted">Posted 2 days ago</div>
+              <div class="job-actions">
+                <button class="button button-primary button-sm">Apply Now</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="job-card stagger-item stagger-delay-1">
+            <div class="job-card-header">
+              <img src="./job_page_logo/NIKE.png" alt="Nike Logo" class="job-logo">
+              <div class="job-company">
+                <h3 class="job-company-name">Nike</h3>
+                <p class="job-company-location">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                  </svg>
+                  Bengaluru, IN
+                </p>
+              </div>
+              <button class="job-bookmark">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path>
+                </svg>
+              </button>
+            </div>
+            <div class="job-content">
+              <h3 class="job-title">Athlete Relations Manager</h3>
+              <div class="job-tags">
+                <span class="job-tag type">Full-time</span>
+                <span class="job-tag level">Senior Level</span>
+                <span class="job-tag salary">₹12L - ₹14L</span>
+              </div>
+              <p class="job-description">
+                Manage relationships with Nike's roster of professional athletes. Coordinate endorsement activities, athlete appearances, and develop strategic partnerships to maximize brand visibility and athlete satisfaction.
+              </p>
+            </div>
+            <div class="job-footer">
+              <div class="job-posted">Posted 5 days ago</div>
+              <div class="job-actions">
+                <button class="button button-primary button-sm">Apply Now</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="job-card stagger-item stagger-delay-2">
+            <div class="job-card-header">
+              <img src="./job_page_logo/ESPN.png" alt="ESPN Logo" class="job-logo">
+              <div class="job-company">
+                <h3 class="job-company-name">ESPN</h3>
+                <p class="job-company-location">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                  </svg>
+                  Bangalore, IN
+                </p>
+              </div>
+              <button class="job-bookmark">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path>
+                </svg>
+              </button>
+            </div>
+            <div class="job-content">
+              <h3 class="job-title">Sports Content Producer</h3>
+              <div class="job-tags">
+                <span class="job-tag type">Full-time</span>
+                <span class="job-tag level">Mid Level</span>
+                <span class="job-tag salary">₹7L - ₹8.5L</span>
+              </div>
+              <p class="job-description">
+                Create compelling sports content for ESPN's digital platforms. Develop story ideas, conduct interviews, and produce multimedia content that engages sports fans across multiple channels and formats.
+              </p>
+            </div>
+            <div class="job-footer">
+              <div class="job-posted">Posted 1 week ago</div>
+              <div class="job-actions">
+                <button class="button button-primary button-sm">Apply Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="jobs-list">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">All Jobs</h2>
+          <div class="flex items-center gap-2">
+            <label for="sortJobs" class="filter-label">Sort by:</label>
+            <select id="sortJobs" class="filter-select" style="width: auto;">
+              <option value="recent">Most Recent</option>
+              <option value="relevant">Most Relevant</option>
+              <option value="salary-high">Salary (High to Low)</option>
+              <option value="salary-low">Salary (Low to High)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="jobs-grid">
+          <!-- Job Card 1 -->
+          <div class="job-card stagger-item">
+            <div class="job-card-header">
+              <img src="./job_page_logo/MOHONBAGAN.png" alt="mohonbagan Logo" class="job-logo">
+              <div class="job-company">
+                <h3 class="job-company-name">Mohon Bagan FC</h3>
+                <p class="job-company-location">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                  </svg>
+                  Kolkata, IN
+                </p>
+              </div>
+              <button class="job-bookmark">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path>
+                </svg>
+              </button>
+            </div>
+            <div class="job-content">
+              <h3 class="job-title">Assistant Coach</h3>
+              <div class="job-tags">
+                <span class="job-tag type">Full-time</span>
+                <span class="job-tag level">Senior Level</span>
+                <span class="job-tag salary">₹6L - ₹8L</span>
+              </div>
+              <p class="job-description">
+                Join the mohonbagans coaching staff to help develop game strategy, player development plans, and contribute to one of the  most crazy football franchises. Previous coaching experience required.
+              </p>
+            </div>
+            <div class="job-footer">
+              <div class="job-posted">Posted 3 days ago</div>
+              <div class="job-actions">
+                <button class="button button-primary button-sm">Apply Now</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Job Card 2 -->
+          <div class="job-card stagger-item stagger-delay-1">
+            <div class="job-card-header">
+              <img src="./job_page_logo/GUJRAT GIANTS.webp" alt="Gujarat Giants Logo" class="job-logo">
+              <div class="job-company">
+                <h3 class="job-company-name">Gujarat Giants</h3>
+                <p class="job-company-location">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                  </svg>
+                  Ahmedabad, IN
+                </p>
+              </div>
+              <button class="job-bookmark">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path>
+                </svg>
+              </button>
+            </div>
+            <div class="job-content">
+              <h3 class="job-title">Sports Marketing Specialist</h3>
+              <div class="job-tags">
+                <span class="job-tag type">Full-time</span>
+                <span class="job-tag level">Mid Level</span>
+                <span class="job-tag salary">₹3.5L - ₹5L</span>
+              </div>
+              <p class="job-description">
+                Develop and execute marketing campaigns for Gujarat Giants's sports products. Collaborate with athletes, teams, and events to create authentic brand experiences that resonate with consumers.
+              </p>
+            </div>
+            <div class="job-footer">
+              <div class="job-posted">Posted 1 week ago</div>
+              <div class="job-actions">
+                <button class="button button-primary button-sm">Apply Now</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Job Card 3 -->
+          <div class="job-card stagger-item stagger-delay-2">
+            <div class="job-card-header">
+              <img src="./job_page_logo/KALINGA LANCERS.png" alt="Kalinga Lancers Logo" class="job-logo">
+              <div class="job-company">
+                <h3 class="job-company-name">Kalinga Lancers</h3>
+                <p class="job-company-location">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                  </svg>
+                  Bhubaneswar, IN
+                </p>
+              </div>
+              <button class="job-bookmark">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path>
+                </svg>
+              </button>
+            </div>
+            <div class="job-content">
+              <h3 class="job-title">Sports Physiotherapist</h3>
+              <div class="job-tags">
+                <span class="job-tag type">Full-time</span>
+                <span class="job-tag level">Senior Level</span>
+                <span class="job-tag salary">₹4L - ₹5L</span>
+              </div>
+              <p class="job-description">
+                Provide physiotherapy services to Kalinga Lancers players. Develop and implement injury prevention programs, rehabilitation protocols, and work with the medical team to optimize player health and performance.
+              </p>
+            </div>
+            <div class="job-footer">
+              <div class="job-posted">Posted 4 days ago</div>
+              <div class="job-actions">
+                <button class="button button-primary button-sm">Apply Now</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Job Card 4 -->
+          <div class="job-card stagger-item stagger-delay-3">
+            <div class="job-card-header">
+              <img src="./job_page_logo/Gatorade.png" alt="Gatorade Logo" class="job-logo">
+              <div class="job-company">
+                <h3 class="job-company-name">Gatorade</h3>
+                <p class="job-company-location">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                  </svg>
+                  Mumbai, IN
+                </p>
+              </div>
+              <button class="job-bookmark">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path>
+                </svg>
+              </button>
+            </div>
+            <div class="job-content">
+              <h3 class="job-title">Sports Nutrition Scientist</h3>
+              <div class="job-tags">
+                <span class="job-tag type">Full-time</span>
+                <span class="job-tag level">Mid Level</span>
+                <span class="job-tag salary">₹6L - ₹7.5L</span>
+              </div>
+              <p class="job-description">
+                Research and develop innovative sports nutrition products for Gatorade. Collaborate with R&D teams to create science-backed formulations that enhance athletic performance and recovery.
+              </p>
+            </div>
+            <div class="job-footer">
+              <div class="job-posted">Posted 2 weeks ago</div>
+              <div class="job-actions">
+                <button class="button button-primary button-sm">Apply Now</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Job Card 5 -->
+          <div class="job-card stagger-item">
+            <div class="job-card-header">
+              <img src="./job_page_logo/BCCI.png" alt="BCCI Logo" class="job-logo">
+              <div class="job-company">
+                <h3 class="job-company-name">BCCI</h3>
+                <p class="job-company-location">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                  </svg>
+                  Mumbai, IN
+                </p>
+              </div>
+              <button class="job-bookmark">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path>
+                </svg>
+              </button>
+            </div>
+            <div class="job-content">
+              <h3 class="job-title">Ranji Program Director</h3>
+              <div class="job-tags">
+                <span class="job-tag type">Full-time</span>
+                <span class="job-tag level">Mid Level</span>
+                <span class="job-tag salary">₹10L - ₹12L</span>
+              </div>
+              <p class="job-description">
+                Lead the Ranji youth development programs. Design and implement initiatives to increase youth participation in ranji trophy, develop coaching resources, and coordinat ranji matches.
+              </p>
+            </div>
+            <div class="job-footer">
+              <div class="job-posted">Posted 5 days ago</div>
+              <div class="job-actions">
+                <button class="button button-primary button-sm">Apply Now</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Job Card 6 -->
+          <div class="job-card stagger-item stagger-delay-1">
+            <div class="job-card-header">
+              <img src="./job_page_logo/ADIDAS.png" alt="Adidas Logo" class="job-logo">
+              <div class="job-company">
+                <h3 class="job-company-name">Adidas</h3>
+                <p class="job-company-location">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                  </svg>
+                  Mumbai, IN
+                </p>
+              </div>
+              <button class="job-bookmark">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path>
+                </svg>
+              </button>
+            </div>
+            <div class="job-content">
+              <h3 class="job-title">Sports Product Designer</h3>
+              <div class="job-tags">
+                <span class="job-tag type">Full-time</span>
+                <span class="job-tag level">Mid Level</span>
+                <span class="job-tag salary">₹4L - ₹6L</span>
+              </div>
+              <p class="job-description">
+                Design innovative sports footwear and apparel for Adidas. Create performance-enhancing products that combine functionality, style, and sustainability for athletes across various sports.
+              </p>
+            </div>
+            <div class="job-footer">
+              <div class="job-posted">Posted 1 week ago</div>
+              <div class="job-actions">
+                <button class="button button-primary button-sm">Apply Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pagination">
+          <button class="pagination-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m15 18-6-6 6-6"></path>
+            </svg>
+          </button>
+          <button class="pagination-button active">1</button>
+          <button class="pagination-button">2</button>
+          <button class="pagination-button">3</button>
+          <div class="pagination-ellipsis">...</div>
+          <button class="pagination-button">12</button>
+          <button class="pagination-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m9 18 6-6-6-6"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="job-alert">
+      <div class="container">
+        <div class="alert-container fade-in">
+          <h2 class="alert-title">Get Job Alerts</h2>
+          <p class="alert-description">Stay updated with the latest sports industry opportunities. We'll send you personalized job matches based on your preferences.</p>
+          <form class="alert-form">
+            <input type="email" class="alert-input" placeholder="Enter your email address">
+            <button type="submit" class="button button-success">Subscribe</button>
+          </form>
+          <p class="alert-note">You can unsubscribe at any time. By subscribing, you agree to our Privacy Policy.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+              <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+              <path d="M4 22h16"></path>
+              <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+              <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+              <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+            </svg>
+            <span>AthleteSync</span>
+          </a>
+          <p class="footer-description">
+            The professional network for athletes and sports industry professionals. Connect, grow, and advance your career.
+          </p>
+        </div>
+        <div>
+          <h3 class="footer-links-title">Platform</h3>
+          <div class="footer-links">
+            <a href="#" class="footer-link">Features</a>
+            <a href="#" class="footer-link">Pricing</a>
+            <a href="#" class="footer-link">FAQ</a>
+            <a href="#" class="footer-link">Testimonials</a>
+          </div>
+        </div>
+        <div>
+          <h3 class="footer-links-title">Company</h3>
+          <div class="footer-links">
+            <a href="#" class="footer-link">About</a>
+            <a href="#" class="footer-link">Careers</a>
+            <a href="#" class="footer-link">Blog</a>
+            <a href="#" class="footer-link">Press</a>
+          </div>
+        </div>
+        <div>
+          <h3 class="footer-links-title">Legal</h3>
+          <div class="footer-links">
+            <a href="#" class="footer-link">Terms</a>
+            <a href="#" class="footer-link">Privacy</a>
+            <a href="#" class="footer-link">Cookies</a>
+            <a href="#" class="footer-link">Contact</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copyright">
+          &copy; 2025 AthleteSync. All rights reserved.
+        </p>
+        <div class="footer-social">
+          <a href="#" class="social-link">
+            <span class="sr-only">Twitter</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
+            </svg>
+          </a>
+          <a href="#" class="social-link">
+            <span class="sr-only">Instagram</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+            </svg>
+          </a>
+          <a href="#" class="social-link">
+            <span class="sr-only">LinkedIn</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+              <rect width="4" height="12" x="2" y="9"></rect>
+              <circle cx="4" cy="4" r="2"></circle>
+            </svg>
+          </a>
+          <a href="#" class="social-link">
+            <span class="sr-only">YouTube</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"></path>
+              <path d="m10 15 5-3-5-3z"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Fade in animations
+      const fadeElements = document.querySelectorAll('.fade-in');
+      
+      fadeElements.forEach(element => {
+        element.classList.add('visible');
+      });
+      
+      // Stagger animations
+      const staggerElements = document.querySelectorAll('.stagger-item');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      });
+      
+      staggerElements.forEach(element => {
+        observer.observe(element);
+      });
+      
+      // Bookmark functionality
+      const bookmarkButtons = document.querySelectorAll('.job-bookmark');
+      
+      bookmarkButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          this.classList.toggle('active');
+          const svg = this.querySelector('svg');
+          if (this.classList.contains('active')) {
+            svg.setAttribute('fill', 'currentColor');
+          } else {
+            svg.setAttribute('fill', 'none');
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
