@@ -177,6 +177,62 @@
       gap: 1rem;
     }
 
+    /* Mobile Menu */
+    .mobile-menu-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 0.375rem;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .mobile-menu-button:hover {
+      background-color: var(--muted);
+    }
+
+    .mobile-menu {
+      position: fixed;
+      top: 4rem;
+      left: 0;
+      width: 100%;
+      height: calc(100vh - 4rem);
+      background-color: var(--background);
+      z-index: 40;
+      padding: 1.5rem;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease-in-out;
+      overflow-y: auto;
+    }
+
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+
+    .mobile-nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+
+    .mobile-nav-link {
+      font-size: 1.125rem;
+      font-weight: 500;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .mobile-nav-link.active {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
     /* Button Styles */
     .button {
       display: inline-flex;
@@ -508,7 +564,7 @@
     .course-image {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
     }
 
     .course-level {
@@ -867,10 +923,10 @@
     }
 
     .footer-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 2rem;
-    }
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-left: 20px; }
 
     .footer-brand {
       grid-column: span 2;
@@ -1024,6 +1080,25 @@
       }
     }
 
+    @media (max-width: 768px) {
+      .header-actions {
+        display: none;
+      }
+
+      .topic-card {
+        gap: 0.1rem;
+        padding: 0.1rem;
+      }
+
+      .instructors-grid {
+        gap: 0.5rem;
+      }
+
+      .instructor-card {
+        padding: 0.2rem;
+      }
+    }
+
     /* Animation Classes */
     .fade-in {
       opacity: 0;
@@ -1098,7 +1173,9 @@
           </svg>
         </button>
         <div class="icon-button">
-          <img src="https://placehold.co/40x40" alt="Profile" width="24" height="24" style="border-radius: 50%;">
+          <a href="dashboard.html">
+            <img src="img/jg.jpg" alt="Profile" width="24" height="24" style="border-radius: 50%;">
+          </a>
         </div>
       </div>
       <div class="mobile-actions">
@@ -1109,11 +1186,38 @@
           </svg>
         </button>
         <div class="icon-button">
-          <img src="https://placehold.co/40x40" alt="Profile" width="24" height="24" style="border-radius: 50%;">
+          <a href="dashboard.html">
+            <img src="img/jg.jpg" alt="Profile" width="24" height="24" style="border-radius: 50%;">
+          </a>
         </div>
+        <button class="mobile-menu-button" id="mobileMenuButton" aria-label="Menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" x2="20" y1="12" y2="12"></line>
+            <line x1="4" x2="20" y1="6" y2="6"></line>
+            <line x1="4" x2="20" y1="18" y2="18"></line>
+          </svg>
+        </button>
       </div>
     </div>
   </header>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <nav>
+      <ul class="mobile-nav-links">
+        <li><a href="discover.html" class="mobile-nav-link">Discover</a></li>
+        <li><a href="jobs.html" class="mobile-nav-link">Jobs</a></li>
+        <li><a href="events.html" class="mobile-nav-link">Events</a></li>
+        <li><a href="learning.html" class="mobile-nav-link">Learning</a></li>
+        <li><a href="scholarships.html" class="mobile-nav-link">Scholarships</a></li>
+      </ul>
+    </nav>
+    <div class="mobile-menu-actions">
+      <a href="login.html" class="button button-outline button-lg" style="width: 100%; margin-bottom: 1rem;">Sign In</a>
+      <a href="register.html" class="button button-primary button-lg" style="width: 100%;">Join Now</a>
+    </div>
+  </div>
 
   <main>
     <section class="page-header">
@@ -1422,14 +1526,14 @@
         <div class="courses-grid">
           <div class="course-card stagger-item">
             <div class="course-image-container">
-              <img src="https://placehold.co/600x400" alt="Advanced Strength Training" class="course-image">
+              <img src="img-Learning/DALL·E 2025-03-20 12.15.20 - A modern and slightly colorful gym poster featuring bold text 'Advanced Strength Training for Athletes' at the top. The design includes a dynamic silh.webp" class="course-image">
               <div class="course-level">Intermediate</div>
             </div>
             <div class="course-content">
               <h3 class="course-title">Advanced Strength Training for Athletes</h3>
               <div class="course-instructor">
-                <img src="https://placehold.co/100x100" alt="John Smith" class="course-instructor-avatar">
-                <span class="course-instructor-name">John Smith, CSCS</span>
+                <img src="img-Learning/43f272e6be448190e2637dbadf28a3fca419d249.jpg" alt="Soham Desai" class="course-instructor-avatar">
+                <span class="course-instructor-name">Soham Desai, Fitness Expert</span>
               </div>
               <p class="course-description">
                 Take your strength training to the next level with advanced techniques designed specifically for competitive athletes. Learn how to build functional strength, power, and explosiveness.
@@ -1462,7 +1566,7 @@
                 <span class="course-tag">Certificate</span>
               </div>
               <div class="course-footer">
-                <div class="course-price">$89.99</div>
+                <div class="course-price">₹ 1899.99</div>
                 <div class="course-actions">
                   <button class="course-save">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1477,14 +1581,14 @@
 
           <div class="course-card stagger-item stagger-delay-1">
             <div class="course-image-container">
-              <img src="https://placehold.co/600x400" alt="Sports Psychology" class="course-image">
+              <img src="img-Learning/IMG_20250323_112057.jpg" alt="Sports Psychology" class="course-image">
               <div class="course-level">Beginner</div>
             </div>
             <div class="course-content">
               <h3 class="course-title">Mental Toughness: Sports Psychology Essentials</h3>
               <div class="course-instructor">
-                <img src="https://placehold.co/100x100" alt="Dr. Sarah Johnson" class="course-instructor-avatar">
-                <span class="course-instructor-name">Dr. Sarah Johnson</span>
+                <img src="img-Learning/img_241256_mugdhaphoto_bg.jpg" alt="Mugdha Bavare" class="course-instructor-avatar">
+                <span class="course-instructor-name">Mugdha Bavare,Sports Psychologist</span>
               </div>
               <p class="course-description">
                 Develop the mental skills needed to perform at your best under pressure. Learn techniques for focus, confidence building, goal setting, and managing competition anxiety.
@@ -1517,7 +1621,7 @@
                 <span class="course-tag">Certificate</span>
               </div>
               <div class="course-footer">
-                <div class="course-price">$69.99</div>
+                <div class="course-price">₹ 1,999.00</div>
                 <div class="course-actions">
                   <button class="course-save">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1532,14 +1636,14 @@
 
           <div class="course-card stagger-item stagger-delay-2">
             <div class="course-image-container">
-              <img src="https://placehold.co/600x400" alt="Sports Nutrition" class="course-image">
+              <img src="img-Learning/IMG_20250323_113719.jpg" alt="Sports Nutrition" class="course-image">
               <div class="course-level">All Levels</div>
             </div>
             <div class="course-content">
               <h3 class="course-title">Sports Nutrition: Fuel for Performance</h3>
               <div class="course-instructor">
-                <img src="https://placehold.co/100x100" alt="Michael Chen" class="course-instructor-avatar">
-                <span class="course-instructor-name">Michael Chen, RD, CSSD</span>
+                <img src="img-Learning/Manolo-Marquez-min-1280x720.jpg" alt="Manolo Marquez" class="course-instructor-avatar">
+                <span class="course-instructor-name">Manolo Marquez</span>
               </div>
               <p class="course-description">
                 Learn how to optimize your nutrition for athletic performance. Covers macronutrients, meal timing, hydration, supplements, and personalized nutrition strategies for different sports.
@@ -1572,7 +1676,7 @@
                 <span class="course-tag">Certificate</span>
               </div>
               <div class="course-footer">
-                <div class="course-price">$79.99</div>
+                <div class="course-price">₹ 1799.99</div>
                 <div class="course-actions">
                   <button class="course-save">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1691,9 +1795,9 @@
 
         <div class="instructors-grid">
           <div class="instructor-card stagger-item">
-            <img src="https://placehold.co/200x200" alt="John Smith" class="instructor-avatar">
-            <h3 class="instructor-name">John Smith</h3>
-            <p class="instructor-title">Performance Coach, CSCS</p>
+            <img src="img-Learning/43f272e6be448190e2637dbadf28a3fca419d249.jpg" alt="Soham Desai" class="instructor-avatar">
+            <h3 class="instructor-name">Soham Desai</h3>
+            <p class="instructor-title">Fitness Coach,Indian Cricket Team</p>
             <div class="instructor-stats">
               <div class="instructor-stat">
                 <span class="instructor-stat-value">8</span>
@@ -1712,16 +1816,16 @@
           </div>
 
           <div class="instructor-card stagger-item stagger-delay-1">
-            <img src="https://placehold.co/200x200" alt="Dr. Sarah Johnson" class="instructor-avatar">
-            <h3 class="instructor-name">Dr. Sarah Johnson</h3>
-            <p class="instructor-title">Sports Psychologist</p>
+            <img src="img-Learning/argentina-national-team-coach-lionel-scaloni.jpg" alt="Lionel Scaloni" class="instructor-avatar">
+            <h3 class="instructor-name">Lionel Scaloni</h3>
+            <p class="instructor-title">Head Coach,Argentina Football Team</p>
             <div class="instructor-stats">
               <div class="instructor-stat">
                 <span class="instructor-stat-value">6</span>
                 <span class="instructor-stat-label">Courses</span>
               </div>
               <div class="instructor-stat">
-                <span class="instructor-stat-value">18K</span>
+                <span class="instructor-stat-value">50K</span>
                 <span class="instructor-stat-label">Students</span>
               </div>
               <div class="instructor-stat">
@@ -1733,9 +1837,9 @@
           </div>
 
           <div class="instructor-card stagger-item stagger-delay-2">
-            <img src="https://placehold.co/200x200" alt="Michael Chen" class="instructor-avatar">
-            <h3 class="instructor-name">Michael Chen</h3>
-            <p class="instructor-title">Sports Nutritionist, RD, CSSD</p>
+            <img src="img-Learning/Manolo-Marquez-min-1280x720.jpg" alt="Manolo Marquez" class="instructor-avatar">
+            <h3 class="instructor-name">Manolo Marquez</h3>
+            <p class="instructor-title">Head Coach,Indian Football Team</p>
             <div class="instructor-stats">
               <div class="instructor-stat">
                 <span class="instructor-stat-value">5</span>
@@ -1754,9 +1858,9 @@
           </div>
 
           <div class="instructor-card stagger-item stagger-delay-3">
-            <img src="https://placehold.co/200x200" alt="Lisa Rodriguez" class="instructor-avatar">
-            <h3 class="instructor-name">Lisa Rodriguez</h3>
-            <p class="instructor-title">Head Coach, MBA</p>
+            <img src="img-Learning/img_241256_mugdhaphoto_bg.jpg" alt="Mugdha Bavare" class="instructor-avatar">
+            <h3 class="instructor-name">Mugdha Bavare</h3>
+            <p class="instructor-title">Sports Psychologist</p>
             <div class="instructor-stats">
               <div class="instructor-stat">
                 <span class="instructor-stat-value">4</span>
@@ -1797,14 +1901,14 @@
           <!-- Course Card 1 -->
           <div class="course-card stagger-item">
             <div class="course-image-container">
-              <img src="https://placehold.co/600x400" alt="Injury Prevention" class="course-image">
+              <img src="img-Learning/IMG_20250323_111938.jpg" alt="Injury Prevention" class="course-image">
               <div class="course-level">Beginner</div>
             </div>
             <div class="course-content">
               <h3 class="course-title">Injury Prevention & Recovery for Athletes</h3>
               <div class="course-instructor">
-                <img src="https://placehold.co/100x100" alt="Dr. James Wilson" class="course-instructor-avatar">
-                <span class="course-instructor-name">Dr. James Wilson, PT, DPT</span>
+                <img src="img-Learning/ENJvmauUEAIrmRs.jpg" alt="Chris Donaldson" class="course-instructor-avatar">
+                <span class="course-instructor-name">Chris Donaldson,Fitness Coach</span>
               </div>
               <p class="course-description">
                 Learn evidence-based strategies to prevent common sports injuries and optimize recovery. Includes mobility exercises, proper warm-up protocols, and rehabilitation techniques.
@@ -1837,7 +1941,7 @@
                 <span class="course-tag">Certificate</span>
               </div>
               <div class="course-footer">
-                <div class="course-price">$59.99</div>
+                <div class="course-price">₹ 4199.99</div>
                 <div class="course-actions">
                   <button class="course-save">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1853,14 +1957,14 @@
           <!-- Course Card 2 -->
           <div class="course-card stagger-item stagger-delay-1">
             <div class="course-image-container">
-              <img src="https://placehold.co/600x400" alt="Sports Leadership" class="course-image">
+              <img src="img-Learning/IMG_20250323_111844.jpg" alt="Sports Leadership" class="course-image">
               <div class="course-level">Intermediate</div>
             </div>
             <div class="course-content">
               <h3 class="course-title">Leadership Skills for Sports Professionals</h3>
               <div class="course-instructor">
-                <img src="https://placehold.co/100x100" alt="Lisa Rodriguez" class="course-instructor-avatar">
-                <span class="course-instructor-name">Lisa Rodriguez, MBA</span>
+                <img src="img-Learning/sunil.jpg" alt="Sunil Chhetri" class="course-instructor-avatar">
+                <span class="course-instructor-name">Sunil Chhetri, Captain</span>
               </div>
               <p class="course-description">
                 Develop essential leadership skills for success in the sports industry. Learn effective communication, team building, conflict resolution, and how to inspire peak performance.
@@ -1893,7 +1997,7 @@
                 <span class="course-tag">Certificate</span>
               </div>
               <div class="course-footer">
-                <div class="course-price">$74.99</div>
+                <div class="course-price">₹2974.99</div>
                 <div class="course-actions">
                   <button class="course-save">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1909,14 +2013,14 @@
           <!-- Course Card 3 -->
           <div class="course-card stagger-item stagger-delay-2">
             <div class="course-image-container">
-              <img src="https://placehold.co/600x400" alt="Data Analytics in Sports" class="course-image">
+              <img src="img-Learning/IMG_20250323_111645.jpg" alt="Data Analytics in Sports" class="course-image">
               <div class="course-level">Advanced</div>
             </div>
             <div class="course-content">
               <h3 class="course-title">Data Analytics in Sports: From Basics to Advanced</h3>
               <div class="course-instructor">
-                <img src="https://placehold.co/100x100" alt="David Thompson" class="course-instructor-avatar">
-                <span class="course-instructor-name">David Thompson, MS</span>
+                <img src="img-Learning/RautDevraj-a.jpg" alt="Raut Devraj" class="course-instructor-avatar">
+                <span class="course-instructor-name">Raut Devraj, MS</span>
               </div>
               <p class="course-description">
                 Master the fundamentals of sports analytics and learn how to apply data-driven insights to improve performance, strategy, and decision-making in sports organizations.
@@ -1949,7 +2053,7 @@
                 <span class="course-tag">Certificate</span>
               </div>
               <div class="course-footer">
-                <div class="course-price">$99.99</div>
+                <div class="course-price">₹ 1999.00</div>
                 <div class="course-actions">
                   <button class="course-save">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -2029,7 +2133,7 @@
         <div>
           <h3 class="footer-links-title">Company</h3>
           <div class="footer-links">
-            <a href="#" class="footer-link">About</a>
+            <a href="about.html" class="footer-link">About</a>
             <a href="#" class="footer-link">Careers</a>
             <a href="#" class="footer-link">Blog</a>
             <a href="#" class="footer-link">Press</a>
@@ -2038,8 +2142,8 @@
         <div>
           <h3 class="footer-links-title">Legal</h3>
           <div class="footer-links">
-            <a href="#" class="footer-link">Terms</a>
-            <a href="#" class="footer-link">Privacy</a>
+            <a href="terms.html" class="footer-link">Terms</a>
+            <a href="privacy.html" class="footer-link">Privacy</a>
             <a href="#" class="footer-link">Cookies</a>
             <a href="#" class="footer-link">Contact</a>
           </div>
@@ -2086,6 +2190,45 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+
+      // Mobile menu functionality
+      const mobileMenuButton = document.getElementById('mobileMenuButton');
+      const mobileMenu = document.getElementById('mobileMenu');
+
+      mobileMenuButton.addEventListener('click', function () {
+        mobileMenu.classList.toggle('open');
+        // Change hamburger to X when menu is open
+        const svg = mobileMenuButton.querySelector('svg');
+        if (mobileMenu.classList.contains('open')) {
+          svg.innerHTML = `
+          <line x1="18" x2="6" y1="6" y2="18"></line>
+          <line x1="6" x2="18" y1="6" y2="18"></line>
+        `;
+        } else {
+          svg.innerHTML = `
+          <line x1="4" x2="20" y1="12" y2="12"></line>
+          <line x1="4" x2="20" y1="6" y2="6"></line>
+          <line x1="4" x2="20" y1="18" y2="18"></line>
+        `;
+        }
+      });
+
+      // Close mobile menu when clicking outside
+      document.addEventListener('click', function (event) {
+        if (mobileMenu.classList.contains('open') &&
+          !mobileMenu.contains(event.target) &&
+          !mobileMenuButton.contains(event.target)) {
+          mobileMenu.classList.remove('open');
+          const svg = mobileMenuButton.querySelector('svg');
+          svg.innerHTML = `
+          <line x1="4" x2="20" y1="12" y2="12"></line>
+          <line x1="4" x2="20" y1="6" y2="6"></line>
+          <line x1="4" x2="20" y1="18" y2="18"></line>
+        `;
+        }
+      });
+
+
       // Fade in animations
       const fadeElements = document.querySelectorAll('.fade-in');
       
