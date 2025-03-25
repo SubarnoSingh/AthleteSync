@@ -174,6 +174,62 @@
       gap: 1rem;
     }
 
+    /* Mobile Menu */
+    .mobile-menu-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 0.375rem;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .mobile-menu-button:hover {
+      background-color: var(--muted);
+    }
+
+    .mobile-menu {
+      position: fixed;
+      top: 4rem;
+      left: 0;
+      width: 100%;
+      height: calc(100vh - 4rem);
+      background-color: var(--background);
+      z-index: 40;
+      padding: 1.5rem;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease-in-out;
+      overflow-y: auto;
+    }
+
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+
+    .mobile-nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+
+    .mobile-nav-link {
+      font-size: 1.125rem;
+      font-weight: 500;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .mobile-nav-link.active {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
     /* Button Styles */
     .button {
       display: inline-flex;
@@ -473,7 +529,7 @@
     .athlete-image {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
     }
 
     .athlete-content {
@@ -624,10 +680,10 @@
     }
 
     .footer-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 2rem;
-    }
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-left: 20px; }
 
     .footer-brand {
       grid-column: span 2;
@@ -775,6 +831,12 @@
       }
     }
 
+    @media (max-width: 768px) {
+      .header-actions {
+        display: none;
+      }
+    }
+
     /* Animation Classes */
     .fade-in {
       opacity: 0;
@@ -849,7 +911,9 @@
           </svg>
         </button>
         <div class="icon-button">
-          <img src="https://placehold.co/40x40" alt="Profile" width="24" height="24" style="border-radius: 50%;">
+          <a href="dashboard.html">
+            <img src="pfp.jpg" alt="Profile" width="24" height="24" style="border-radius: 50%;">
+          </a>
         </div>
       </div>
       <div class="mobile-actions">
@@ -860,11 +924,38 @@
           </svg>
         </button>
         <div class="icon-button">
-          <img src="https://placehold.co/40x40" alt="Profile" width="24" height="24" style="border-radius: 50%;">
+          <a href="dashboard.html">
+            <img src="pfp.jpg" alt="Profile" width="24" height="24" style="border-radius: 50%;">
+          </a>
         </div>
+        <button class="mobile-menu-button" id="mobileMenuButton" aria-label="Menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" x2="20" y1="12" y2="12"></line>
+            <line x1="4" x2="20" y1="6" y2="6"></line>
+            <line x1="4" x2="20" y1="18" y2="18"></line>
+          </svg>
+        </button>
       </div>
     </div>
   </header>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <nav>
+      <ul class="mobile-nav-links">
+        <li><a href="discover.html" class="mobile-nav-link">Discover</a></li>
+        <li><a href="jobs.html" class="mobile-nav-link">Jobs</a></li>
+        <li><a href="events.html" class="mobile-nav-link">Events</a></li>
+        <li><a href="learning.html" class="mobile-nav-link">Learning</a></li>
+        <li><a href="scholarships.html" class="mobile-nav-link">Scholarships</a></li>
+      </ul>
+    </nav>
+    <div class="mobile-menu-actions">
+      <a href="login.html" class="button button-outline button-lg" style="width: 100%; margin-bottom: 1rem;">Sign In</a>
+      <a href="register.html" class="button button-primary button-lg" style="width: 100%;">Join Now</a>
+    </div>
+  </div>
 
   <main>
     <section class="page-header">
@@ -890,7 +981,7 @@
             <select id="sportFilter" class="filter-select">
               <option value="">All Sports</option>
               <option value="basketball">Basketball</option>
-              <option value="soccer">Soccer</option>
+              <option value="soccer">Cricket</option>
               <option value="football">Football</option>
               <option value="baseball">Baseball</option>
               <option value="tennis">Tennis</option>
@@ -928,6 +1019,7 @@
               <option value="italy">Italy</option>
               <option value="japan">Japan</option>
               <option value="brazil">Brazil</option>
+              <option value="brazil">India</option>
             </select>
           </div>
 
@@ -975,7 +1067,7 @@
         <div class="featured-grid">
           <div class="featured-card stagger-item">
             <div class="featured-banner" style="background-color: #0070f3;">
-              <img src="https://placehold.co/200x200" alt="Michael Jordan" class="featured-avatar">
+              <img src="img-discover/download.jpeg" alt="Michael Jordan" class="featured-avatar">
             </div>
             <div class="featured-content">
               <h3 class="featured-name">Michael Jordan</h3>
@@ -1012,10 +1104,10 @@
 
           <div class="featured-card stagger-item stagger-delay-1">
             <div class="featured-banner" style="background-color: #10b981;">
-              <img src="https://placehold.co/200x200" alt="Serena Williams" class="featured-avatar">
+              <img src="img-discover/roger-federer-of-switzerland-plays-a-forehand-against-peter-news-photo-1663268590.jpg" alt="Roger-Federar" class="featured-avatar">
             </div>
             <div class="featured-content">
-              <h3 class="featured-name">Serena Williams</h3>
+              <h3 class="featured-name">Roger Federar</h3>
               <p class="featured-title">Professional Tennis Player</p>
               <span class="featured-sport">Tennis</span>
               <div class="featured-stats">
@@ -1026,7 +1118,7 @@
                     <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
                     <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                   </svg>
-                  <span>1.8M followers</span>
+                  <span>8.8M followers</span>
                 </div>
                 <div class="featured-stat">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1049,12 +1141,12 @@
 
           <div class="featured-card stagger-item stagger-delay-2">
             <div class="featured-banner" style="background-color: #f97316;">
-              <img src="https://placehold.co/200x200" alt="Cristiano Ronaldo" class="featured-avatar">
+              <img src="img-discover/EISNVDHGHRJVXCH7ZHC7CDQ5FM.jpg" alt="Cristiano Ronaldo" class="featured-avatar">
             </div>
             <div class="featured-content">
               <h3 class="featured-name">Cristiano Ronaldo</h3>
-              <p class="featured-title">Professional Soccer Player</p>
-              <span class="featured-sport">Soccer</span>
+              <p class="featured-title">Professional Football Player</p>
+              <span class="featured-sport">Football</span>
               <div class="featured-stats">
                 <div class="featured-stat">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1086,12 +1178,12 @@
 
           <div class="featured-card stagger-item stagger-delay-3">
             <div class="featured-banner" style="background-color: #8b5cf6;">
-              <img src="https://placehold.co/200x200" alt="Simone Biles" class="featured-avatar">
+              <img src="img-discover/jtifh7l8_rohit-sharma-afp_625x300_06_March_25.jpg" alt="Rohit Sharma" class="featured-avatar">
             </div>
             <div class="featured-content">
-              <h3 class="featured-name">Simone Biles</h3>
-              <p class="featured-title">Olympic Gymnast</p>
-              <span class="featured-sport">Gymnastics</span>
+              <h3 class="featured-name">Rohit Sharma</h3>
+              <p class="featured-title">Professional Cricket Player</p>
+              <span class="featured-sport">Cricket</span>
               <div class="featured-stats">
                 <div class="featured-stat">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1100,7 +1192,7 @@
                     <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
                     <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                   </svg>
-                  <span>1.5M followers</span>
+                  <span>3.5M followers</span>
                 </div>
                 <div class="featured-stat">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1111,7 +1203,7 @@
                     <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
                     <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
                   </svg>
-                  <span>7 Olympic Medals</span>
+                  <span>3 Times double Century</span>
                 </div>
               </div>
               <div class="featured-actions">
@@ -1151,15 +1243,15 @@
           <!-- Athlete Card 1 -->
           <div class="athlete-card stagger-item">
             <div class="athlete-image-container">
-              <img src="https://placehold.co/400x400" alt="Alex Johnson" class="athlete-image">
+              <img src="img-discover/Virat-Kohli-Records-List-1.jpg" alt="Virat Kohli" class="athlete-image">
             </div>
             <div class="athlete-content">
-              <h3 class="athlete-name">Alex Johnson</h3>
-              <p class="athlete-title">Point Guard, Chicago Defenders</p>
+              <h3 class="athlete-name">Virat Kohli</h3>
+              <p class="athlete-title">Batsman, Indian National Team</p>
               <div class="athlete-tags">
-                <span class="athlete-tag sport">Basketball</span>
+                <span class="athlete-tag sport">Cricket</span>
                 <span class="athlete-tag level">Professional</span>
-                <span class="athlete-tag location">Chicago, USA</span>
+                <span class="athlete-tag location">Bengaluru, INDIA</span>
               </div>
             </div>
             <div class="athlete-footer">
@@ -1171,7 +1263,7 @@
                     <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
                     <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                   </svg>
-                  <span>245K</span>
+                  <span>24.5M</span>
                 </div>
                 <div class="athlete-stat">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1189,15 +1281,15 @@
           <!-- Athlete Card 2 -->
           <div class="athlete-card stagger-item stagger-delay-1">
             <div class="athlete-image-container">
-              <img src="https://placehold.co/400x400" alt="Sarah Williams" class="athlete-image">
+              <img src="img-discover/Saina-Nehwal.jpg" alt="Saina-Nehwal" class="athlete-image">
             </div>
             <div class="athlete-content">
-              <h3 class="athlete-name">Sarah Williams</h3>
-              <p class="athlete-title">Forward, USA National Team</p>
+              <h3 class="athlete-name">Saina-Nehwal</h3>
+              <p class="athlete-title">Badminton Player, India</p>
               <div class="athlete-tags">
-                <span class="athlete-tag sport">Soccer</span>
+                <span class="athlete-tag sport">Badminton</span>
                 <span class="athlete-tag level">Olympic</span>
-                <span class="athlete-tag location">Portland, USA</span>
+                <span class="athlete-tag location">Chennai, INDIA</span>
               </div>
             </div>
             <div class="athlete-footer">
@@ -1227,15 +1319,15 @@
           <!-- Athlete Card 3 -->
           <div class="athlete-card stagger-item stagger-delay-2">
             <div class="athlete-image-container">
-              <img src="https://placehold.co/400x400" alt="Marcus Chen" class="athlete-image">
+              <img src="img-discover/argentina-barcelona-lionel-messi-wallpaper-preview.jpg" alt="Lionel Messi" class="athlete-image">
             </div>
             <div class="athlete-content">
-              <h3 class="athlete-name">Marcus Chen</h3>
-              <p class="athlete-title">Freestyle, LA Aquatics</p>
+              <h3 class="athlete-name">Lionel Messi</h3>
+              <p class="athlete-title">Right Winger,Argentina</p>
               <div class="athlete-tags">
-                <span class="athlete-tag sport">Swimming</span>
-                <span class="athlete-tag level">Professional</span>
-                <span class="athlete-tag location">Los Angeles, USA</span>
+                <span class="athlete-tag sport">Football</span>
+                <span class="athlete-tag level">FIFA World Cup</span>
+                <span class="athlete-tag location">Rosario, ARGENTINA</span>
               </div>
             </div>
             <div class="athlete-footer">
@@ -1247,7 +1339,7 @@
                     <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
                     <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                   </svg>
-                  <span>780K</span>
+                  <span>78M</span>
                 </div>
                 <div class="athlete-stat">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1265,16 +1357,16 @@
           <!-- Athlete Card 4 -->
           <div class="athlete-card stagger-item stagger-delay-3">
             <div class="athlete-image-container">
-              <img src="https://placehold.co/400x400" alt="Jasmine Rodriguez" class="athlete-image">
+              <img src="img-discover/carlsen2_2834118b.jpg" alt="Magnus Carlsen" class="athlete-image">
             </div>
             <div class="athlete-content">
-              <h3 class="athlete-name">Jasmine Rodriguez</h3>
-              <p class="athlete-title">Singles, Independent</p>
-              <div class="athlete-tags">
-                <span class="athlete-tag sport">Tennis</span>
-                <span class="athlete-tag level">Professional</span>
-                <span class="athlete-tag location">Miami, USA</span>
-              </div>
+                <h3 class="athlete-name">Magnus Carlsen</h3>
+                <p class="athlete-title">Chess, Norway</p>
+                <div class="athlete-tags">
+                  <span class="athlete-tag sport">Chess</span>
+                  <span class="athlete-tag level">Professional</span>
+                  <span class="athlete-tag location">Tonsberg, NORWAY</span>
+                </div>
             </div>
             <div class="athlete-footer">
               <div class="athlete-stats">
@@ -1303,16 +1395,16 @@
           <!-- Athlete Card 5 -->
           <div class="athlete-card stagger-item">
             <div class="athlete-image-container">
-              <img src="https://placehold.co/400x400" alt="David Kim" class="athlete-image">
+              <img src="img-discover/img_235577_lakshyasen_sm.jpg" alt="Lakshya Sen" class="athlete-image">
             </div>
             <div class="athlete-content">
-              <h3 class="athlete-name">David Kim</h3>
-              <p class="athlete-title">Quarterback, New York Giants</p>
-              <div class="athlete-tags">
-                <span class="athlete-tag sport">Football</span>
-                <span class="athlete-tag level">Professional</span>
-                <span class="athlete-tag location">New York, USA</span>
-              </div>
+                <h3 class="athlete-name">Lakshya Sen</h3>
+                <p class="athlete-title">Badminton, Indian National Team</p>
+                <div class="athlete-tags">
+                  <span class="athlete-tag sport">Badminton</span>
+                  <span class="athlete-tag level">Professional</span>
+                  <span class="athlete-tag location"> Delhi, INDIA</span>
+                </div>
             </div>
             <div class="athlete-footer">
               <div class="athlete-stats">
@@ -1341,16 +1433,16 @@
           <!-- Athlete Card 6 -->
           <div class="athlete-card stagger-item stagger-delay-1">
             <div class="athlete-image-container">
-              <img src="https://placehold.co/400x400" alt="Emma Thompson" class="athlete-image">
+              <img src="img-discover/GettyImages-1653679632-scaled.jpg" alt="Neymar da Silva" class="athlete-image">
             </div>
             <div class="athlete-content">
-              <h3 class="athlete-name">Emma Thompson</h3>
-              <p class="athlete-title">Sprinter, Team GB</p>
-              <div class="athlete-tags">
-                <span class="athlete-tag sport">Track & Field</span>
-                <span class="athlete-tag level">Olympic</span>
-                <span class="athlete-tag location">London, UK</span>
-              </div>
+                <h3 class="athlete-name">Neymar da Silva</h3>
+                <p class="athlete-title">Left Winger,Brazil</p>
+                <div class="athlete-tags">
+                  <span class="athlete-tag sport">Football</span>
+                  <span class="athlete-tag level">FIFA World Cup</span>
+                  <span class="athlete-tag location">Sao Paulo, BRAZIL</span>
+                </div>
             </div>
             <div class="athlete-footer">
               <div class="athlete-stats">
@@ -1381,16 +1473,16 @@
           <!-- Athlete Card 7 -->
           <div class="athlete-card stagger-item stagger-delay-2">
             <div class="athlete-image-container">
-              <img src="https://placehold.co/400x400" alt="Carlos Mendez" class="athlete-image">
+              <img src="img-discover/Novak-Djokovic-Serbia-US-Open-2023.jpg" alt="Novak" class="athlete-image">
             </div>
             <div class="athlete-content">
-              <h3 class="athlete-name">Carlos Mendez</h3>
-              <p class="athlete-title">Pitcher, LA Dodgers</p>
-              <div class="athlete-tags">
-                <span class="athlete-tag sport">Baseball</span>
-                <span class="athlete-tag level">Professional</span>
-                <span class="athlete-tag location">Los Angeles, USA</span>
-              </div>
+                <h3 class="athlete-name">Novak Djokovic</h3>
+                <p class="athlete-title">Tennis, Serbia</p>
+                <div class="athlete-tags">
+                  <span class="athlete-tag sport">Tennis</span>
+                  <span class="athlete-tag level">Professional</span>
+                  <span class="athlete-tag location">Belgrade,SERBIA</span>
+                </div>
             </div>
             <div class="athlete-footer">
               <div class="athlete-stats">
@@ -1419,16 +1511,16 @@
           <!-- Athlete Card 8 -->
           <div class="athlete-card stagger-item stagger-delay-3">
             <div class="athlete-image-container">
-              <img src="https://placehold.co/400x400" alt="Olivia Parker" class="athlete-image">
+              <img src="img-discover/etfsdleo_d-gukesh-x-fidechess_625x300_28_November_24.jpg" alt="Olivia Parker" class="athlete-image">
             </div>
             <div class="athlete-content">
-              <h3 class="athlete-name">Olivia Parker</h3>
-              <p class="athlete-title">Center, Minnesota Lynx</p>
-              <div class="athlete-tags">
-                <span class="athlete-tag sport">Basketball</span>
-                <span class="athlete-tag level">Professional</span>
-                <span class="athlete-tag location">Minneapolis, USA</span>
-              </div>
+                <h3 class="athlete-name">Dommaraju Gukesh</h3>
+                <p class="athlete-title">Chess, INDIA</p>
+                <div class="athlete-tags">
+                  <span class="athlete-tag sport">Chess Player</span>
+                  <span class="athlete-tag level">Professional</span>
+                  <span class="athlete-tag location">Delhi, INDIA</span>
+                </div>
             </div>
             <div class="athlete-footer">
               <div class="athlete-stats">
@@ -1507,7 +1599,7 @@
         <div>
           <h3 class="footer-links-title">Company</h3>
           <div class="footer-links">
-            <a href="#" class="footer-link">About</a>
+            <a href="about.html" class="footer-link">About</a>
             <a href="#" class="footer-link">Careers</a>
             <a href="#" class="footer-link">Blog</a>
             <a href="#" class="footer-link">Press</a>
@@ -1516,8 +1608,8 @@
         <div>
           <h3 class="footer-links-title">Legal</h3>
           <div class="footer-links">
-            <a href="#" class="footer-link">Terms</a>
-            <a href="#" class="footer-link">Privacy</a>
+            <a href="terms.html" class="footer-link">Terms</a>
+            <a href="privacy.html" class="footer-link">Privacy</a>
             <a href="#" class="footer-link">Cookies</a>
             <a href="#" class="footer-link">Contact</a>
           </div>
@@ -1564,6 +1656,44 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+
+      // Mobile menu functionality
+      const mobileMenuButton = document.getElementById('mobileMenuButton');
+      const mobileMenu = document.getElementById('mobileMenu');
+
+      mobileMenuButton.addEventListener('click', function () {
+        mobileMenu.classList.toggle('open');
+        // Change hamburger to X when menu is open
+        const svg = mobileMenuButton.querySelector('svg');
+        if (mobileMenu.classList.contains('open')) {
+          svg.innerHTML = `
+          <line x1="18" x2="6" y1="6" y2="18"></line>
+          <line x1="6" x2="18" y1="6" y2="18"></line>
+        `;
+        } else {
+          svg.innerHTML = `
+          <line x1="4" x2="20" y1="12" y2="12"></line>
+          <line x1="4" x2="20" y1="6" y2="6"></line>
+          <line x1="4" x2="20" y1="18" y2="18"></line>
+        `;
+        }
+      });
+
+      // Close mobile menu when clicking outside
+      document.addEventListener('click', function (event) {
+        if (mobileMenu.classList.contains('open') &&
+          !mobileMenu.contains(event.target) &&
+          !mobileMenuButton.contains(event.target)) {
+          mobileMenu.classList.remove('open');
+          const svg = mobileMenuButton.querySelector('svg');
+          svg.innerHTML = `
+          <line x1="4" x2="20" y1="12" y2="12"></line>
+          <line x1="4" x2="20" y1="6" y2="6"></line>
+          <line x1="4" x2="20" y1="18" y2="18"></line>
+        `;
+        }
+      });
+
       // Fade in animations
       const fadeElements = document.querySelectorAll('.fade-in');
       
