@@ -1,0 +1,1648 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - AthleteSync</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <style>
+    :root {
+      --primary: #0070f3;
+      --primary-dark: #0060df;
+      --primary-light: #3291ff;
+      --primary-foreground: #ffffff;
+      --secondary: #f5f5f5;
+      --secondary-foreground: #111111;
+      --background: #ffffff;
+      --foreground: #111111;
+      --muted: #f5f5f5;
+      --muted-foreground: #737373;
+      --border: #e5e5e5;
+      --radius: 0.5rem;
+      --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      color: var(--foreground);
+      background-color: var(--background);
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
+    /* Header */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      width: 100%;
+      border-bottom: 1px solid var(--border);
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-container {
+      display: flex;
+      height: 4rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .logo svg {
+      color: var(--primary);
+    }
+
+    .nav {
+      display: none;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-left: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-link {
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-link:hover {
+      color: var(--primary);
+    }
+
+    .nav-link.active {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .search-container {
+      position: relative;
+      display: none;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 0.625rem;
+      top: 0.625rem;
+      color: var(--muted-foreground);
+      width: 1rem;
+      height: 1rem;
+    }
+
+    .search-input {
+      width: 300px;
+      padding: 0.5rem 0.75rem 0.5rem 2rem;
+      border-radius: 9999px;
+      border: none;
+      background-color: var(--muted);
+      font-size: 0.875rem;
+    }
+
+    .search-input:focus {
+      outline: 2px solid var(--primary);
+      outline-offset: 1px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .icon-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 0.375rem;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      position: relative;
+    }
+
+    .icon-button:hover {
+      background-color: var(--muted);
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background-color: var(--danger);
+      color: white;
+      font-size: 0.7rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+    }
+
+    .mobile-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* Mobile Menu */
+    .mobile-menu-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 0.375rem;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .mobile-menu-button:hover {
+      background-color: var(--muted);
+    }
+
+    .mobile-menu {
+      position: fixed;
+      top: 4rem;
+      left: 0;
+      width: 100%;
+      height: calc(100vh - 4rem);
+      background-color: var(--background);
+      z-index: 40;
+      padding: 1.5rem;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease-in-out;
+      overflow-y: auto;
+    }
+
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+
+    .mobile-nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+
+    .mobile-nav-link {
+      font-size: 1.125rem;
+      font-weight: 500;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .mobile-nav-link.active {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    /* Button Styles */
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius);
+      font-weight: 500;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      transition: all 0.2s;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+    }
+
+    .button-lg {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+    }
+
+    .button-sm {
+      padding: 0.25rem 0.75rem;
+      font-size: 0.75rem;
+    }
+
+    .button-primary {
+      background-color: var(--primary);
+      color: var(--primary-foreground);
+      border: none;
+    }
+
+    .button-primary:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .button-outline {
+      background-color: transparent;
+      color: var(--foreground);
+      border: 1px solid var(--border);
+    }
+
+    .button-outline:hover {
+      background-color: var(--muted);
+    }
+
+    /* Dashboard Styles */
+    .dashboard-container {
+      padding: 2rem 0;
+      background-color: var(--secondary);
+      min-height: calc(100vh - 4rem - 300px);
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .dashboard-sidebar {
+      display: block;
+    }
+
+    .dashboard-main {
+      width: 100%;
+    }
+
+    .profile-card {
+      background-color: var(--background);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .profile-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      width: 100%;
+    }
+
+    .profile-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 1rem;
+      border: 3px solid var(--primary);
+    }
+
+    .profile-name {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .profile-title {
+      color: var(--muted-foreground);
+      margin-bottom: 0.5rem;
+    }
+
+    .profile-location {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      color: var(--muted-foreground);
+      font-size: 0.875rem;
+    }
+
+    .profile-stats {
+      display: flex;
+      justify-content: space-around;
+      width: 80%;
+      margin-bottom: 1.5rem;
+      padding: 1rem 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .stat-value {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--muted-foreground);
+    }
+
+    .profile-actions {
+      display: flex;
+      gap: 0.5rem;
+      width: 100%;
+    }
+
+    .dashboard-card {
+      background-color: var(--background);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+    }
+
+    .card-header {
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .card-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+    }
+
+    .card-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card-content {
+      padding: 1.5rem;
+    }
+
+    .activity-item {
+      display: flex;
+      gap: 1rem;
+      padding-bottom: 1.5rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .activity-item:last-child {
+      padding-bottom: 0;
+      margin-bottom: 0;
+      border-bottom: none;
+    }
+
+    .activity-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .activity-content {
+      flex: 1;
+    }
+
+    .activity-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+
+    .activity-user {
+      font-weight: 600;
+    }
+
+    .activity-time {
+      font-size: 0.75rem;
+      color: var(--muted-foreground);
+    }
+
+    .activity-text {
+      margin-bottom: 0.75rem;
+    }
+
+    .activity-image {
+      width: 100%;
+      border-radius: var(--radius);
+      margin-bottom: 0.75rem;
+    }
+
+    .activity-actions {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .activity-action {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      cursor: pointer;
+    }
+
+    .activity-action:hover {
+      color: var(--foreground);
+    }
+
+    .connection-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .connection-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 1rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+
+    .connection-item:hover {
+      box-shadow: var(--shadow);
+      transform: translateY(-2px);
+    }
+
+    .connection-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 0.75rem;
+    }
+
+    .connection-name {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .connection-title {
+      font-size: 0.75rem;
+      color: var(--muted-foreground);
+      margin-bottom: 0.75rem;
+    }
+
+    .job-item {
+      padding: 1rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      margin-bottom: 1rem;
+      transition: all 0.2s;
+    }
+
+    .job-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .job-item:hover {
+      box-shadow: var(--shadow);
+    }
+
+    .job-header {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .job-logo {
+      width: 50px;
+      height: 50px;
+      border-radius: var(--radius);
+      object-fit: contain;
+      background-color: var(--muted);
+      padding: 0.5rem;
+    }
+
+    .job-title-company {
+      flex: 1;
+    }
+
+    .job-title {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .job-company {
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+    }
+
+    .job-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+      font-size: 0.875rem;
+    }
+
+    .job-detail {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      color: var(--muted-foreground);
+    }
+
+    .event-item {
+      display: flex;
+      gap: 1rem;
+      padding-bottom: 1.5rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .event-item:last-child {
+      padding-bottom: 0;
+      margin-bottom: 0;
+      border-bottom: none;
+    }
+
+    .event-date {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 60px;
+      height: 60px;
+      background-color: var(--primary);
+      color: var(--primary-foreground);
+      border-radius: var(--radius);
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .event-day {
+      font-size: 1.25rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .event-month {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+    }
+
+    .event-content {
+      flex: 1;
+    }
+
+    .event-title {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .event-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+    }
+
+    .event-detail {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      color: var(--muted-foreground);
+    }
+
+    .event-description {
+      font-size: 0.875rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .course-item {
+      display: flex;
+      gap: 1rem;
+      padding-bottom: 1.5rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .course-item:last-child {
+      padding-bottom: 0;
+      margin-bottom: 0;
+      border-bottom: none;
+    }
+
+    .course-image {
+      width: 80px;
+      height: 60px;
+      border-radius: var(--radius);
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .course-content {
+      flex: 1;
+    }
+
+    .course-title {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .course-instructor {
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      margin-bottom: 0.5rem;
+    }
+
+    .course-stats {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.75rem;
+    }
+
+    .course-stat {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      color: var(--muted-foreground);
+    }
+
+    .quick-links {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .quick-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      background-color: var(--background);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      text-align: center;
+      transition: all 0.2s;
+    }
+
+    .quick-link:hover {
+      box-shadow: var(--shadow);
+      transform: translateY(-2px);
+    }
+
+    .quick-link-icon {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--primary-light);
+      color: var(--primary);
+      border-radius: 50%;
+      margin-bottom: 0.75rem;
+    }
+
+    .quick-link-title {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .quick-link-description {
+      font-size: 0.75rem;
+      color: var(--muted-foreground);
+    }
+
+    /* Footer */
+    .footer {
+      border-top: 1px solid var(--border);
+      background-color: rgba(245, 245, 245, 0.4);
+    }
+
+    .footer-container {
+      padding: 2rem 0;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      margin-left: 20px;
+    }
+
+    .footer-brand {
+      grid-column: span 2;
+    }
+
+    .footer-description {
+      margin-top: 1rem;
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      max-width: 20rem;
+    }
+
+    .footer-links-title {
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .footer-link {
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      transition: color 0.2s;
+    }
+
+    .footer-link:hover {
+      color: var(--foreground);
+    }
+
+    .footer-bottom {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .footer-copyright {
+      font-size: 0.75rem;
+      color: var(--muted-foreground);
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .social-link {
+      color: var(--muted-foreground);
+      transition: color 0.2s;
+    }
+
+    .social-link:hover {
+      color: var(--foreground);
+    }
+
+    /* Responsive Styles */
+    @media (min-width: 768px) {
+      .nav {
+        display: flex;
+      }
+
+      .search-container {
+        display: block;
+      }
+
+      .mobile-actions {
+        display: none;
+      }
+
+      .mobile-menu-button {
+        display: none;
+      }
+
+      .dashboard-grid {
+        grid-template-columns: 300px 1fr;
+      }
+
+      .dashboard-sidebar {
+        display: block;
+      }
+
+      .profile-card {
+        position: sticky;
+        top: 5rem;
+      }
+
+      .connection-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .quick-links {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .footer-grid {
+        grid-template-columns: 2fr repeat(3, 1fr);
+      }
+
+      .footer-brand {
+        grid-column: span 1;
+      }
+
+      .footer-bottom {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header-actions {
+        display: none;
+      }
+    }
+
+    /* Animation Classes */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body>
+  <header class="header">
+    <div class="container header-container">
+      <div class="flex items-center gap-2">
+        <a href="index.html" class="logo">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+            <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+            <path d="M4 22h16"></path>
+            <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+            <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+            <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+          </svg>
+          <span>AthleteSync</span>
+        </a>
+        <nav class="nav">
+          <ul class="nav-links">
+            <li><a href="discover.html" class="nav-link">Discover</a></li>
+            <li><a href="jobs.html" class="nav-link">Jobs</a></li>
+            <li><a href="events.html" class="nav-link">Events</a></li>
+            <li><a href="learning.html" class="nav-link">Learning</a></li>
+            <li><a href="scholarships.html" class="nav-link">Scholarships</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="header-actions">
+        <div class="search-container">
+          <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.3-4.3"></path>
+          </svg>
+          <input type="search" class="search-input" placeholder="Search...">
+        </div>
+        <button class="icon-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+        </button>
+        <button class="icon-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path>
+            <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path>
+          </svg>
+          <span class="notification-badge">3</span>
+        </button>
+        <div class="icon-button">
+          <a href="dashboard.html">
+            <a href="dashboard.html">
+              <img src="img/jg.jpg" alt="Profile" width="24" height="24" style="border-radius: 50%;">
+            </a>
+          </a>
+        </div>
+      </div>
+      <div class="mobile-actions">
+        <button class="icon-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.3-4.3"></path>
+          </svg>
+        </button>
+        <div class="icon-button">
+          <a href="dashboard.html">
+            <img src="pfp.jpg" alt="Profile" width="24" height="24" style="border-radius: 50%;">
+          </a>
+        </div>
+        <button class="mobile-menu-button" id="mobileMenuButton" aria-label="Menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" x2="20" y1="12" y2="12"></line>
+            <line x1="4" x2="20" y1="6" y2="6"></line>
+            <line x1="4" x2="20" y1="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <nav>
+      <ul class="mobile-nav-links">
+        <li><a href="discover.html" class="mobile-nav-link">Discover</a></li>
+        <li><a href="jobs.html" class="mobile-nav-link">Jobs</a></li>
+        <li><a href="events.html" class="mobile-nav-link">Events</a></li>
+        <li><a href="learning.html" class="mobile-nav-link">Learning</a></li>
+        <li><a href="scholarships.html" class="mobile-nav-link">Scholarships</a></li>
+      </ul>
+    </nav>
+    <div class="mobile-menu-actions">
+      <a href="signin.html" class="button button-outline button-lg" style="width: 100%; margin-bottom: 1rem;">Sign
+        In</a>
+      <a href="join-now.html" class="button button-primary button-lg" style="width: 100%;">Join Now</a>
+    </div>
+  </div>
+
+  <main>
+    <section class="dashboard-container">
+      <div class="container">
+        <div class="dashboard-grid">
+          <!-- Sidebar -->
+          <div class="dashboard-sidebar">
+            <div class="profile-card fade-in">
+              <div class="profile-header">
+                <img src="pfp.jpg" alt="Profile" class="profile-avatar">
+                <h2 class="profile-name">Subarno Singh</h2>
+                <p class="profile-title">Professional Volleyball Player</p>
+                <div class="profile-location">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                  </svg>
+                  <span>Kolkata, India</span>
+                </div>
+              </div>
+              <div class="profile-stats">
+                <div class="stat-item">
+                  <span class="stat-value">1,245</span>
+                  <span class="stat-label">Connections</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-value">87</span>
+                  <span class="stat-label">Posts</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-value">32</span>
+                  <span class="stat-label">Events</span>
+                </div>
+              </div>
+              <div class="profile-actions">
+                <a href="/profile-edit.html" class="button button-outline" style="width: 100%;">Edit Profile</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Main Content -->
+          <div class="dashboard-main">
+            <!-- Quick Links -->
+            <div class="quick-links fade-in">
+              <a href="jobs.html" class="quick-link">
+                <div class="quick-link-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="20" height="14" x="2" y="7" rx="2" ry="2"></rect>
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                  </svg>
+                </div>
+                <h3 class="quick-link-title">Find Jobs</h3>
+                <p class="quick-link-description">Explore career opportunities</p>
+              </a>
+              <a href="events.html" class="quick-link">
+                <div class="quick-link-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
+                    <line x1="16" x2="16" y1="2" y2="6"></line>
+                    <line x1="8" x2="8" y1="2" y2="6"></line>
+                    <line x1="3" x2="21" y1="10" y2="10"></line>
+                  </svg>
+                </div>
+                <h3 class="quick-link-title">Events</h3>
+                <p class="quick-link-description">Find networking opportunities</p>
+              </a>
+              <a href="learning.html" class="quick-link">
+                <div class="quick-link-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                  </svg>
+                </div>
+                <h3 class="quick-link-title">Learning</h3>
+                <p class="quick-link-description">Develop new skills</p>
+              </a>
+              <a href="scholarships.html" class="quick-link">
+                <div class="quick-link-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2v8"></path>
+                    <path d="m4.93 10.93 1.41 1.41"></path>
+                    <path d="M2 18h2"></path>
+                    <path d="M20 18h2"></path>
+                    <path d="m19.07 10.93-1.41 1.41"></path>
+                    <path d="M22 22H2"></path>
+                    <path d="m16 6-4 4-4-4"></path>
+                    <path d="M16 18a4 4 0 0 0-8 0"></path>
+                  </svg>
+                </div>
+                <h3 class="quick-link-title">Scholarships</h3>
+                <p class="quick-link-description">Find financial support</p>
+              </a>
+            </div>
+
+            <!-- Activity Feed -->
+            <div class="dashboard-card fade-in">
+              <div class="card-header">
+                <h2 class="card-title">Activity Feed</h2>
+                <div class="card-actions">
+                  <button class="button button-sm button-outline">Create Post</button>
+                </div>
+              </div>
+              <div class="card-content">
+                <div class="activity-item">
+                  <img src="smriti-pfp.jpeg" alt="User" class="activity-avatar">
+                  <div class="activity-content">
+                    <div class="activity-header">
+                      <span class="activity-user">Smriti Mandhana</span>
+                      <span class="activity-time">2 hours ago</span>
+                    </div>
+                    <p class="activity-text">Some moment from the Session with WV Raman sir</p>
+                    <img src="smriti-post.jpg" alt="Marathon" class="activity-image">
+                    <div class="activity-actions">
+                      <div class="activity-action">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M7 10v12"></path>
+                          <path
+                            d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a3.13 3.13 0 0 1 3 3.88Z">
+                          </path>
+                        </svg>
+                        <span>124 Likes</span>
+                      </div>
+                      <div class="activity-action">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                        <span>32 Comments</span>
+                      </div>
+                      <div class="activity-action">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+                          <polyline points="16 6 12 2 8 6"></polyline>
+                          <line x1="12" x2="12" y1="2" y2="15"></line>
+                        </svg>
+                        <span>Share</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="activity-item">
+                  <img src="neeraj-pfp.webp" alt="User" class="activity-avatar">
+                  <div class="activity-content">
+                    <div class="activity-header">
+                      <span class="activity-user">Neeraj Goyat</span>
+                      <span class="activity-time">Yesterday</span>
+                    </div>
+                    <p class="activity-text">Excited to announce the fight with Loagn Paul is going to happen in india this November 15th ,i request you all to attend that fight 
+                      . It's gonna be fun . Jai hind . #fight #boxing
+                    </p>
+                    <div class="activity-actions">
+                      <div class="activity-action">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M7 10v12"></path>
+                          <path
+                            d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a3.13 3.13 0 0 1 3 3.88Z">
+                          </path>
+                        </svg>
+                        <span>87 Likes</span>
+                      </div>
+                      <div class="activity-action">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                        <span>15 Comments</span>
+                      </div>
+                      <div class="activity-action">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+                          <polyline points="16 6 12 2 8 6"></polyline>
+                          <line x1="12" x2="12" y1="2" y2="15"></line>
+                        </svg>
+                        <span>Share</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Connections -->
+            <div class="dashboard-card fade-in">
+              <div class="card-header">
+                <h2 class="card-title">Connections</h2>
+                <div class="card-actions">
+                  <a href="#" class="button button-sm button-outline">View All</a>
+                </div>
+              </div>
+              <div class="card-content">
+                <div class="connection-grid">
+                  <div class="connection-item">
+                    <img src="jayanta-pfp.jpg" alt="Connection" class="connection-avatar">
+                    <h3 class="connection-name">Jayanta Ghosh</h3>
+                    <p class="connection-title">Badminton Playerr</p>
+                    <button class="button button-sm button-outline">Message</button>
+                  </div>
+                  <div class="connection-item">
+                    <img src="argho-pfp.png" alt="Connection" class="connection-avatar">
+                    <h3 class="connection-name">Argho Dutta</h3>
+                    <p class="connection-title">Badminton Player</p>
+                    <button class="button button-sm button-outline">Message</button>
+                  </div>
+                  <div class="connection-item">
+                    <img src="arghya-pfp.png" alt="Connection" class="connection-avatar">
+                    <h3 class="connection-name">Arghya Das</h3>
+                    <p class="connection-title">Marketing & PR</p>
+                    <button class="button button-sm button-outline">Message</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Recommended Jobs -->
+            <div class="dashboard-card fade-in">
+              <div class="card-header">
+                <h2 class="card-title">Recommended Jobs</h2>
+                <div class="card-actions">
+                  <a href="jobs.html" class="button button-sm button-outline">View All</a>
+                </div>
+              </div>
+              <div class="card-content">
+                <div class="job-item">
+                  <div class="job-header">
+                    <img src="cu-logo.png" alt="Company Logo" class="job-logo">
+                    <div class="job-title-company">
+                      <h3 class="job-title">Assistant Volleyball Coach</h3>
+                      <p class="job-company">University of calcutta</p>
+                    </div>
+                  </div>
+                  <div class="job-details">
+                    <div class="job-detail">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                      </svg>
+                      <span>Kolkata, IN</span>
+                    </div>
+                    <div class="job-detail">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                      </svg>
+                      <span>Full-time</span>
+                    </div>
+                    <div class="job-detail">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect width="20" height="14" x="2" y="7" rx="2" ry="2"></rect>
+                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                      </svg>
+                      <span>₹5L - ₹6.5L</span>
+                    </div>
+                  </div>
+                  <a href="/jobs/detail.html" class="button button-primary button-sm">Apply Now</a>
+                </div>
+                <div class="job-item">
+                  <div class="job-header">
+                    <img src="NIKE.png" alt="Company Logo" class="job-logo">
+                    <div class="job-title-company">
+                      <h3 class="job-title">Sports Marketing Manager</h3>
+                      <p class="job-company">Nike</p>
+                    </div>
+                  </div>
+                  <div class="job-details">
+                    <div class="job-detail">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                      </svg>
+                      <span>Bangalore, IN</span>
+                    </div>
+                    <div class="job-detail">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                      </svg>
+                      <span>Full-time</span>
+                    </div>
+                    <div class="job-detail">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect width="20" height="14" x="2" y="7" rx="2" ry="2"></rect>
+                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                      </svg>
+                      <span>₹4L - ₹6L</span>
+                    </div>
+                  </div>
+                  <a href="/jobs/detail.html" class="button button-primary button-sm">Apply Now</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Upcoming Events -->
+            <div class="dashboard-card fade-in">
+              <div class="card-header">
+                <h2 class="card-title">Upcoming Events</h2>
+                <div class="card-actions">
+                  <a href="events.html" class="button button-sm button-outline">View All</a>
+                </div>
+              </div>
+              <div class="card-content">
+                <div class="event-item">
+                  <div class="event-date">
+                    <span class="event-day">15</span>
+                    <span class="event-month">APR</span>
+                  </div>
+                  <div class="event-content">
+                    <h3 class="event-title">Sports Industry Networking Summit</h3>
+                    <div class="event-details">
+                      <div class="event-detail">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                          <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                        <span>SAI, Kolkata</span>
+                      </div>
+                      <div class="event-detail">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <circle cx="12" cy="12" r="10"></circle>
+                          <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                        <span>9:00 AM - 5:00 PM</span>
+                      </div>
+                    </div>
+                    <p class="event-description">Connect with industry professionals and explore career opportunities in
+                      sports management, marketing, and more.</p>
+                    <a href="/events/detail.html" class="button button-sm button-outline">RSVP</a>
+                  </div>
+                </div>
+                <div class="event-item">
+                  <div class="event-date">
+                    <span class="event-day">22</span>
+                    <span class="event-month">APR</span>
+                  </div>
+                  <div class="event-content">
+                    <h3 class="event-title">Athlete Mental Health Workshop</h3>
+                    <div class="event-details">
+                      <div class="event-detail">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                          <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                        <span>Virtual Event</span>
+                      </div>
+                      <div class="event-detail">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <circle cx="12" cy="12" r="10"></circle>
+                          <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                        <span>1:00 PM - 3:00 PM</span>
+                      </div>
+                    </div>
+                    <p class="event-description">Learn strategies for maintaining mental wellness throughout your
+                      athletic career with expert psychologists.</p>
+                    <a href="/events/detail.html" class="button button-sm button-outline">RSVP</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Learning Recommendations -->
+            <div class="dashboard-card fade-in">
+              <div class="card-header">
+                <h2 class="card-title">Learning Recommendations</h2>
+                <div class="card-actions">
+                  <a href="learning.html" class="button button-sm button-outline">View All</a>
+                </div>
+              </div>
+              <div class="card-content">
+                <div class="course-item">
+                  <img src="james-wilson.webp" alt="Course" class="course-image">
+                  <div class="course-content">
+                    <h3 class="course-title">Sports Leadership: Building High-Performance Teams</h3>
+                    <p class="course-instructor">By Dr. James Wilson, Former Olympic Coach</p>
+                    <div class="course-stats">
+                      <div class="course-stat">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path
+                            d="M12 20.94c1.5 0 2.75 1.06 4 1.06 3 0 6-8 6-12.22A4.91 4.91 0 0 0 17 5c-2.22 0-4 1.44-5 2-1-.56-2.78-2-5-2a4.9 4.9 0 0 0-5 4.78C2 14 5 22 8 22c1.25 0 2.5-1.06 4-1.06Z">
+                          </path>
+                          <path d="M12 7c1-.56 2.78-2 5-2a4.9 4.9 0 0 1 5 4.78c0 .7-.2 1.64-.59 2.73"></path>
+                          <path d="M4.59 12.51C4.2 11.42 4 10.48 4 9.78A4.9 4.9 0 0 1 9 5c2.22 0 4 1.44 5 2"></path>
+                        </svg>
+                        <span>Beginner</span>
+                      </div>
+                      <div class="course-stat">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <circle cx="12" cy="12" r="10"></circle>
+                          <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                        <span>4.5 hours</span>
+                      </div>
+                      <div class="course-stat">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M7 10v12"></path>
+                          <path
+                            d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a3.13 3.13 0 0 1 3 3.88Z">
+                          </path>
+                        </svg>
+                        <span>4.8 (245 ratings)</span>
+                      </div>
+                    </div>
+                    <a href="/learning/course.html" class="button button-sm button-primary"
+                      style="margin-top: 0.75rem;">Start Learning</a>
+                  </div>
+                </div>
+                <div class="course-item">
+                  <img src="dietitian-priyanka-narang.jpeg" alt="Course" class="course-image">
+                  <div class="course-content">
+                    <h3 class="course-title">Nutrition for Athletes</h3>
+                    <p class="course-instructor">By Priyanka Narang, Top Dietitian</p>
+                    <div class="course-stats">
+                      <div class="course-stat">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path
+                            d="M12 20.94c1.5 0 2.75 1.06 4 1.06 3 0 6-8 6-12.22A4.91 4.91 0 0 0 17 5c-2.22 0-4 1.44-5 2-1-.56-2.78-2-5-2a4.9 4.9 0 0 0-5 4.78C2 14 5 22 8 22c1.25 0 2.5-1.06 4-1.06Z">
+                          </path>
+                          <path d="M12 7c1-.56 2.78-2 5-2a4.9 4.9 0 0 1 5 4.78c0 .7-.2 1.64-.59 2.73"></path>
+                          <path d="M4.59 12.51C4.2 11.42 4 10.48 4 9.78A4.9 4.9 0 0 1 9 5c2.22 0 4 1.44 5 2"></path>
+                        </svg>
+                        <span>Intermediate</span>
+                      </div>
+                      <div class="course-stat">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <circle cx="12" cy="12" r="10"></circle>
+                          <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                        <span>3 hours</span>
+                      </div>
+                      <div class="course-stat">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M7 10v12"></path>
+                          <path
+                            d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a3.13 3.13 0 0 1 3 3.88Z">
+                          </path>
+                        </svg>
+                        <span>4.9 (178 ratings)</span>
+                      </div>
+                    </div>
+                    <a href="/learning/course.html" class="button button-sm button-primary"
+                      style="margin-top: 0.75rem;">Start Learning</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+              <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+              <path d="M4 22h16"></path>
+              <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+              <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+              <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+            </svg>
+            <span>AthleteSync</span>
+          </a>
+          <p class="footer-description">
+            The professional network for athletes and sports industry professionals. Connect, grow, and advance your
+            career.
+          </p>
+        </div>
+        <div>
+          <h3 class="footer-links-title">Platform</h3>
+          <div class="footer-links">
+            <a href="#" class="footer-link">Features</a>
+            <a href="#" class="footer-link">Pricing</a>
+            <a href="#" class="footer-link">FAQ</a>
+            <a href="#" class="footer-link">Testimonials</a>
+          </div>
+        </div>
+        <div>
+          <h3 class="footer-links-title">Company</h3>
+          <div class="footer-links">
+            <a href="about.html" class="footer-link">About</a>
+            <a href="#" class="footer-link">Careers</a>
+            <a href="#" class="footer-link">Blog</a>
+            <a href="#" class="footer-link">Press</a>
+          </div>
+        </div>
+        <div>
+          <h3 class="footer-links-title">Legal</h3>
+          <div class="footer-links">
+            <a href="terms.html" class="footer-link">Terms</a>
+            <a href="privacy.html" class="footer-link">Privacy</a>
+            <a href="#" class="footer-link">Cookies</a>
+            <a href="#" class="footer-link">Contact</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copyright">
+          &copy; 2025 AthleteSync. All rights reserved.
+        </p>
+        <div class="footer-social">
+          <a href="#" class="social-link">
+            <span class="sr-only">Twitter</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z">
+              </path>
+            </svg>
+          </a>
+          <a href="#" class="social-link">
+            <span class="sr-only">Instagram</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+            </svg>
+          </a>
+          <a href="#" class="social-link">
+            <span class="sr-only">LinkedIn</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+              <rect width="4" height="12" x="2" y="9"></rect>
+              <circle cx="4" cy="4" r="2"></circle>
+            </svg>
+          </a>
+          <a href="#" class="social-link">
+            <span class="sr-only">YouTube</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17">
+              </path>
+              <path d="m10 15 5-3-5-3z"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Mobile menu functionality
+      const mobileMenuButton = document.getElementById('mobileMenuButton');
+      const mobileMenu = document.getElementById('mobileMenu');
+
+      mobileMenuButton.addEventListener('click', function () {
+        mobileMenu.classList.toggle('open');
+        // Change hamburger to X when menu is open
+        const svg = mobileMenuButton.querySelector('svg');
+        if (mobileMenu.classList.contains('open')) {
+          svg.innerHTML = `
+        <line x1="18" x2="6" y1="6" y2="18"></line>
+        <line x1="6" x2="18" y1="6" y2="18"></line>
+      `;
+        } else {
+          svg.innerHTML = `
+        <line x1="4" x2="20" y1="12" y2="12"></line>
+        <line x1="4" x2="20" y1="6" y2="6"></line>
+        <line x1="4" x2="20" y1="18" y2="18"></line>
+      `;
+        }
+      });
+
+      // Close mobile menu when clicking outside
+      document.addEventListener('click', function (event) {
+        if (mobileMenu.classList.contains('open') &&
+          !mobileMenu.contains(event.target) &&
+          !mobileMenuButton.contains(event.target)) {
+          mobileMenu.classList.remove('open');
+          const svg = mobileMenuButton.querySelector('svg');
+          svg.innerHTML = `
+        <line x1="4" x2="20" y1="12" y2="12"></line>
+        <line x1="4" x2="20" y1="6" y2="6"></line>
+        <line x1="4" x2="20" y1="18" y2="18"></line>
+      `;
+        }
+      });
+
+      // Fade in animations
+      const fadeElements = document.querySelectorAll('.fade-in');
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      });
+
+      fadeElements.forEach(element => {
+        observer.observe(element);
+      });
+    });
+  </script>
+</body>
+
+</html>
