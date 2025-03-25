@@ -1,1302 +1,1517 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AthleteSync - Professional Network for Athletes</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
-  <style>
-    :root {
-      --primary: #0070f3;
-      --primary-dark: #0060df;
-      --primary-light: #3291ff;
-      --primary-foreground: #ffffff;
-      --secondary: #f5f5f5;
-      --secondary-foreground: #111111;
-      --background: #ffffff;
-      --foreground: #111111;
-      --muted: #f5f5f5;
-      --muted-foreground: #737373;
-      --border: #e5e5e5;
-      --radius: 0.5rem;
-      --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      color: var(--foreground);
-      background-color: var(--background);
-      line-height: 1.5;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 1rem;
-    }
-
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border-width: 0;
-    }
-
-    /* Header */
-    .header {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      width: 100%;
-      border-bottom: 1px solid var(--border);
-      background-color: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-    }
-
-    .header-container {
-      display: flex;
-      height: 4rem;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 1.25rem;
-      font-weight: 700;
-    }
-
-    .logo svg {
-      color: var(--primary);
-    }
-
-    .nav {
-      display: none;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-      margin-left: 2.5rem;
-      list-style: none;
-    }
-
-    .nav-link {
-      font-size: 0.875rem;
-      font-weight: 500;
-      transition: color 0.2s;
-    }
-
-    .nav-link:hover {
-      color: var(--primary);
-    }
-
-    .search-container {
-      position: relative;
-      display: none;
-    }
-
-    .search-icon {
-      position: absolute;
-      left: 0.625rem;
-      top: 0.625rem;
-      color: var(--muted-foreground);
-      width: 1rem;
-      height: 1rem;
-    }
-
-    .search-input {
-      width: 300px;
-      padding: 0.5rem 0.75rem 0.5rem 2rem;
-      border-radius: 9999px;
-      border: none;
-      background-color: var(--muted);
-      font-size: 0.875rem;
-    }
-
-    .search-input:focus {
-      outline: 2px solid var(--primary);
-      outline-offset: 1px;
-    }
-
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .icon-button {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 2rem;
-      height: 2rem;
-      border-radius: 0.375rem;
-      background-color: transparent;
-      border: none;
-      cursor: pointer;
-      transition: background-color 0.2s;
-    }
-
-    .icon-button:hover {
-      background-color: var(--muted);
-    }
-
-    .mobile-actions {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    /* Hero Section */
-    .hero {
-      position: relative;
-      overflow: hidden;
-      background: linear-gradient(to bottom, rgba(0, 112, 243, 0.1), var(--background));
-      padding-top: 4rem;
-      padding-bottom: 6rem;
-    }
-
-    .hero-container {
-      display: grid;
-      gap: 1.5rem;
-      position: relative;
-      z-index: 10;
-    }
-
-    .hero-content {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    .hero-title {
-      font-size: 2.5rem;
-      font-weight: 700;
-      line-height: 1.1;
-      letter-spacing: -0.025em;
-    }
-
-    .hero-title span {
-      color: var(--primary);
-    }
-
-    .hero-description {
-      max-width: 600px;
-      color: var(--muted-foreground);
-      font-size: 1.125rem;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .hero-image-container {
-      position: relative;
-      aspect-ratio: 1/1;
-      overflow: hidden;
-      border-radius: var(--radius);
-    }
-
-    .hero-image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .hero-image-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top right, rgba(0, 112, 243, 0.2), transparent);
-      mix-blend-mode: overlay;
-    }
-
-    .hero-gradient {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 6rem;
-      background: linear-gradient(to top, var(--background), transparent);
-    }
-
-    /* Button Styles */
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: var(--radius);
-      font-weight: 500;
-      font-size: 0.875rem;
-      line-height: 1.5;
-      transition: all 0.2s;
-      padding: 0.5rem 1rem;
-      cursor: pointer;
-    }
-
-    .button-lg {
-      padding: 0.75rem 1.5rem;
-      font-size: 1rem;
-    }
-
-    .button-primary {
-      background-color: var(--primary);
-      color: var(--primary-foreground);
-      border: none;
-    }
-
-    .button-primary:hover {
-      background-color: var(--primary-dark);
-    }
-
-    .button-outline {
-      background-color: transparent;
-      color: var(--foreground);
-      border: 1px solid var(--border);
-    }
-
-    .button-outline:hover {
-      background-color: var(--muted);
-    }
-
-    /* Section Styles */
-    .section {
-      padding: 3rem 0;
-    }
-
-    .section-lg {
-      padding: 6rem 0;
-    }
-
-    .section-header {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      text-align: center;
-      max-width: 58rem;
-      margin: 0 auto;
-    }
-
-    .section-title {
-      font-size: 2rem;
-      font-weight: 700;
-      line-height: 1.1;
-    }
-
-    .section-description {
-      max-width: 85%;
-      color: var(--muted-foreground);
-      font-size: 1rem;
-    }
-
-    /* Features Section */
-    .features-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1rem;
-      margin-top: 3rem;
-    }
-
-    .feature-card {
-      position: relative;
-      overflow: hidden;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      background-color: var(--background);
-      padding: 1.5rem;
-    }
-
-    .feature-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 3rem;
-      height: 3rem;
-      border-radius: 9999px;
-      background-color: rgba(0, 112, 243, 0.1);
-      color: var(--primary);
-    }
-
-    .feature-title {
-      margin-top: 1rem;
-      font-size: 1.25rem;
-      font-weight: 700;
-    }
-
-    .feature-description {
-      margin-top: 0.5rem;
-      color: var(--muted-foreground);
-    }
-
-    /* Athletes Section */
-    .athletes-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-      margin-top: 3rem;
-    }
-
-    .athlete-card {
-      overflow: hidden;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      background-color: var(--background);
-      transition: all 0.3s;
-    }
-
-    .athlete-card:hover {
-      box-shadow: var(--shadow-lg);
-    }
-
-    .athlete-image-container {
-      position: relative;
-      height: 12rem;
-      width: 100%;
-      overflow: hidden;
-    }
-
-    .athlete-image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.3s;
-    }
-
-    .athlete-card:hover .athlete-image {
-      transform: scale(1.05);
-    }
-
-    .athlete-content {
-      padding: 1.5rem;
-    }
-
-    .athlete-badge {
-      display: inline-block;
-      padding: 0.25rem 0.5rem;
-      border-radius: 9999px;
-      background-color: var(--primary);
-      color: var(--primary-foreground);
-      font-size: 0.75rem;
-      font-weight: 500;
-      margin-bottom: 0.5rem;
-    }
-
-    .athlete-name {
-      font-size: 1.25rem;
-      font-weight: 700;
-    }
-
-    .athlete-title, .athlete-team, .athlete-followers {
-      font-size: 0.875rem;
-      color: var(--muted-foreground);
-      margin-top: 0.25rem;
-    }
-
-    .athlete-followers {
-      margin-top: 1rem;
-    }
-
-    .athlete-footer {
-      padding: 0 1.5rem 1.5rem;
-    }
-
-    /* Testimonial Section */
-    .testimonial-section {
-      background-color: rgba(245, 245, 245, 0.5);
-    }
-
-    .testimonial-container {
-      position: relative;
-      max-width: 48rem;
-      margin: 3rem auto 0;
-      padding: 0 1rem;
-    }
-
-    .testimonial-nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 10;
-    }
-
-    .testimonial-nav-prev {
-      left: 0;
-    }
-
-    .testimonial-nav-next {
-      right: 0;
-    }
-
-    .testimonial-slider {
-      overflow: hidden;
-      padding: 0 2rem;
-    }
-
-    .testimonial-slide {
-      display: none;
-      text-align: center;
-    }
-
-    .testimonial-slide.active {
-      display: block;
-      animation: fadeIn 0.5s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateX(20px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
-
-    .testimonial-quote {
-      color: var(--primary);
-      opacity: 0.5;
-      margin-bottom: 1rem;
-    }
-
-    .testimonial-text {
-      font-size: 1.25rem;
-      font-style: italic;
-      margin-bottom: 1.5rem;
-    }
-
-    .testimonial-author {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-    }
-
-    .testimonial-author-image {
-      width: 3rem;
-      height: 3rem;
-      border-radius: 9999px;
-      object-fit: cover;
-    }
-
-    .testimonial-author-info {
-      text-align: left;
-    }
-
-    .testimonial-author-name {
-      font-weight: 600;
-    }
-
-    .testimonial-author-title {
-      font-size: 0.875rem;
-      color: var(--muted-foreground);
-    }
-
-    .testimonial-dots {
-      display: flex;
-      justify-content: center;
-      gap: 0.25rem;
-      margin-top: 1.5rem;
-    }
-
-    .testimonial-dot {
-      width: 0.5rem;
-      height: 0.5rem;
-      border-radius: 9999px;
-      background-color: rgba(115, 115, 115, 0.2);
-      border: none;
-      padding: 0;
-      cursor: pointer;
-    }
-
-    .testimonial-dot.active {
-      background-color: var(--primary);
-    }
-
-    /* CTA Section */
-    .cta-section {
-      background-color: var(--primary);
-      color: var(--primary-foreground);
-    }
-
-    .cta-section .section-description {
-      color: rgba(255, 255, 255, 0.8);
-    }
-
-    .cta-actions {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      margin-top: 1.5rem;
-    }
-
-    .button-secondary {
-      background-color: white;
-      color: var(--primary);
-      border: none;
-    }
-
-    .button-secondary:hover {
-      background-color: rgba(255, 255, 255, 0.9);
-    }
-
-    .button-outline-light {
-      background-color: transparent;
-      color: white;
-      border: 1px solid rgba(255, 255, 255, 0.5);
-    }
-
-    .button-outline-light:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-
-    /* Footer */
-    .footer {
-      border-top: 1px solid var(--border);
-      background-color: rgba(245, 245, 245, 0.4);
-    }
-
-    .footer-container {
-      padding: 2rem 0;
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 2rem;
-    }
-
-    .footer-brand {
-      grid-column: span 2;
-    }
-
-    .footer-description {
-      margin-top: 1rem;
-      font-size: 0.875rem;
-      color: var(--muted-foreground);
-      max-width: 20rem;
-    }
-
-    .footer-links-title {
-      font-size: 0.875rem;
-      font-weight: 500;
-      margin-bottom: 0.5rem;
-    }
-
-    .footer-links {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    .footer-link {
-      font-size: 0.875rem;
-      color: var(--muted-foreground);
-      transition: color 0.2s;
-    }
-
-    .footer-link:hover {
-      color: var(--foreground);
-    }
-
-    .footer-bottom {
-      margin-top: 2rem;
-      padding-top: 2rem;
-      border-top: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      align-items: center;
-    }
-
-    .footer-copyright {
-      font-size: 0.75rem;
-      color: var(--muted-foreground);
-    }
-
-    .footer-social {
-      display: flex;
-      gap: 1rem;
-    }
-
-    .social-link {
-      color: var(--muted-foreground);
-      transition: color 0.2s;
-    }
-
-    .social-link:hover {
-      color: var(--foreground);
-    }
-
-    /* Responsive Styles */
-    @media (min-width: 640px) {
-      .hero-title {
-        font-size: 3rem;
-      }
-
-      .section-title {
-        font-size: 2.5rem;
-      }
-
-      .section-description {
-        font-size: 1.125rem;
-      }
-
-      .features-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .athletes-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .cta-actions {
-        flex-direction: row;
-      }
-    }
-
-    @media (min-width: 768px) {
-      .nav {
-        display: flex;
-      }
-
-      .search-container {
-        display: block;
-      }
-
-      .mobile-actions {
-        display: none;
-      }
-
-      .section {
-        padding: 6rem 0;
-      }
-
-      .section-lg {
-        padding: 8rem 0;
-      }
-
-      .hero-container {
-        grid-template-columns: 1fr 1fr;
-        align-items: center;
-      }
-
-      .hero-image-container {
-        aspect-ratio: 4/3;
-      }
-
-      .testimonial-text {
-        font-size: 1.5rem;
-      }
-    }
-
-    @media (min-width: 1024px) {
-      .features-grid {
-        grid-template-columns: repeat(4, 1fr);
-      }
-
-      .athletes-grid {
-        grid-template-columns: repeat(4, 1fr);
-      }
-
-      .hero-image-container {
-        aspect-ratio: 3/2;
-      }
-
-      .footer-grid {
-        grid-template-columns: 2fr repeat(3, 1fr);
-      }
-
-      .footer-brand {
-        grid-column: span 1;
-      }
-
-      .footer-bottom {
-        flex-direction: row;
-        justify-content: space-between;
-      }
-    }
-
-    /* Animation Classes */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .stagger-item {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-
-    .stagger-item.visible {
-      opacity: 1;
-      transform: translateY(0);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-
-    .stagger-delay-1 { transition-delay: 0.1s; }
-    .stagger-delay-2 { transition-delay: 0.2s; }
-    .stagger-delay-3 { transition-delay: 0.3s; }
-    .stagger-delay-4 { transition-delay: 0.4s; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AthleteSync - Professional Network for Athletes</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <style>
+        :root {
+            --primary: #0070f3;
+            --primary-dark: #0060df;
+            --primary-light: #3291ff;
+            --primary-foreground: #ffffff;
+            --secondary: #f5f5f5;
+            --secondary-foreground: #111111;
+            --background: #ffffff;
+            --foreground: #111111;
+            --muted: #f5f5f5;
+            --muted-foreground: #737373;
+            --border: #e5e5e5;
+            --radius: 0.5rem;
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            color: var(--foreground);
+            background-color: var(--background);
+            line-height: 1.5;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        /* Header */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            width: 100%;
+            border-bottom: 1px solid var(--border);
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .header-container {
+            display: flex;
+            height: 4rem;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .logo svg {
+            color: var(--primary);
+        }
+
+        .nav {
+            display: none;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-left: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .search-container {
+            position: relative;
+            display: none;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.625rem;
+            top: 0.625rem;
+            color: var(--muted-foreground);
+            width: 1rem;
+            height: 1rem;
+        }
+
+        .search-input {
+            width: 300px;
+            padding: 0.5rem 0.75rem 0.5rem 2rem;
+            border-radius: 9999px;
+            border: none;
+            background-color: var(--muted);
+            font-size: 0.875rem;
+        }
+
+        .search-input:focus {
+            outline: 2px solid var(--primary);
+            outline-offset: 1px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.2rem;
+        }
+
+        .icon-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 0.375rem;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .icon-button:hover {
+            background-color: var(--muted);
+        }
+
+        .mobile-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+
+        /* Mobile Menu */
+        .mobile-menu-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 0.375rem;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .mobile-menu-button:hover {
+            background-color: var(--muted);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 4rem;
+            left: 0;
+            width: 100%;
+            height: calc(100vh - 4rem);
+            background-color: var(--background);
+            z-index: 40;
+            padding: 1.5rem;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+            overflow-y: auto;
+        }
+
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .mobile-nav-link {
+            font-size: 1.125rem;
+            font-weight: 500;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .mobile-nav-link.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(to bottom, rgba(0, 112, 243, 0.1), var(--background));
+            padding-top: 4rem;
+            padding-bottom: 6rem;
+        }
+
+        .hero-container {
+            display: grid;
+            gap: 1.5rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.025em;
+        }
+
+        .hero-title span {
+            color: var(--primary);
+        }
+
+        .hero-description {
+            max-width: 600px;
+            color: var(--muted-foreground);
+            font-size: 1.125rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .hero-image-container {
+            position: relative;
+            aspect-ratio: 1/1;
+            overflow: hidden;
+            border-radius: var(--radius);
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-image-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top right, rgba(0, 112, 243, 0.2), transparent);
+            mix-blend-mode: overlay;
+        }
+
+        .hero-gradient {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 6rem;
+            background: linear-gradient(to top, var(--background), transparent);
+        }
+
+        /* Button Styles */
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius);
+            font-weight: 500;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            transition: all 0.2s;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+        }
+
+        .button-lg {
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+        }
+
+        .button-primary {
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+            border: none;
+        }
+
+        .button-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .button-outline {
+            background-color: transparent;
+            color: var(--foreground);
+            border: 1px solid var(--border);
+        }
+
+        .button-outline:hover {
+            background-color: var(--muted);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 3rem 0;
+        }
+
+        .section-lg {
+            padding: 6rem 0;
+        }
+
+        .section-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            text-align: center;
+            max-width: 58rem;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .section-description {
+            max-width: 85%;
+            color: var(--muted-foreground);
+            font-size: 1rem;
+        }
+
+        /* Features Section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            background-color: var(--background);
+            padding: 1.5rem;
+        }
+
+        .feature-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 9999px;
+            background-color: rgba(0, 112, 243, 0.1);
+            color: var(--primary);
+        }
+
+        .feature-title {
+            margin-top: 1rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .feature-description {
+            margin-top: 0.5rem;
+            color: var(--muted-foreground);
+        }
+
+        /* Athletes Section */
+        .athletes-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .athlete-card {
+            overflow: hidden;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            background-color: var(--background);
+            transition: all 0.3s;
+        }
+
+        .athlete-card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+
+        .athlete-image-container {
+            position: relative;
+            height: 12rem;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .athlete-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .athlete-card:hover .athlete-image {
+            transform: scale(1.05);
+        }
+
+        .athlete-content {
+            padding: 1.5rem;
+        }
+
+        .athlete-badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .athlete-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .athlete-title,
+        .athlete-team,
+        .athlete-followers {
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+            margin-top: 0.25rem;
+        }
+
+        .athlete-followers {
+            margin-top: 1rem;
+        }
+
+        .athlete-footer {
+            padding: 0 1.5rem 1.5rem;
+        }
+
+        /* Testimonial Section */
+        .testimonial-section {
+            background-color: rgba(245, 245, 245, 0.5);
+        }
+
+        .testimonial-container {
+            position: relative;
+            max-width: 48rem;
+            margin: 3rem auto 0;
+            padding: 0 1rem;
+        }
+
+        .testimonial-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        .testimonial-nav-prev {
+            left: 0;
+        }
+
+        .testimonial-nav-next {
+            right: 0;
+        }
+
+        .testimonial-slider {
+            overflow: hidden;
+            padding: 0 2rem;
+        }
+
+        .testimonial-slide {
+            display: none;
+            text-align: center;
+        }
+
+        .testimonial-slide.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .testimonial-quote {
+            color: var(--primary);
+            opacity: 0.5;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-text {
+            font-size: 1.25rem;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .testimonial-author-image {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 9999px;
+            object-fit: cover;
+        }
+
+        .testimonial-author-info {
+            text-align: left;
+        }
+
+        .testimonial-author-name {
+            font-weight: 600;
+        }
+
+        .testimonial-author-title {
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+        }
+
+        .testimonial-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.25rem;
+            margin-top: 1.5rem;
+        }
+
+        .testimonial-dot {
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 9999px;
+            background-color: rgba(115, 115, 115, 0.2);
+            border: none;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        .testimonial-dot.active {
+            background-color: var(--primary);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+        }
+
+        .cta-section .section-description {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .cta-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .button-secondary {
+            background-color: white;
+            color: var(--primary);
+            border: none;
+        }
+
+        .button-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        .button-outline-light {
+            background-color: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .button-outline-light:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Footer */
+        .footer {
+            border-top: 1px solid var(--border);
+            background-color: rgba(245, 245, 245, 0.4);
+        }
+
+        .footer-container {
+            padding: 2rem 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-left: 20px;
+        }
+
+        .footer-brand {
+            grid-column: span 2;
+        }
+
+        .footer-description {
+            margin-top: 1rem;
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+            max-width: 20rem;
+        }
+
+        .footer-links-title {
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .footer-link {
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+            transition: color 0.2s;
+        }
+
+        .footer-link:hover {
+            color: var(--foreground);
+        }
+
+        .footer-bottom {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .footer-copyright {
+            font-size: 0.75rem;
+            color: var(--muted-foreground);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            color: var(--muted-foreground);
+            transition: color 0.2s;
+        }
+
+        .social-link:hover {
+            color: var(--foreground);
+        }
+
+        /* Responsive Styles */
+        @media (min-width: 640px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .section-description {
+                font-size: 1.125rem;
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .athletes-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .cta-actions {
+                flex-direction: row;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .nav {
+                display: flex;
+            }
+
+            .search-container {
+                display: block;
+            }
+
+            .mobile-actions {
+                display: none;
+            }
+
+            .mobile-menu-button {
+                display: none;
+            }
+
+            .section {
+                padding: 6rem 0;
+            }
+
+            .section-lg {
+                padding: 8rem 0;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr 1fr;
+                align-items: center;
+            }
+
+            .hero-image-container {
+                aspect-ratio: 4/3;
+            }
+
+            .testimonial-text {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .features-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .athletes-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .hero-image-container {
+                aspect-ratio: 3/2;
+            }
+
+            .footer-grid {
+                grid-template-columns: 2fr repeat(3, 1fr);
+            }
+
+            .footer-brand {
+                grid-column: span 1;
+            }
+
+            .footer-bottom {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stagger-item {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .stagger-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .stagger-delay-1 {
+            transition-delay: 0.1s;
+        }
+
+        .stagger-delay-2 {
+            transition-delay: 0.2s;
+        }
+
+        .stagger-delay-3 {
+            transition-delay: 0.3s;
+        }
+
+        .stagger-delay-4 {
+            transition-delay: 0.4s;
+        }
+    </style>
 </head>
+
 <body>
-  <header class="header">
-    <div class="container header-container">
-      <div class="flex items-center gap-2">
-        <a href="index.html" class="logo">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
-            <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
-            <path d="M4 22h16"></path>
-            <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
-            <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
-            <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
-          </svg>
-          <span>AthleteSync</span>
-        </a>
-        <nav class="nav">
-          <ul class="nav-links">
-            <li><a href="discover.html" class="nav-link">Discover</a></li>
-            <li><a href="jobs.html" class="nav-link">Jobs</a></li>
-            <li><a href="events.html" class="nav-link">Events</a></li>
-            <li><a href="learning.html" class="nav-link">Learning</a></li>
-            <li><a href="scholarships.html" class="nav-link">Scholarships</a></li>
-          </ul>
-        </nav>
-      </div>
-      <div class="header-actions">
-        <div class="search-container">
-          <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"></circle>
-            <path d="m21 21-4.3-4.3"></path>
-          </svg>
-          <input type="search" class="search-input" placeholder="Search...">
+    <header class="header">
+        <div class="container header-container">
+            <div class="flex items-center gap-2">
+                <a href="index.html" class="logo">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+                        <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+                        <path d="M4 22h16"></path>
+                        <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+                        <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+                        <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+                    </svg>
+                    <span>AthleteSync</span>
+                </a>
+                <nav class="nav">
+                    <ul class="nav-links">
+                        <li><a href="discover.html" class="nav-link">Discover</a></li>
+                        <li><a href="jobs.html" class="nav-link">Jobs</a></li>
+                        <li><a href="events.html" class="nav-link">Events</a></li>
+                        <li><a href="learning.html" class="nav-link">Learning</a></li>
+                        <li><a href="scholarships.html" class="nav-link">Scholarships</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="header-actions">
+                <div class="search-container">
+                    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.3-4.3"></path>
+                    </svg>
+                    <input type="search" class="search-input" placeholder="Search...">
+                </div>
+                <button class="icon-button mobile-actions">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.3-4.3"></path>
+                    </svg>
+                </button>
+                <button class="icon-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                </button>
+                <button class="icon-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path>
+                        <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path>
+                    </svg>
+                </button>
+                <button onclick="window.location.href='register.html'" class="icon-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </button>
+                <button class="mobile-menu-button mobile-actions" id="mobileMenuButton" aria-label="Menu">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="4" x2="20" y1="12" y2="12"></line>
+                        <line x1="4" x2="20" y1="6" y2="6"></line>
+                        <line x1="4" x2="20" y1="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
         </div>
-        <button class="icon-button">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-          </svg>
-        </button>
-        <button class="icon-button">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path>
-            <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path>
-          </svg>
-        </button>
-        <button class="icon-button">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-            <circle cx="12" cy="7" r="4"></circle>
-          </svg>
-        </button>
-      </div>
-      <div class="mobile-actions">
-        <button class="icon-button">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"></circle>
-            <path d="m21 21-4.3-4.3"></path>
-          </svg>
-        </button>
-        <button class="icon-button">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-            <circle cx="12" cy="7" r="4"></circle>
-          </svg>
-        </button>
-      </div>
-    </div>
-  </header>
+    </header>
 
-  <main>
-    <section class="hero">
-      <div class="container hero-container">
-        <div class="hero-content fade-in">
-          <h1 class="hero-title">The Professional Network for <span>Athletes</span></h1>
-          <p class="hero-description">Connect with coaches, scouts, and fellow athletes. Build your personal brand, find opportunities, and take your athletic career to the next level.</p>
-          <div class="hero-actions">
-            <a href="register.html" class="button button-primary button-lg">Join Now</a>
-            <a href="login.html" class="button button-outline button-lg">Sign In</a>
-          </div>
-        </div>
-        <div class="hero-image-container fade-in">
-          <img src="https://placehold.co/1200x800" alt="Athletes networking" class="hero-image">
-          <div class="hero-image-overlay"></div>
-        </div>
-      </div>
-      <div class="hero-gradient"></div>
-    </section>
-
-    <section class="section-lg">
-      <div class="container">
-        <div class="section-header fade-in">
-          <h2 class="section-title">Connect with Elite Athletes & Sports Professionals</h2>
-          <p class="section-description">Build your professional network in the sports industry. Find opportunities, mentors, and teammates who can help advance your athletic career.</p>
-          <div class="flex flex-wrap items-center justify-center gap-4">
-            <a href="register.html" class="button button-primary">Join Now</a>
-            <a href="about.html" class="button button-outline">Learn More</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" style="background-color: rgba(245, 245, 245, 0.5);">
-      <div class="container">
-        <div class="features-grid">
-          <div class="feature-card stagger-item">
-            <div class="feature-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
-                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
-                <path d="M4 22h16"></path>
-                <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
-                <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
-                <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
-              </svg>
-            </div>
-            <h3 class="feature-title">Showcase Achievements</h3>
-            <p class="feature-description">Display your athletic accomplishments, stats, and career highlights.</p>
-          </div>
-          <div class="feature-card stagger-item stagger-delay-1">
-            <div class="feature-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect width="20" height="14" x="2" y="7" rx="2" ry="2"></rect>
-                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-              </svg>
-            </div>
-            <h3 class="feature-title">Find Opportunities</h3>
-            <p class="feature-description">Discover sponsorships, team openings, and career opportunities.</p>
-          </div>
-          <div class="feature-card stagger-item stagger-delay-2">
-            <div class="feature-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                <circle cx="9" cy="7" r="4"></circle>
-                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-              </svg>
-            </div>
-            <h3 class="feature-title">Network with Pros</h3>
-            <p class="feature-description">Connect with coaches, scouts, agents, and fellow athletes.</p>
-          </div>
-          <div class="feature-card stagger-item stagger-delay-3">
-            <div class="feature-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-              </svg>
-            </div>
-            <h3 class="feature-title">Engage & Learn</h3>
-            <p class="feature-description">Share insights, join discussions, and learn from industry experts.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section-lg">
-      <div class="container">
-        <div class="section-header fade-in">
-          <h2 class="section-title">Featured Athletes</h2>
-          <p class="section-description">Connect with top athletes from around the world who are already building their professional network.</p>
-        </div>
-
-        <div class="athletes-grid">
-          <div class="athlete-card stagger-item">
-            <div class="athlete-image-container">
-              <img src="https://placehold.co/400x400" alt="Alex Johnson" class="athlete-image">
-            </div>
-            <div class="athlete-content">
-              <span class="athlete-badge">Basketball</span>
-              <h3 class="athlete-name">Alex Johnson</h3>
-              <p class="athlete-title">Professional Basketball Player</p>
-              <p class="athlete-team">Chicago Defenders</p>
-              <p class="athlete-followers">245K followers</p>
-            </div>
-            <div class="athlete-footer">
-              <button class="button button-outline" style="width: 100%;">Connect</button>
-            </div>
-          </div>
-          <div class="athlete-card stagger-item stagger-delay-1">
-            <div class="athlete-image-container">
-              <img src="https://placehold.co/400x400" alt="Sarah Williams" class="athlete-image">
-            </div>
-            <div class="athlete-content">
-              <span class="athlete-badge">Soccer</span>
-              <h3 class="athlete-name">Sarah Williams</h3>
-              <p class="athlete-title">Olympic Gold Medalist</p>
-              <p class="athlete-team">USA National Team</p>
-              <p class="athlete-followers">1.2M followers</p>
-            </div>
-            <div class="athlete-footer">
-              <button class="button button-outline" style="width: 100%;">Connect</button>
-            </div>
-          </div>
-          <div class="athlete-card stagger-item stagger-delay-2">
-            <div class="athlete-image-container">
-              <img src="https://placehold.co/400x400" alt="Marcus Chen" class="athlete-image">
-            </div>
-            <div class="athlete-content">
-              <span class="athlete-badge">Swimming</span>
-              <h3 class="athlete-name">Marcus Chen</h3>
-              <p class="athlete-title">World Record Holder</p>
-              <p class="athlete-team">LA Aquatics</p>
-              <p class="athlete-followers">780K followers</p>
-            </div>
-            <div class="athlete-footer">
-              <button class="button button-outline" style="width: 100%;">Connect</button>
-            </div>
-          </div>
-          <div class="athlete-card stagger-item stagger-delay-3">
-            <div class="athlete-image-container">
-              <img src="https://placehold.co/400x400" alt="Jasmine Rodriguez" class="athlete-image">
-            </div>
-            <div class="athlete-content">
-              <span class="athlete-badge">Tennis</span>
-              <h3 class="athlete-name">Jasmine Rodriguez</h3>
-              <p class="athlete-title">Grand Slam Champion</p>
-              <p class="athlete-team">Independent</p>
-              <p class="athlete-followers">3.5M followers</p>
-            </div>
-            <div class="athlete-footer">
-              <button class="button button-outline" style="width: 100%;">Connect</button>
-            </div>
-          </div>
-        </div>
-
-        <div style="margin-top: 3rem; text-align: center;">
-          <a href="discover.html" class="button button-outline">Discover More Athletes</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section-lg">
-      <div class="container">
-        <div class="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center" style="display: grid; gap: 1.5rem;">
-          <div class="space-y-4 fade-in">
-            <h2 class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl" style="font-size: 2rem; font-weight: 700; line-height: 1.1;">
-              Take Your Athletic Career to the Next Level
-            </h2>
-            <p class="text-muted-foreground md:text-xl" style="color: var(--muted-foreground); margin-top: 1rem;">
-              Whether you're a professional athlete, college prospect, or sports industry professional, AthleteSync provides the tools and network you need to succeed.
-            </p>
-            <ul style="margin-top: 1rem;">
-              <li style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);">
-                  <path d="m9 18 6-6-6-6"/>
-                </svg>
-                <span>Build a professional profile showcasing your athletic achievements</span>
-              </li>
-              <li style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);">
-                  <path d="m9 18 6-6-6-6"/>
-                </svg>
-                <span>Connect with coaches, scouts, and sports industry professionals</span>
-              </li>
-              <li style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);">
-                  <path d="m9 18 6-6-6-6"/>
-                </svg>
-                <span>Discover opportunities for advancement in your sport</span>
-              </li>
-              <li style="display: flex; align-items: center; gap: 0.5rem;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);">
-                  <path d="m9 18 6-6-6-6"/>
-                </svg>
-                <span>Share training insights and learn from elite performers</span>
-              </li>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <nav>
+            <ul class="mobile-nav-links">
+                <li><a href="discover.html" class="mobile-nav-link">Discover</a></li>
+                <li><a href="jobs.html" class="mobile-nav-link">Jobs</a></li>
+                <li><a href="events.html" class="mobile-nav-link">Events</a></li>
+                <li><a href="learning.html" class="mobile-nav-link">Learning</a></li>
+                <li><a href="scholarships.html" class="mobile-nav-link">Scholarships</a></li>
             </ul>
-            <div style="margin-top: 1.5rem;">
-              <a href="register.html" class="button button-primary">Get Started</a>
-            </div>
-          </div>
-          <div class="relative aspect-video overflow-hidden rounded-xl fade-in" style="border-radius: var(--radius); overflow: hidden; position: relative; aspect-ratio: 16/9;">
-            <img src="https://placehold.co/1280x720" alt="Athletes networking" style="width: 100%; height: 100%; object-fit: cover;">
-          </div>
+        </nav>
+        <div class="mobile-menu-actions">
+            <a href="login.html" class="button button-outline button-lg" style="width: 100%; margin-bottom: 1rem;">Sign
+                In</a>
+            <a href="register.html" class="button button-primary button-lg" style="width: 100%;">Join Now</a>
         </div>
-      </div>
-    </section>
-
-    <section class="testimonial-section section-lg">
-      <div class="container">
-        <div class="section-header fade-in">
-          <h2 class="section-title">Success Stories</h2>
-          <p class="section-description">Hear from athletes who have advanced their careers through AthleteSync.</p>
-        </div>
-
-        <div class="testimonial-container">
-          <button class="testimonial-nav testimonial-nav-prev button button-outline" style="width: 2rem; height: 2rem; border-radius: 9999px; padding: 0; display: flex; align-items: center; justify-content: center;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="m15 18-6-6 6-6"/>
-            </svg>
-            <span class="sr-only">Previous testimonial</span>
-          </button>
-          <button class="testimonial-nav testimonial-nav-next button button-outline" style="width: 2rem; height: 2rem; border-radius: 9999px; padding: 0; display: flex; align-items: center; justify-content: center;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="m9 18 6-6-6-6"/>
-            </svg>
-            <span class="sr-only">Next testimonial</span>
-          </button>
-
-          <div class="testimonial-slider">
-            <div class="testimonial-slide active" data-index="0">
-              <svg class="testimonial-quote" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"></path>
-                <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"></path>
-              </svg>
-              <p class="testimonial-text">
-                "AthleteSync helped me connect with scouts and secure my first professional contract. The networking opportunities are unmatched in the sports industry."
-              </p>
-              <div class="testimonial-author">
-                <img src="https://placehold.co/200x200" alt="Michael Torres" class="testimonial-author-image">
-                <div class="testimonial-author-info">
-                  <div class="testimonial-author-name">Michael Torres</div>
-                  <div class="testimonial-author-title">Professional Soccer Player</div>
-                </div>
-              </div>
-            </div>
-            <div class="testimonial-slide" data-index="1">
-              <svg class="testimonial-quote" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"></path>
-                <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"></path>
-              </svg>
-              <p class="testimonial-text">
-                "As a college athlete looking to go pro, AthleteSync provided me with valuable connections and insights from established professionals in my sport."
-              </p>
-              <div class="testimonial-author">
-                <img src="https://placehold.co/200x200" alt="Aisha Johnson" class="testimonial-author-image">
-                <div class="testimonial-author-info">
-                  <div class="testimonial-author-name">Aisha Johnson</div>
-                  <div class="testimonial-author-title">Track & Field Athlete</div>
-                </div>
-              </div>
-            </div>
-            <div class="testimonial-slide" data-index="2">
-              <svg class="testimonial-quote" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"></path>
-                <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"></path>
-              </svg>
-              <p class="testimonial-text">
-                "The platform made it easy to showcase my achievements and connect with sponsors. I've secured two major endorsement deals through contacts I made here."
-              </p>
-              <div class="testimonial-author">
-                <img src="https://placehold.co/200x200" alt="David Chen" class="testimonial-author-image">
-                <div class="testimonial-author-info">
-                  <div class="testimonial-author-name">David Chen</div>
-                  <div class="testimonial-author-title">Olympic Swimmer</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="testimonial-dots">
-            <button class="testimonial-dot active" data-index="0">
-              <span class="sr-only">Go to testimonial 1</span>
-            </button>
-            <button class="testimonial-dot" data-index="1">
-              <span class="sr-only">Go to testimonial 2</span>
-            </button>
-            <button class="testimonial-dot" data-index="2">
-              <span class="sr-only">Go to testimonial 3</span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="cta-section section-lg">
-      <div class="container">
-        <div class="section-header fade-in">
-          <h2 class="section-title">Join the Premier Network for Athletes</h2>
-          <p class="section-description">Connect with thousands of athletes and sports professionals. Start building your professional sports network today.</p>
-          <div class="cta-actions">
-            <a href="register.html" class="button button-secondary button-lg">Create Account</a>
-            <a href="login.html" class="button button-outline-light button-lg">Sign In</a>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="container footer-container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <a href="index.html" class="logo">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
-              <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
-              <path d="M4 22h16"></path>
-              <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
-              <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
-              <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
-            </svg>
-            <span>AthleteSync</span>
-          </a>
-          <p class="footer-description">
-            The professional network for athletes and sports industry professionals. Connect, grow, and advance your career.
-          </p>
-        </div>
-        <div>
-          <h3 class="footer-links-title">Platform</h3>
-          <div class="footer-links">
-            <a href="#" class="footer-link">Features</a>
-            <a href="#" class="footer-link">Pricing</a>
-            <a href="#" class="footer-link">FAQ</a>
-            <a href="#" class="footer-link">Testimonials</a>
-          </div>
-        </div>
-        <div>
-          <h3 class="footer-links-title">Company</h3>
-          <div class="footer-links">
-            <a href="#" class="footer-link">About</a>
-            <a href="#" class="footer-link">Careers</a>
-            <a href="#" class="footer-link">Blog</a>
-            <a href="#" class="footer-link">Press</a>
-          </div>
-        </div>
-        <div>
-          <h3 class="footer-links-title">Legal</h3>
-          <div class="footer-links">
-            <a href="#" class="footer-link">Terms</a>
-            <a href="#" class="footer-link">Privacy</a>
-            <a href="#" class="footer-link">Cookies</a>
-            <a href="#" class="footer-link">Contact</a>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p class="footer-copyright">
-          &copy; 2025 AthleteSync. All rights reserved.
-        </p>
-        <div class="footer-social">
-          <a href="#" class="social-link">
-            <span class="sr-only">Twitter</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
-            </svg>
-          </a>
-          <a href="#" class="social-link">
-            <span class="sr-only">Instagram</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
-              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-              <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
-            </svg>
-          </a>
-          <a href="#" class="social-link">
-            <span class="sr-only">LinkedIn</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-              <rect width="4" height="12" x="2" y="9"></rect>
-              <circle cx="4" cy="4" r="2"></circle>
-            </svg>
-          </a>
-          <a href="#" class="social-link">
-            <span class="sr-only">YouTube</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"></path>
-              <path d="m10 15 5-3-5-3z"></path>
-            </svg>
-          </a>
-        </div>
-      </div>
     </div>
-  </footer>
+    <main>
+        <section class="hero">
+            <div class="container hero-container">
+                <div class="hero-content fade-in">
+                    <h1 class="hero-title">The Professional Network for <span>Athletes</span></h1>
+                    <p class="hero-description">Connect with coaches, scouts, and fellow athletes. Build your personal
+                        brand, find opportunities, and take your athletic career to the next level.</p>
+                    <div class="hero-actions">
+                        <a href="register.html" class="button button-primary button-lg">Join Now</a>
+                        <a href="login.html" class="button button-outline button-lg">Sign In</a>
+                    </div>
+                </div>
+                <div class="hero-image-container fade-in">
+                    <img src="https://placehold.co/1200x800" alt="Athletes networking" class="hero-image">
+                    <div class="hero-image-overlay"></div>
+                </div>
+            </div>
+            <div class="hero-gradient"></div>
+        </section>
 
-  <script>
-    // Intersection Observer for fade-in animations
-    document.addEventListener('DOMContentLoaded', function() {
-      const fadeElements = document.querySelectorAll('.fade-in, .stagger-item');
-      
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
+        <section class="section-lg">
+            <div class="container">
+                <div class="section-header fade-in">
+                    <h2 class="section-title">Connect with Elite Athletes & Sports Professionals</h2>
+                    <p class="section-description">Build your professional network in the sports industry. Find
+                        opportunities, mentors, and teammates who can help advance your athletic career.</p>
+                    <div class="flex flex-wrap items-center justify-center gap-4">
+                        <a href="register.html" class="button button-primary">Join Now</a>
+                        <a href="about.html" class="button button-outline">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="background-color: rgba(245, 245, 245, 0.5);">
+            <div class="container">
+                <div class="features-grid">
+                    <div class="feature-card stagger-item">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+                                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+                                <path d="M4 22h16"></path>
+                                <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+                                <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+                                <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Showcase Achievements</h3>
+                        <p class="feature-description">Display your athletic accomplishments, stats, and career
+                            highlights.</p>
+                    </div>
+                    <div class="feature-card stagger-item stagger-delay-1">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <rect width="20" height="14" x="2" y="7" rx="2" ry="2"></rect>
+                                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Find Opportunities</h3>
+                        <p class="feature-description">Discover sponsorships, team openings, and career opportunities.
+                        </p>
+                    </div>
+                    <div class="feature-card stagger-item stagger-delay-2">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Network with Pros</h3>
+                        <p class="feature-description">Connect with coaches, scouts, agents, and fellow athletes.</p>
+                    </div>
+                    <div class="feature-card stagger-item stagger-delay-3">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Engage & Learn</h3>
+                        <p class="feature-description">Share insights, join discussions, and learn from industry
+                            experts.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-lg">
+            <div class="container">
+                <div class="section-header fade-in">
+                    <h2 class="section-title">Featured Athletes</h2>
+                    <p class="section-description">Connect with top athletes from around the world who are already
+                        building their professional network.</p>
+                </div>
+
+                <div class="athletes-grid">
+                    <div class="athlete-card stagger-item">
+                        <div class="athlete-image-container">
+                            <img src="https://placehold.co/400x400" alt="Alex Johnson" class="athlete-image">
+                        </div>
+                        <div class="athlete-content">
+                            <span class="athlete-badge">Basketball</span>
+                            <h3 class="athlete-name">Alex Johnson</h3>
+                            <p class="athlete-title">Professional Basketball Player</p>
+                            <p class="athlete-team">Chicago Defenders</p>
+                            <p class="athlete-followers">245K followers</p>
+                        </div>
+                        <div class="athlete-footer">
+                            <button class="button button-outline" style="width: 100%;">Connect</button>
+                        </div>
+                    </div>
+                    <div class="athlete-card stagger-item stagger-delay-1">
+                        <div class="athlete-image-container">
+                            <img src="https://placehold.co/400x400" alt="Sarah Williams" class="athlete-image">
+                        </div>
+                        <div class="athlete-content">
+                            <span class="athlete-badge">Soccer</span>
+                            <h3 class="athlete-name">Sarah Williams</h3>
+                            <p class="athlete-title">Olympic Gold Medalist</p>
+                            <p class="athlete-team">USA National Team</p>
+                            <p class="athlete-followers">1.2M followers</p>
+                        </div>
+                        <div class="athlete-footer">
+                            <button class="button button-outline" style="width: 100%;">Connect</button>
+                        </div>
+                    </div>
+                    <div class="athlete-card stagger-item stagger-delay-2">
+                        <div class="athlete-image-container">
+                            <img src="https://placehold.co/400x400" alt="Marcus Chen" class="athlete-image">
+                        </div>
+                        <div class="athlete-content">
+                            <span class="athlete-badge">Swimming</span>
+                            <h3 class="athlete-name">Marcus Chen</h3>
+                            <p class="athlete-title">World Record Holder</p>
+                            <p class="athlete-team">LA Aquatics</p>
+                            <p class="athlete-followers">780K followers</p>
+                        </div>
+                        <div class="athlete-footer">
+                            <button class="button button-outline" style="width: 100%;">Connect</button>
+                        </div>
+                    </div>
+                    <div class="athlete-card stagger-item stagger-delay-3">
+                        <div class="athlete-image-container">
+                            <img src="https://placehold.co/400x400" alt="Jasmine Rodriguez" class="athlete-image">
+                        </div>
+                        <div class="athlete-content">
+                            <span class="athlete-badge">Tennis</span>
+                            <h3 class="athlete-name">Jasmine Rodriguez</h3>
+                            <p class="athlete-title">Grand Slam Champion</p>
+                            <p class="athlete-team">Independent</p>
+                            <p class="athlete-followers">3.5M followers</p>
+                        </div>
+                        <div class="athlete-footer">
+                            <button class="button button-outline" style="width: 100%;">Connect</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 3rem; text-align: center;">
+                    <a href="discover.html" class="button button-outline">Discover More Athletes</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-lg">
+            <div class="container">
+                <div class="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center" style="display: grid; gap: 1.5rem;">
+                    <div class="space-y-4 fade-in">
+                        <h2 class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl"
+                            style="font-size: 2rem; font-weight: 700; line-height: 1.1;">
+                            Take Your Athletic Career to the Next Level
+                        </h2>
+                        <p class="text-muted-foreground md:text-xl"
+                            style="color: var(--muted-foreground); margin-top: 1rem;">
+                            Whether you're a professional athlete, college prospect, or sports industry professional,
+                            AthleteSync provides the tools and network you need to succeed.
+                        </p>
+                        <ul style="margin-top: 1rem;">
+                            <li style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" style="color: var(--primary);">
+                                    <path d="m9 18 6-6-6-6" />
+                                </svg>
+                                <span>Build a professional profile showcasing your athletic achievements</span>
+                            </li>
+                            <li style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" style="color: var(--primary);">
+                                    <path d="m9 18 6-6-6-6" />
+                                </svg>
+                                <span>Connect with coaches, scouts, and sports industry professionals</span>
+                            </li>
+                            <li style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" style="color: var(--primary);">
+                                    <path d="m9 18 6-6-6-6" />
+                                </svg>
+                                <span>Discover opportunities for advancement in your sport</span>
+                            </li>
+                            <li style="display: flex; align-items: center; gap: 0.5rem;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" style="color: var(--primary);">
+                                    <path d="m9 18 6-6-6-6" />
+                                </svg>
+                                <span>Share training insights and learn from elite performers</span>
+                            </li>
+                        </ul>
+                        <div style="margin-top: 1.5rem;">
+                            <a href="register.html" class="button button-primary">Get Started</a>
+                        </div>
+                    </div>
+                    <div class="relative aspect-video overflow-hidden rounded-xl fade-in"
+                        style="border-radius: var(--radius); overflow: hidden; position: relative; aspect-ratio: 16/9;">
+                        <img src="https://placehold.co/1280x720" alt="Athletes networking"
+                            style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonial-section section-lg">
+            <div class="container">
+                <div class="section-header fade-in">
+                    <h2 class="section-title">Success Stories</h2>
+                    <p class="section-description">Hear from athletes who have advanced their careers through
+                        AthleteSync.</p>
+                </div>
+
+                <div class="testimonial-container">
+                    <button class="testimonial-nav testimonial-nav-prev button button-outline"
+                        style="width: 2rem; height: 2rem; border-radius: 9999px; padding: 0; display: flex; align-items: center; justify-content: center;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m15 18-6-6 6-6" />
+                        </svg>
+                        <span class="sr-only">Previous testimonial</span>
+                    </button>
+                    <button class="testimonial-nav testimonial-nav-next button button-outline"
+                        style="width: 2rem; height: 2rem; border-radius: 9999px; padding: 0; display: flex; align-items: center; justify-content: center;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m9 18 6-6-6-6" />
+                        </svg>
+                        <span class="sr-only">Next testimonial</span>
+                    </button>
+
+                    <div class="testimonial-slider">
+                        <div class="testimonial-slide active" data-index="0">
+                            <svg class="testimonial-quote" xmlns="http://www.w3.org/2000/svg" width="48" height="48"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z">
+                                </path>
+                                <path
+                                    d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z">
+                                </path>
+                            </svg>
+                            <p class="testimonial-text">
+                                "AthleteSync helped me connect with scouts and secure my first professional contract.
+                                The networking opportunities are unmatched in the sports industry."
+                            </p>
+                            <div class="testimonial-author">
+                                <img src="https://placehold.co/200x200" alt="Michael Torres"
+                                    class="testimonial-author-image">
+                                <div class="testimonial-author-info">
+                                    <div class="testimonial-author-name">Michael Torres</div>
+                                    <div class="testimonial-author-title">Professional Soccer Player</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-slide" data-index="1">
+                            <svg class="testimonial-quote" xmlns="http://www.w3.org/2000/svg" width="48" height="48"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z">
+                                </path>
+                                <path
+                                    d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z">
+                                </path>
+                            </svg>
+                            <p class="testimonial-text">
+                                "As a college athlete looking to go pro, AthleteSync provided me with valuable
+                                connections and insights from established professionals in my sport."
+                            </p>
+                            <div class="testimonial-author">
+                                <img src="https://placehold.co/200x200" alt="Aisha Johnson"
+                                    class="testimonial-author-image">
+                                <div class="testimonial-author-info">
+                                    <div class="testimonial-author-name">Aisha Johnson</div>
+                                    <div class="testimonial-author-title">Track & Field Athlete</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-slide" data-index="2">
+                            <svg class="testimonial-quote" xmlns="http://www.w3.org/2000/svg" width="48" height="48"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z">
+                                </path>
+                                <path
+                                    d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z">
+                                </path>
+                            </svg>
+                            <p class="testimonial-text">
+                                "The platform made it easy to showcase my achievements and connect with sponsors. I've
+                                secured two major endorsement deals through contacts I made here."
+                            </p>
+                            <div class="testimonial-author">
+                                <img src="https://placehold.co/200x200" alt="David Chen"
+                                    class="testimonial-author-image">
+                                <div class="testimonial-author-info">
+                                    <div class="testimonial-author-name">David Chen</div>
+                                    <div class="testimonial-author-title">Olympic Swimmer</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-dots">
+                        <button class="testimonial-dot active" data-index="0">
+                            <span class="sr-only">Go to testimonial 1</span>
+                        </button>
+                        <button class="testimonial-dot" data-index="1">
+                            <span class="sr-only">Go to testimonial 2</span>
+                        </button>
+                        <button class="testimonial-dot" data-index="2">
+                            <span class="sr-only">Go to testimonial 3</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section section-lg">
+            <div class="container">
+                <div class="section-header fade-in">
+                    <h2 class="section-title">Join the Premier Network for Athletes</h2>
+                    <p class="section-description">Connect with thousands of athletes and sports professionals. Start
+                        building your professional sports network today.</p>
+                    <div class="cta-actions">
+                        <a href="register.html" class="button button-secondary button-lg">Create Account</a>
+                        <a href="login.html" class="button button-outline-light button-lg">Sign In</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+                            <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+                            <path d="M4 22h16"></path>
+                            <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+                            <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+                            <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+                        </svg>
+                        <span>AthleteSync</span>
+                    </a>
+                    <p class="footer-description">
+                        The professional network for athletes and sports industry professionals. Connect, grow, and
+                        advance your career.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="footer-links-title">Platform</h3>
+                    <div class="footer-links">
+                        <a href="#" class="footer-link">Features</a>
+                        <a href="#" class="footer-link">Pricing</a>
+                        <a href="#" class="footer-link">FAQ</a>
+                        <a href="#" class="footer-link">Testimonials</a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="footer-links-title">Company</h3>
+                    <div class="footer-links">
+                        <a href="about.html" class="footer-link">About</a>
+                        <a href="#" class="footer-link">Careers</a>
+                        <a href="#" class="footer-link">Blog</a>
+                        <a href="#" class="footer-link">Press</a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="footer-links-title">Legal</h3>
+                    <div class="footer-links">
+                        <a href="terms.html" class="footer-link">Terms</a>
+                        <a href="privacy.html" class="footer-link">Privacy</a>
+                        <a href="#" class="footer-link">Cookies</a>
+                        <a href="#" class="footer-link">Contact</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    &copy; 2025 AthleteSync. All rights reserved.
+                </p>
+                <div class="footer-social">
+                    <a href="#" class="social-link">
+                        <span class="sr-only">Twitter</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z">
+                            </path>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link">
+                        <span class="sr-only">Instagram</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link">
+                        <span class="sr-only">LinkedIn</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
+                            </path>
+                            <rect width="4" height="12" x="2" y="9"></rect>
+                            <circle cx="4" cy="4" r="2"></circle>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link">
+                        <span class="sr-only">YouTube</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17">
+                            </path>
+                            <path d="m10 15 5-3-5-3z"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Intersection Observer for fade-in animations
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // Mobile menu functionality
+            const mobileMenuButton = document.getElementById('mobileMenuButton');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            mobileMenuButton.addEventListener('click', function () {
+                mobileMenu.classList.toggle('open');
+                // Change hamburger to X when menu is open
+                const svg = mobileMenuButton.querySelector('svg');
+                if (mobileMenu.classList.contains('open')) {
+                    svg.innerHTML = `
+            <line x1="18" x2="6" y1="6" y2="18"></line>
+            <line x1="6" x2="18" y1="6" y2="18"></line>
+      `;
+                } else {
+                    svg.innerHTML = `
+            <line x1="4" x2="20" y1="12" y2="12"></line>
+            <line x1="4" x2="20" y1="6" y2="6"></line>
+            <line x1="4" x2="20" y1="18" y2="18"></line>
+      `;
+                }
+            });
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function (event) {
+                if (mobileMenu.classList.contains('open') &&
+                    !mobileMenu.contains(event.target) &&
+                    !mobileMenuButton.contains(event.target)) {
+                    mobileMenu.classList.remove('open');
+                    const svg = mobileMenuButton.querySelector('svg');
+                    svg.innerHTML = `
+        <line x1="4" x2="20" y1="12" y2="12"></line>
+        <line x1="4" x2="20" y1="6" y2="6"></line>
+        <line x1="4" x2="20" y1="18" y2="18"></line>
+      `;
+                }
+            });
+
+            const fadeElements = document.querySelectorAll('.fade-in, .stagger-item');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            fadeElements.forEach(element => {
+                observer.observe(element);
+            });
+
+            // Testimonial Slider
+            const slides = document.querySelectorAll('.testimonial-slide');
+            const dots = document.querySelectorAll('.testimonial-dot');
+            const prevBtn = document.querySelector('.testimonial-nav-prev');
+            const nextBtn = document.querySelector('.testimonial-nav-next');
+            let currentSlide = 0;
+
+            function showSlide(index) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                dots.forEach(dot => dot.classList.remove('active'));
+
+                slides[index].classList.add('active');
+                dots[index].classList.add('active');
+                currentSlide = index;
+            }
+
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }
+
+            function prevSlide() {
+                currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                showSlide(currentSlide);
+            }
+
+            // Event listeners
+            prevBtn.addEventListener('click', prevSlide);
+            nextBtn.addEventListener('click', nextSlide);
+
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    showSlide(index);
+                });
+            });
+
+            // Auto-rotate testimonials
+            let slideInterval = setInterval(nextSlide, 5000);
+
+            const testimonialContainer = document.querySelector('.testimonial-container');
+
+            testimonialContainer.addEventListener('mouseenter', () => {
+                clearInterval(slideInterval);
+            });
+
+            testimonialContainer.addEventListener('mouseleave', () => {
+                slideInterval = setInterval(nextSlide, 5000);
+            });
         });
-      }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      });
-      
-      fadeElements.forEach(element => {
-        observer.observe(element);
-      });
-      
-      // Testimonial Slider
-      const slides = document.querySelectorAll('.testimonial-slide');
-      const dots = document.querySelectorAll('.testimonial-dot');
-      const prevBtn = document.querySelector('.testimonial-nav-prev');
-      const nextBtn = document.querySelector('.testimonial-nav-next');
-      let currentSlide = 0;
-      
-      function showSlide(index) {
-        slides.forEach(slide => slide.classList.remove('active'));
-        dots.forEach(dot => dot.classList.remove('active'));
-        
-        slides[index].classList.add('active');
-        dots[index].classList.add('active');
-        currentSlide = index;
-      }
-      
-      function nextSlide() {
-        currentSlide = (currentSlide + 1) % slides.length;
-        showSlide(currentSlide);
-      }
-      
-      function prevSlide() {
-        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-        showSlide(currentSlide);
-      }
-      
-      // Event listeners
-      prevBtn.addEventListener('click', prevSlide);
-      nextBtn.addEventListener('click', nextSlide);
-      
-      dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => {
-          showSlide(index);
-        });
-      });
-      
-      // Auto-rotate testimonials
-      let slideInterval = setInterval(nextSlide, 5000);
-      
-      const testimonialContainer = document.querySelector('.testimonial-container');
-      
-      testimonialContainer.addEventListener('mouseenter', () => {
-        clearInterval(slideInterval);
-      });
-      
-      testimonialContainer.addEventListener('mouseleave', () => {
-        slideInterval = setInterval(nextSlide, 5000);
-      });
-    });
-  </script>
+    </script>
 </body>
+
 </html>
