@@ -177,6 +177,62 @@
     gap: 1rem;
   }
 
+  /* Mobile Menu */
+  .mobile-menu-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 0.375rem;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .mobile-menu-button:hover {
+      background-color: var(--muted);
+    }
+
+    .mobile-menu {
+      position: fixed;
+      top: 4rem;
+      left: 0;
+      width: 100%;
+      height: calc(100vh - 4rem);
+      background-color: var(--background);
+      z-index: 40;
+      padding: 1.5rem;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease-in-out;
+      overflow-y: auto;
+    }
+
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+
+    .mobile-nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+
+    .mobile-nav-link {
+      font-size: 1.125rem;
+      font-weight: 500;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .mobile-nav-link.active {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
   /* Button Styles */
   .button {
     display: inline-flex;
@@ -837,6 +893,7 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
+    margin-left: 20px;
   }
 
   .footer-brand {
@@ -1005,6 +1062,21 @@
     }
   }
 
+  @media (max-width: 768px) {
+      .header-actions {
+        display: none;
+      }
+
+    .category-card {
+        gap: 0.2rem;
+        padding: 0.2rem;
+      }
+
+      .categories-grid {
+        gap: 0.5rem;
+      }
+    }
+
   /* Animation Classes */
   .fade-in {
     opacity: 0;
@@ -1079,7 +1151,9 @@
         </svg>
       </button>
       <div class="icon-button">
-        <img src="https://placehold.co/40x40" alt="Profile" width="24" height="24" style="border-radius: 50%;">
+        <a href="dashboard.html">
+          <img src="img/jg.jpg" alt="Profile" width="24" height="24" style="border-radius: 50%;">
+        </a>
       </div>
     </div>
     <div class="mobile-actions">
@@ -1090,11 +1164,38 @@
         </svg>
       </button>
       <div class="icon-button">
-        <img src="https://placehold.co/40x40" alt="Profile" width="24" height="24" style="border-radius: 50%;">
+        <a href="dashboard.html">
+          <img src="img/jg.jpg" alt="Profile" width="24" height="24" style="border-radius: 50%;">
+        </a>
       </div>
+      <button class="mobile-menu-button" id="mobileMenuButton" aria-label="Menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="4" x2="20" y1="12" y2="12"></line>
+          <line x1="4" x2="20" y1="6" y2="6"></line>
+          <line x1="4" x2="20" y1="18" y2="18"></line>
+        </svg>
+      </button>
     </div>
   </div>
 </header>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <nav>
+    <ul class="mobile-nav-links">
+      <li><a href="discover.html" class="mobile-nav-link">Discover</a></li>
+      <li><a href="jobs.html" class="mobile-nav-link">Jobs</a></li>
+      <li><a href="events.html" class="mobile-nav-link">Events</a></li>
+      <li><a href="learning.html" class="mobile-nav-link">Learning</a></li>
+      <li><a href="scholarships.html" class="mobile-nav-link">Scholarships</a></li>
+    </ul>
+  </nav>
+  <div class="mobile-menu-actions">
+    <a href="login.html" class="button button-outline button-lg" style="width: 100%; margin-bottom: 1rem;">Sign In</a>
+    <a href="register.html" class="button button-primary button-lg" style="width: 100%;">Join Now</a>
+  </div>
+</div>
 
 <main>
   <section class="page-header">
@@ -1147,11 +1248,11 @@
           <label for="amountFilter" class="filter-label">Amount</label>
           <select id="amountFilter" class="filter-select">
             <option value="">Any Amount</option>
-            <option value="0-1000">$0 - $1,000</option>
-            <option value="1000-5000">$1,000 - $5,000</option>
-            <option value="5000-10000">$5,000 - $10,000</option>
-            <option value="10000-25000">$10,000 - $25,000</option>
-            <option value="25000+">$25,000+</option>
+            <option value="0-1000">₹0 - ₹10,000</option>
+            <option value="1000-5000">₹10,0000 - ₹25,000</option>
+            <option value="5000-10000">₹25,000 - ₹35,000</option>
+            <option value="10000-25000">₹35,000 - ₹50,000</option>
+            <option value="25000+">₹50,000+</option>
             <option value="full">Full Tuition</option>
           </select>
         </div>
@@ -1204,7 +1305,7 @@
             </div>
           </div>
           <div class="scholarship-content">
-            <div class="scholarship-amount">$25,000</div>
+            <div class="scholarship-amount">₹60,000</div>
             <div class="scholarship-meta">
               <div class="scholarship-meta-item">
                 <svg class="scholarship-meta-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1217,7 +1318,7 @@
                 </svg>
                 <div>
                   <span class="scholarship-meta-label">Eligibility:</span>
-                  <span>High school seniors with exceptional athletic achievements and academic record (minimum 3.5 GPA)</span>
+                  <span>High school seniors with exceptional athletic achievements and academic record (minimum 6.5 GPA)</span>
                 </div>
               </div>
               <div class="scholarship-meta-item">
@@ -1229,7 +1330,7 @@
                 </svg>
                 <div>
                   <span class="scholarship-meta-label">Application Period:</span>
-                  <span>January 15 - April 30, 2025</span>
+                  <span>February 15 - June 30, 2025</span>
                 </div>
               </div>
               <div class="scholarship-meta-item">
@@ -1252,7 +1353,7 @@
               <span class="scholarship-tag">Undergraduate</span>
             </div>
             <div class="scholarship-footer">
-              <div class="scholarship-deadline">Deadline: April 30, 2025</div>
+              <div class="scholarship-deadline">Deadline: June 30, 2025</div>
               <div class="scholarship-actions">
                 <button class="scholarship-save">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1274,7 +1375,7 @@
             </div>
           </div>
           <div class="scholarship-content">
-            <div class="scholarship-amount">$10,000</div>
+            <div class="scholarship-amount">₹30,000</div>
             <div class="scholarship-meta">
               <div class="scholarship-meta-item">
                 <svg class="scholarship-meta-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1344,7 +1445,7 @@
             </div>
           </div>
           <div class="scholarship-content">
-            <div class="scholarship-amount">$15,000</div>
+            <div class="scholarship-amount">₹45,000</div>
             <div class="scholarship-meta">
               <div class="scholarship-meta-item">
                 <svg class="scholarship-meta-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1534,7 +1635,7 @@
         <div class="scholarship-item stagger-item">
           <div class="scholarship-item-header">
             <h3 class="scholarship-item-title">Basketball Excellence Scholarship</h3>
-            <div class="scholarship-item-amount">$12,500</div>
+            <div class="scholarship-item-amount">₹35,500</div>
           </div>
           <div class="scholarship-item-content">
             <div class="scholarship-item-provider">
@@ -1566,11 +1667,11 @@
               </div>
               <div class="scholarship-item-detail">
                 <span class="scholarship-item-detail-label">Application Opens</span>
-                <span class="scholarship-item-detail-value">January 15, 2025</span>
+                <span class="scholarship-item-detail-value">February 15, 2025</span>
               </div>
               <div class="scholarship-item-detail">
                 <span class="scholarship-item-detail-label">Deadline</span>
-                <span class="scholarship-item-detail-value">March 31, 2025</span>
+                <span class="scholarship-item-detail-value">June 30, 2025</span>
               </div>
             </div>
             <p class="scholarship-item-description">
@@ -1587,7 +1688,7 @@
                   <circle cx="12" cy="12" r="10"></circle>
                   <polyline points="12 6 12 12 16 14"></polyline>
                 </svg>
-                <span>Deadline: March 31, 2025</span>
+                <span>Deadline: June 30, 2025</span>
               </div>
               <button class="button button-primary button-sm">View Details</button>
             </div>
@@ -1598,7 +1699,7 @@
         <div class="scholarship-item stagger-item stagger-delay-1">
           <div class="scholarship-item-header">
             <h3 class="scholarship-item-title">Paralympic Athlete Scholarship</h3>
-            <div class="scholarship-item-amount">$15,000</div>
+            <div class="scholarship-item-amount">₹40,000</div>
           </div>
           <div class="scholarship-item-content">
             <div class="scholarship-item-provider">
@@ -1664,7 +1765,7 @@
         <div class="scholarship-item stagger-item stagger-delay-2">
           <div class="scholarship-item-header">
             <h3 class="scholarship-item-title">First-Generation Athlete Scholarship</h3>
-            <div class="scholarship-item-amount">$8,000</div>
+            <div class="scholarship-item-amount">₹15,000</div>
           </div>
           <div class="scholarship-item-content">
             <div class="scholarship-item-provider">
@@ -1699,7 +1800,7 @@
               </div>
               <div class="scholarship-item-detail">
                 <span class="scholarship-item-detail-label">Deadline</span>
-                <span class="scholarship-item-detail-value">March 1, 2025</span>
+                <span class="scholarship-item-detail-value">April 1, 2025</span>
               </div>
             </div>
             <p class="scholarship-item-description">
@@ -1716,7 +1817,7 @@
                   <circle cx="12" cy="12" r="10"></circle>
                   <polyline points="12 6 12 12 16 14"></polyline>
                 </svg>
-                <span>Deadline: March 1, 2025 (2 weeks left)</span>
+                <span>Deadline: April 1, 2025 (2 weeks left)</span>
               </div>
               <button class="button button-primary button-sm">View Details</button>
             </div>
@@ -1754,7 +1855,7 @@
       <div class="resources-grid">
         <div class="resource-card stagger-item">
           <div class="resource-image-container">
-            <img src="https://placehold.co/600x400" alt="Scholarship Application Guide" class="resource-image">
+            <img src="scholarship_guide.jpg" alt="Scholarship Application Guide" class="resource-image">
           </div>
           <div class="resource-content">
             <h3 class="resource-title">Ultimate Scholarship Application Guide</h3>
@@ -1769,7 +1870,7 @@
 
         <div class="resource-card stagger-item stagger-delay-1">
           <div class="resource-image-container">
-            <img src="https://placehold.co/600x400" alt="Financial Aid Workshop" class="resource-image">
+            <img src="financial-aid-for-student-athletes.jpg" alt="Financial Aid Workshop" class="resource-image">
           </div>
           <div class="resource-content">
             <h3 class="resource-title">Financial Aid for Student-Athletes Workshop</h3>
@@ -1784,7 +1885,7 @@
 
         <div class="resource-card stagger-item stagger-delay-2">
           <div class="resource-image-container">
-            <img src="https://placehold.co/600x400" alt="Scholarship Success Stories" class="resource-image">
+            <img src="scholarship-success-stories.png" alt="Scholarship Success Stories" class="resource-image">
           </div>
           <div class="resource-content">
             <h3 class="resource-title">Scholarship Success Stories</h3>
@@ -1846,7 +1947,7 @@
       <div>
         <h3 class="footer-links-title">Company</h3>
         <div class="footer-links">
-          <a href="#" class="footer-link">About</a>
+          <a href="about.html" class="footer-link">About</a>
           <a href="#" class="footer-link">Careers</a>
           <a href="#" class="footer-link">Blog</a>
           <a href="#" class="footer-link">Press</a>
@@ -1855,8 +1956,8 @@
       <div>
         <h3 class="footer-links-title">Legal</h3>
         <div class="footer-links">
-          <a href="#" class="footer-link">Terms</a>
-          <a href="#" class="footer-link">Privacy</a>
+          <a href="terms.html" class="footer-link">Terms</a>
+          <a href="privacy.html" class="footer-link">Privacy</a>
           <a href="#" class="footer-link">Cookies</a>
           <a href="#" class="footer-link">Contact</a>
         </div>
@@ -1903,6 +2004,45 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
+
+    // Mobile menu functionality
+    const mobileMenuButton = document.getElementById('mobileMenuButton');
+      const mobileMenu = document.getElementById('mobileMenu');
+
+      mobileMenuButton.addEventListener('click', function () {
+        mobileMenu.classList.toggle('open');
+        // Change hamburger to X when menu is open
+        const svg = mobileMenuButton.querySelector('svg');
+        if (mobileMenu.classList.contains('open')) {
+          svg.innerHTML = `
+          <line x1="18" x2="6" y1="6" y2="18"></line>
+          <line x1="6" x2="18" y1="6" y2="18"></line>
+        `;
+        } else {
+          svg.innerHTML = `
+          <line x1="4" x2="20" y1="12" y2="12"></line>
+          <line x1="4" x2="20" y1="6" y2="6"></line>
+          <line x1="4" x2="20" y1="18" y2="18"></line>
+        `;
+        }
+      });
+
+      // Close mobile menu when clicking outside
+      document.addEventListener('click', function (event) {
+        if (mobileMenu.classList.contains('open') &&
+          !mobileMenu.contains(event.target) &&
+          !mobileMenuButton.contains(event.target)) {
+          mobileMenu.classList.remove('open');
+          const svg = mobileMenuButton.querySelector('svg');
+          svg.innerHTML = `
+          <line x1="4" x2="20" y1="12" y2="12"></line>
+          <line x1="4" x2="20" y1="6" y2="6"></line>
+          <line x1="4" x2="20" y1="18" y2="18"></line>
+        `;
+        }
+      });
+
+
     // Fade in animations
     const fadeElements = document.querySelectorAll('.fade-in');
     
