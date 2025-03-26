@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy - AthleteSync</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <style>
+    :root {
+      --primary: #0070f3;
+      --primary-dark: #0060df;
+      --primary-light: #3291ff;
+      --primary-foreground: #ffffff;
+      --secondary: #f5f5f5;
+      --secondary-foreground: #111111;
+      --background: #ffffff;
+      --foreground: #111111;
+      --muted: #f5f5f5;
+      --muted-foreground: #737373;
+      --border: #e5e5e5;
+      --radius: 0.5rem;
+      --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      color: var(--foreground);
+      background-color: var(--background);
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
+    /* Header */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      width: 100%;
+      border-bottom: 1px solid var(--border);
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-container {
+      display: flex;
+      height: 4rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .logo svg {
+      color: var(--primary);
+    }
+
+    .nav {
+      display: none;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-left: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-link {
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-link:hover {
+      color: var(--primary);
+    }
+
+    .nav-link.active {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .search-container {
+      position: relative;
+      display: none;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 0.625rem;
+      top: 0.625rem;
+      color: var(--muted-foreground);
+      width: 1rem;
+      height: 1rem;
+    }
+
+    .search-input {
+      width: 300px;
+      padding: 0.5rem 0.75rem 0.5rem 2rem;
+      border-radius: 9999px;
+      border: none;
+      background-color: var(--muted);
+      font-size: 0.875rem;
+    }
+
+    .search-input:focus {
+      outline: 2px solid var(--primary);
+      outline-offset: 1px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .icon-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 0.375rem;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .icon-button:hover {
+      background-color: var(--muted);
+    }
+
+    .mobile-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* Mobile Menu */
+    .mobile-menu-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 0.375rem;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .mobile-menu-button:hover {
+      background-color: var(--muted);
+    }
+
+    .mobile-menu {
+      position: fixed;
+      top: 4rem;
+      left: 0;
+      width: 100%;
+      height: calc(100vh - 4rem);
+      background-color: var(--background);
+      z-index: 40;
+      padding: 1.5rem;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease-in-out;
+      overflow-y: auto;
+    }
+
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+
+    .mobile-nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+
+    .mobile-nav-link {
+      font-size: 1.125rem;
+      font-weight: 500;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .mobile-nav-link.active {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    /* Button Styles */
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius);
+      font-weight: 500;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      transition: all 0.2s;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+    }
+
+    .button-lg {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+    }
+
+    .button-sm {
+      padding: 0.25rem 0.75rem;
+      font-size: 0.75rem;
+    }
+
+    .button-primary {
+      background-color: var(--primary);
+      color: var(--primary-foreground);
+      border: none;
+    }
+
+    .button-primary:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .button-outline {
+      background-color: transparent;
+      color: var(--foreground);
+      border: 1px solid var(--border);
+    }
+
+    .button-outline:hover {
+      background-color: var(--muted);
+    }
+
+    /* Page Header */
+    .page-header {
+      padding: 3rem 0;
+      background-color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .page-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .page-description {
+      max-width: 600px;
+      margin: 0 auto;
+      color: var(--muted-foreground);
+    }
+
+    /* Privacy Content */
+    .privacy-container {
+      padding: 3rem 0;
+    }
+
+    .privacy-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .privacy-section {
+      margin-bottom: 3rem;
+    }
+
+    .privacy-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .privacy-section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--foreground);
+    }
+
+    .privacy-section-content {
+      color: var(--foreground);
+    }
+
+    .privacy-section-content p {
+      margin-bottom: 1rem;
+    }
+
+    .privacy-section-content ul,
+    .privacy-section-content ol {
+      margin-bottom: 1rem;
+      padding-left: 1.5rem;
+    }
+
+    .privacy-section-content li {
+      margin-bottom: 0.5rem;
+    }
+
+    .privacy-section-content a {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    .privacy-section-content a:hover {
+      color: var(--primary-dark);
+    }
+
+    .privacy-section-content strong {
+      font-weight: 600;
+    }
+
+    .privacy-section-content h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-top: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .privacy-section-content h4 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-top: 1.25rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .privacy-last-updated {
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+    }
+
+    /* Table of Contents */
+    .privacy-toc {
+      background-color: var(--muted);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .privacy-toc-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .privacy-toc-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .privacy-toc-item {
+      margin-bottom: 0.5rem;
+    }
+
+    .privacy-toc-link {
+      color: var(--primary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .privacy-toc-link:hover {
+      color: var(--primary-dark);
+      text-decoration: underline;
+    }
+
+    /* Footer */
+    .footer {
+      border-top: 1px solid var(--border);
+      background-color: rgba(245, 245, 245, 0.4);
+    }
+
+    .footer-container {
+      padding: 2rem 0;
+    }
+
+    .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-left: 20px; }
+
+    .footer-brand {
+      grid-column: span 2;
+    }
+
+    .footer-description {
+      margin-top: 1rem;
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      max-width: 20rem;
+    }
+
+    .footer-links-title {
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .footer-link {
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      transition: color 0.2s;
+    }
+
+    .footer-link:hover {
+      color: var(--foreground);
+    }
+
+    .footer-bottom {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .footer-copyright {
+      font-size: 0.75rem;
+      color: var(--muted-foreground);
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .social-link {
+      color: var(--muted-foreground);
+      transition: color 0.2s;
+    }
+
+    .social-link:hover {
+      color: var(--foreground);
+    }
+
+    /* Responsive Styles */
+    @media (min-width: 768px) {
+      .nav {
+        display: flex;
+      }
+
+      .search-container {
+        display: block;
+      }
+
+      .mobile-actions {
+        display: none;
+      }
+
+      .mobile-menu-button {
+        display: none;
+      }
+
+      .footer-grid {
+        grid-template-columns: 2fr repeat(3, 1fr);
+      }
+
+      .footer-brand {
+        grid-column: span 1;
+      }
+
+      .footer-bottom {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header-actions {
+        display: none;
+      }
+    }
+
+    /* Animation Classes */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body>
+  <header class="header">
+    <div class="container header-container">
+      <div class="flex items-center gap-2">
+        <a href="index.html" class="logo">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+            <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+            <path d="M4 22h16"></path>
+            <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+            <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+            <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+          </svg>
+          <span>AthleteSync</span>
+        </a>
+        <nav class="nav">
+          <ul class="nav-links">
+            <li><a href="discover.html" class="nav-link">Discover</a></li>
+            <li><a href="jobs.html" class="nav-link">Jobs</a></li>
+            <li><a href="events.html" class="nav-link">Events</a></li>
+            <li><a href="learning.html" class="nav-link">Learning</a></li>
+            <li><a href="scholarships.html" class="nav-link">Scholarships</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="header-actions">
+        <div class="search-container">
+          <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.3-4.3"></path>
+          </svg>
+          <input type="search" class="search-input" placeholder="Search...">
+        </div>
+        <button class="icon-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+        </button>
+        <button class="icon-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path>
+            <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path>
+          </svg>
+        </button>
+        <div class="icon-button">
+          <a href="dashboard.html">
+            <img src="pfp.jpg" alt="Profile" width="24" height="24" style="border-radius: 50%;">
+          </a>
+        </div>
+      </div>
+      <div class="mobile-actions">
+        <button class="icon-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.3-4.3"></path>
+        </svg>
+      </button>
+      <div class="icon-button">
+        <a href="dashboard.html">
+          <img src="pfp.jpg" alt="Profile" width="24" height="24" style="border-radius: 50%;">
+        </a>
+      </div>
+      <button class="mobile-menu-button" id="mobileMenuButton" aria-label="Menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="4" x2="20" y1="12" y2="12"></line>
+          <line x1="4" x2="20" y1="6" y2="6"></line>
+          <line x1="4" x2="20" y1="18" y2="18"></line>
+        </svg>
+      </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <nav>
+      <ul class="mobile-nav-links">
+        <li><a href="discover.html" class="mobile-nav-link">Discover</a></li>
+        <li><a href="jobs.html" class="mobile-nav-link">Jobs</a></li>
+        <li><a href="events.html" class="mobile-nav-link">Events</a></li>
+        <li><a href="learning.html" class="mobile-nav-link">Learning</a></li>
+        <li><a href="scholarships.html" class="mobile-nav-link">Scholarships</a></li>
+      </ul>
+    </nav>
+    <div class="mobile-menu-actions">
+      <a href="login.html" class="button button-outline button-lg" style="width: 100%; margin-bottom: 1rem;">Sign In</a>
+      <a href="register.html" class="button button-primary button-lg" style="width: 100%;">Join Now</a>
+    </div>
+  </div>
+
+  <main>
+    <section class="page-header">
+      <div class="container">
+        <h1 class="page-title fade-in">Privacy Policy</h1>
+        <p class="page-description fade-in">Learn how we collect, use, and protect your personal information.</p>
+      </div>
+    </section>
+
+    <section class="privacy-container">
+      <div class="container">
+        <div class="privacy-content fade-in">
+          <div class="privacy-toc">
+            <h2 class="privacy-toc-title">Table of Contents</h2>
+            <ul class="privacy-toc-list">
+              <li class="privacy-toc-item"><a href="#introduction" class="privacy-toc-link">1. Introduction</a></li>
+              <li class="privacy-toc-item"><a href="#information-we-collect" class="privacy-toc-link">2. Information We
+                  Collect</a></li>
+              <li class="privacy-toc-item"><a href="#how-we-use" class="privacy-toc-link">3. How We Use Your
+                  Information</a></li>
+              <li class="privacy-toc-item"><a href="#information-sharing" class="privacy-toc-link">4. Information
+                  Sharing and Disclosure</a></li>
+              <li class="privacy-toc-item"><a href="#your-choices" class="privacy-toc-link">5. Your Choices and
+                  Rights</a></li>
+              <li class="privacy-toc-item"><a href="#data-security" class="privacy-toc-link">6. Data Security</a></li>
+              <li class="privacy-toc-item"><a href="#children" class="privacy-toc-link">7. Children's Privacy</a></li>
+              <li class="privacy-toc-item"><a href="#international" class="privacy-toc-link">8. International Data
+                  Transfers</a></li>
+              <li class="privacy-toc-item"><a href="#changes" class="privacy-toc-link">9. Changes to This Privacy
+                  Policy</a></li>
+              <li class="privacy-toc-item"><a href="#contact" class="privacy-toc-link">10. Contact Information</a></li>
+            </ul>
+          </div>
+
+          <div id="introduction" class="privacy-section">
+            <h2 class="privacy-section-title">1. Introduction</h2>
+            <div class="privacy-section-content">
+              <p>AthleteSync ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy
+                explains how we collect, use, disclose, and safeguard your information when you visit our website or use
+                our services.</p>
+              <p>We value your trust and strive to be transparent about our data practices. Please read this Privacy
+                Policy carefully. By accessing or using our Services, you acknowledge that you have read, understood,
+                and agree to be bound by the terms of this Privacy Policy.</p>
+              <p>This Privacy Policy applies to all information collected through our website, mobile applications, and
+                any related services, sales, marketing, or events (collectively, the "Services").</p>
+            </div>
+          </div>
+
+          <div id="information-we-collect" class="privacy-section">
+            <h2 class="privacy-section-title">2. Information We Collect</h2>
+            <div class="privacy-section-content">
+              <p>We collect several types of information from and about users of our Services:</p>
+
+              <h3>Personal Information You Provide to Us</h3>
+              <p>We collect personal information that you voluntarily provide to us when you:</p>
+              <ul>
+                <li>Register for an account</li>
+                <li>Express interest in obtaining information about us or our products and Services</li>
+                <li>Participate in activities on the Services</li>
+                <li>Contact us</li>
+              </ul>
+
+              <p>The personal information we collect may include:</p>
+              <ul>
+                <li><strong>Contact Information:</strong> Name, email address, postal address, phone number</li>
+                <li><strong>Account Information:</strong> Username, password, account preferences</li>
+                <li><strong>Profile Information:</strong> Profile photo, biographical information, education history,
+                  work experience, skills, achievements, and other information you choose to include in your profile
+                </li>
+                <li><strong>Athletic Information:</strong> Sports played, positions, statistics, team affiliations,
+                  competition history</li>
+                <li><strong>Payment Information:</strong> Credit card details, billing address, and other payment
+                  details (processed by our payment processors)</li>
+                <li><strong>Communications:</strong> Information you provide when you contact us or communicate with
+                  other users</li>
+              </ul>
+
+              <h3>Information Automatically Collected</h3>
+              <p>When you use our Services, we automatically collect certain information, including:</p>
+              <ul>
+                <li><strong>Device Information:</strong> Information about your device, including IP address, device
+                  type, operating system, browser type, and device identifiers</li>
+                <li><strong>Usage Information:</strong> Information about how you use our Services, including pages
+                  visited, time spent on pages, links clicked, and actions taken</li>
+                <li><strong>Location Information:</strong> General location information based on IP address or more
+                  precise location if you grant permission</li>
+                <li><strong>Cookies and Similar Technologies:</strong> Information collected through cookies, web
+                  beacons, and similar technologies</li>
+              </ul>
+
+              <h3>Information from Third Parties</h3>
+              <p>We may receive information about you from third parties, including:</p>
+              <ul>
+                <li>Social media platforms when you connect your account or share our content</li>
+                <li>Business partners, such as sports organizations, educational institutions, or employers</li>
+                <li>Publicly available sources</li>
+                <li>Other users who may provide information about you, such as when they tag you in content</li>
+              </ul>
+            </div>
+          </div>
+
+          <div id="how-we-use" class="privacy-section">
+            <h2 class="privacy-section-title">3. How We Use Your Information</h2>
+            <div class="privacy-section-content">
+              <p>We use the information we collect for various purposes, including to:</p>
+              <ul>
+                <li><strong>Provide and Maintain our Services:</strong> Create and manage your account, deliver the
+                  features and functionality you request, and provide customer support</li>
+                <li><strong>Improve and Develop our Services:</strong> Research and analyze how users interact with our
+                  Services, identify trends and usage patterns, and develop new features and functionality</li>
+                <li><strong>Personalize Your Experience:</strong> Tailor content, recommendations, and features to your
+                  preferences and interests</li>
+                <li><strong>Communicate with You:</strong> Send administrative messages, updates, security alerts, and
+                  support messages; respond to your comments and questions; provide customer service</li>
+                <li><strong>Marketing and Advertising:</strong> Send marketing communications, display targeted
+                  advertisements, and promote our Services</li>
+                <li><strong>Safety and Security:</strong> Detect, prevent, and address technical issues, security
+                  breaches, fraudulent transactions, and violations of our terms</li>
+                <li><strong>Legal Compliance:</strong> Comply with applicable laws, regulations, legal processes, or
+                  governmental requests</li>
+              </ul>
+
+              <h3>Lawful Basis for Processing (For EEA, UK, and Swiss Users)</h3>
+              <p>If you are located in the European Economic Area (EEA), United Kingdom, or Switzerland, we only process
+                your personal information when we have a valid legal basis to do so, including:</p>
+              <ul>
+                <li><strong>Consent:</strong> You have given us permission to process your personal information for
+                  specific purposes</li>
+                <li><strong>Contract:</strong> Processing is necessary to perform a contract with you or to take steps
+                  at your request before entering into a contract</li>
+                <li><strong>Legitimate Interests:</strong> Processing is necessary for our legitimate interests or those
+                  of a third party, and your interests and fundamental rights do not override those interests</li>
+                <li><strong>Legal Obligation:</strong> Processing is necessary to comply with our legal obligations</li>
+              </ul>
+            </div>
+          </div>
+
+          <div id="information-sharing" class="privacy-section">
+            <h2 class="privacy-section-title">4. Information Sharing and Disclosure</h2>
+            <div class="privacy-section-content">
+              <p>We may share your information in the following situations:</p>
+
+              <h3>With Your Consent</h3>
+              <p>We may share your information when you give us explicit permission to do so.</p>
+
+              <h3>Public Information</h3>
+              <p>Any information you post publicly on our Services, such as profile information, posts, comments, or
+                other content, will be visible to other users according to your privacy settings.</p>
+
+              <h3>Service Providers</h3>
+              <p>We may share your information with third-party vendors, service providers, contractors, or agents who
+                perform services for us or on our behalf, such as:</p>
+              <ul>
+                <li>Cloud storage providers</li>
+                <li>Payment processors</li>
+                <li>Analytics providers</li>
+                <li>Email service providers</li>
+                <li>Customer support services</li>
+              </ul>
+              <p>These third parties are only permitted to use your information to provide services to us and are
+                required to maintain the confidentiality and security of your information.</p>
+
+              <h3>Business Transfers</h3>
+              <p>We may share or transfer your information in connection with, or during negotiations of, any merger,
+                sale of company assets, financing, or acquisition of all or a portion of our business to another
+                company.</p>
+
+              <h3>Legal Requirements</h3>
+              <p>We may disclose your information if required to do so by law or in response to valid requests by public
+                authorities (e.g., a court or government agency).</p>
+
+              <h3>Protection of Rights</h3>
+              <p>We may disclose your information to protect and defend the rights, property, or safety of AthleteSync,
+                our users, or others, including to protect against fraud or for risk management purposes.</p>
+
+              <h3>Affiliates</h3>
+              <p>We may share your information with our affiliates, in which case we will require those affiliates to
+                honor this Privacy Policy.</p>
+            </div>
+          </div>
+
+          <div id="your-choices" class="privacy-section">
+            <h2 class="privacy-section-title">5. Your Choices and Rights</h2>
+            <div class="privacy-section-content">
+              <h3>Account Information</h3>
+              <p>You can review and update your account information by logging into your account settings. You may also
+                deactivate your account through your account settings.</p>
+
+              <h3>Communication Preferences</h3>
+              <p>You can opt out of receiving promotional emails from us by following the unsubscribe instructions
+                provided in those emails. Even if you opt out of promotional communications, we may still send you
+                administrative messages regarding our Services.</p>
+
+              <h3>Cookies and Tracking Technologies</h3>
+              <p>Most web browsers are set to accept cookies by default. You can usually choose to set your browser to
+                remove or reject cookies. Please note that if you choose to remove or reject cookies, this could affect
+                the availability and functionality of our Services.</p>
+
+              <h3>Privacy Rights</h3>
+              <p>Depending on your location, you may have certain rights regarding your personal information, including:
+              </p>
+              <ul>
+                <li><strong>Access:</strong> The right to request access to your personal information</li>
+                <li><strong>Correction:</strong> The right to request that we correct inaccurate or incomplete
+                  information</li>
+                <li><strong>Deletion:</strong> The right to request that we delete your personal information</li>
+                <li><strong>Restriction:</strong> The right to request that we restrict the processing of your personal
+                  information</li>
+                <li><strong>Data Portability:</strong> The right to receive your personal information in a structured,
+                  commonly used, and machine-readable format</li>
+                <li><strong>Objection:</strong> The right to object to our processing of your personal information</li>
+                <li><strong>Withdrawal of Consent:</strong> The right to withdraw your consent at any time</li>
+              </ul>
+              <p>To exercise these rights, please contact us using the information provided in the "Contact Information"
+                section below.</p>
+            </div>
+          </div>
+
+          <div id="data-security" class="privacy-section">
+            <h2 class="privacy-section-title">6. Data Security</h2>
+            <div class="privacy-section-content">
+              <p>We have implemented appropriate technical and organizational security measures designed to protect the
+                security of any personal information we process. However, despite our safeguards and efforts to secure
+                your information, no electronic transmission over the Internet or information storage technology can be
+                guaranteed to be 100% secure.</p>
+              <p>We will make any legally required disclosures of any breach of the security, confidentiality, or
+                integrity of your unencrypted electronically stored "personal data" (as defined in applicable laws) to
+                you via email or conspicuous posting on our Services as promptly as possible and without unreasonable
+                delay, consistent with (i) the legitimate needs of law enforcement or (ii) any measures necessary to
+                determine the scope of the breach and restore the reasonable integrity of the data system.</p>
+            </div>
+          </div>
+
+          <div id="children" class="privacy-section">
+            <h2 class="privacy-section-title">7. Children's Privacy</h2>
+            <div class="privacy-section-content">
+              <p>Our Services are not directed to children under the age of 16. We do not knowingly collect personal
+                information from children under 16. If you are a parent or guardian and you believe your child has
+                provided us with personal information, please contact us. If we become aware that we have collected
+                personal information from children without verification of parental consent, we will take steps to
+                remove that information from our servers.</p>
+            </div>
+          </div>
+
+          <div id="international" class="privacy-section">
+            <h2 class="privacy-section-title">8. International Data Transfers</h2>
+            <div class="privacy-section-content">
+              <p>We are based in the United States and the information we collect is governed by U.S. law. If you are
+                accessing our Services from outside the United States, please be aware that information collected
+                through the Services may be transferred to, processed, stored, and used in the United States and other
+                jurisdictions. Data protection laws in the U.S. and other jurisdictions may be different from those of
+                your country of residence.</p>
+              <p>If you are located in the European Economic Area (EEA), United Kingdom, or Switzerland, we ensure that
+                any transfer of your personal information to countries outside these regions is done in accordance with
+                applicable data protection laws, including through the implementation of appropriate safeguards such as
+                standard contractual clauses approved by the European Commission.</p>
+            </div>
+          </div>
+
+          <div id="changes" class="privacy-section">
+            <h2 class="privacy-section-title">9. Changes to This Privacy Policy</h2>
+            <div class="privacy-section-content">
+              <p>We may update this Privacy Policy from time to time to reflect changes to our practices or for other
+                operational, legal, or regulatory reasons. The updated version will be indicated by an updated "Last
+                Updated" date and the updated version will be effective as soon as it is accessible.</p>
+              <p>We encourage you to review this Privacy Policy frequently to be informed of how we are protecting your
+                information. If we make material changes to this Privacy Policy, we will notify you either through the
+                email address you have provided us or by prominently posting a notice on our website.</p>
+            </div>
+          </div>
+
+          <div id="contact" class="privacy-section">
+            <h2 class="privacy-section-title">10. Contact Information</h2>
+            <div class="privacy-section-content">
+              <p>If you have questions or comments about this Privacy Policy, your personal information, our use and
+                disclosure practices, or your consent choices, please contact us at:</p>
+              <p>
+                AthleteSync, Inc.<br>
+                123 Sports Avenue<br>
+                Kolkata, IN 700106<br>
+                Email: privacy@AthleteSync.com<br>
+                Phone: +91 8293765109
+              </p>
+              <p>For users in the European Union, you may also lodge a complaint with a supervisory authority in your
+                country of residence.</p>
+            </div>
+          </div>
+
+          <div class="privacy-last-updated">
+            <p>Last Updated: March 20, 2025</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+              <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+              <path d="M4 22h16"></path>
+              <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+              <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+              <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+            </svg>
+            <span>AthleteSync</span>
+          </a>
+          <p class="footer-description">
+            The professional network for athletes and sports industry professionals. Connect, grow, and advance your
+            career.
+          </p>
+        </div>
+        <div>
+          <h3 class="footer-links-title">Platform</h3>
+          <div class="footer-links">
+            <a href="#" class="footer-link">Features</a>
+            <a href="#" class="footer-link">Pricing</a>
+            <a href="#" class="footer-link">FAQ</a>
+            <a href="#" class="footer-link">Testimonials</a>
+          </div>
+        </div>
+        <div>
+          <h3 class="footer-links-title">Company</h3>
+          <div class="footer-links">
+            <a href="about.html" class="footer-link">About</a>
+            <a href="#" class="footer-link">Careers</a>
+            <a href="#" class="footer-link">Blog</a>
+            <a href="#" class="footer-link">Press</a>
+          </div>
+        </div>
+        <div>
+          <h3 class="footer-links-title">Legal</h3>
+          <div class="footer-links">
+            <a href="terms.html" class="footer-link">Terms</a>
+            <a href="privacy.html" class="footer-link">Privacy</a>
+            <a href="#" class="footer-link">Cookies</a>
+            <a href="#" class="footer-link">Contact</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copyright">
+          &copy; 2025 AthleteSync. All rights reserved.
+        </p>
+        <div class="footer-social">
+          <a href="#" class="social-link">
+            <span class="sr-only">Twitter</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z">
+              </path>
+            </svg>
+          </a>
+          <a href="#" class="social-link">
+            <span class="sr-only">Instagram</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+            </svg>
+          </a>
+          <a href="#" class="social-link">
+            <span class="sr-only">LinkedIn</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+              <rect width="4" height="12" x="2" y="9"></rect>
+              <circle cx="4" cy="4" r="2"></circle>
+            </svg>
+          </a>
+          <a href="#" class="social-link">
+            <span class="sr-only">YouTube</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17">
+              </path>
+              <path d="m10 15 5-3-5-3z"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Mobile menu functionality
+      const mobileMenuButton = document.getElementById('mobileMenuButton');
+      const mobileMenu = document.getElementById('mobileMenu');
+
+      mobileMenuButton.addEventListener('click', function () {
+        mobileMenu.classList.toggle('open');
+        // Change hamburger to X when menu is open
+        const svg = mobileMenuButton.querySelector('svg');
+        if (mobileMenu.classList.contains('open')) {
+          svg.innerHTML = `
+        <line x1="18" x2="6" y1="6" y2="18"></line>
+        <line x1="6" x2="18" y1="6" y2="18"></line>
+      `;
+        } else {
+          svg.innerHTML = `
+        <line x1="4" x2="20" y1="12" y2="12"></line>
+        <line x1="4" x2="20" y1="6" y2="6"></line>
+        <line x1="4" x2="20" y1="18" y2="18"></line>
+      `;
+        }
+      });
+
+      // Close mobile menu when clicking outside
+      document.addEventListener('click', function (event) {
+        if (mobileMenu.classList.contains('open') &&
+          !mobileMenu.contains(event.target) &&
+          !mobileMenuButton.contains(event.target)) {
+          mobileMenu.classList.remove('open');
+          const svg = mobileMenuButton.querySelector('svg');
+          svg.innerHTML = `
+        <line x1="4" x2="20" y1="12" y2="12"></line>
+        <line x1="4" x2="20" y1="6" y2="6"></line>
+        <line x1="4" x2="20" y1="18" y2="18"></line>
+      `;
+        }
+      });
+
+      // Fade in animations
+      const fadeElements = document.querySelectorAll('.fade-in');
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      });
+
+      fadeElements.forEach(element => {
+        observer.observe(element);
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+
+          const targetId = this.getAttribute('href');
+          const targetElement = document.querySelector(targetId);
+
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 80, // Adjust for header height
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>
