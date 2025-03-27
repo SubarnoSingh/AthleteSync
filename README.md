@@ -1,6 +1,6 @@
 # AthleteSync
 
-It's a project on athletes platform where an athlete and coaches or sport professionals can connect with each other .
+**It's a project on athletes platform where an athlete and coaches or sport professionals can connect with each other .**
 
 AthleteSync contains five main Pages that are : Discover, jobs,  Events , Learning, Scholarship .
 
